@@ -1,11 +1,24 @@
 all scripts must start with:
-```< C:\ProgramData\run.sav (
+```< run.sav (
   set /p number=
 )
 
 set update=1
+
 if %number% equ %update% (payload.bat)```
 
 
 all scripts must end with:
-```echo %update%>C:\ProgramData\run.sav
+```echo %update%>run.sav
+payload.bat```
+
+change the 1 in where it says
+```set update=1```
+to anything else every time you update the code
+not doing so will mean your code wont run
+
+
+rules:
+Failure to follow any of these rules will result in your whitelist being removed
+reselling this will result in an instant and unappealable termination of your whitelist
+not following 
