@@ -1,4 +1,5 @@
 I would like to remind you that all of this is for **educational use only**
+please only use this on devices you own or have **explicit** permission from the device owner
 
 all scripts must start with:
 ```
