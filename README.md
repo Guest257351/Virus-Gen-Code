@@ -1,3 +1,5 @@
+I would like to remind you that all of this is for **educational use only**
+
 all scripts must start with:
 ```
 < run.sav (
