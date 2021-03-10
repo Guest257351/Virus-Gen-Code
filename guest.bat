@@ -3,7 +3,7 @@ set number=12
   set /p number=
 )
 
-set update=1
+set update=2
 if %number% equ %update% goto end
 
 echo something >test.txt
