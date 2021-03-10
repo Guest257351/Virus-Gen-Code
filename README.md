@@ -23,7 +23,7 @@ exit /b
 change the 1 in where it says
 ```set update=1```
 to anything else every time you update the code
-not doing so will mean your code wont run
+,not doing so will mean your code wont run
 
 
 rules:
