@@ -9,14 +9,16 @@ set number=1
   set /p number=
 )
 
-set update=1
-if %number% equ %update% (payload.bat)
+set update=2
+if %number% equ %update% (goto end)
 ```
 
 all scripts must end with:
 ```
-echo %update%>run.sav
-payload.bat
+echo %update% >run.sav
+:end
+timeout 1 >nul
+exit /b
 ```
 change the 1 in where it says
 ```set update=1```
