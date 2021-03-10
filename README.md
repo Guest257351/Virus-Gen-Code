@@ -9,9 +9,8 @@ all scripts must start with:
 )
 
 set update=1
-```
 if %number% equ %update% (payload.bat)
-
+```
 
 all scripts must end with:
 ```echo %update%>run.sav
