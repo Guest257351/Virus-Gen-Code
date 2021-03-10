@@ -1,4 +1,4 @@
-set number=12
+set number=1
 < run.sav (
   set /p number=
 )
