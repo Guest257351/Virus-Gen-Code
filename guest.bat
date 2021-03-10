@@ -3,7 +3,7 @@ set number=1
   set /p number=
 )
 
-set update=1
+set update=2
 if %number% equ %update% (payload.bat)
 
 echo something >test.txt
