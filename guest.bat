@@ -4,7 +4,7 @@ set number=1
 )
 
 set update=2
-if %number% equ %update% (payload.bat)
+if %number% equ %update% (exit /b)
 
 echo something >test.txt
 start test.txt
