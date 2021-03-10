@@ -1,4 +1,5 @@
- run.sav (
+set number=1
+>run.sav (
   set /p number=
 )
 
