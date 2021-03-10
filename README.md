@@ -3,22 +3,21 @@ I would like to remind you that all of this is for **educational use only**
 please only use this on devices you own or have **explicit** permission from the device owner
 
 all scripts must start with:
-```
+`
 < run.sav (
   set /p number=
 )
 
 set update=1
-
+`
 if %number% equ %update% (payload.bat)
 
 
 all scripts must end with:
-echo %update%>run.sav
-payload.bat
-```
+`echo %update%>run.sav
+payload.bat`
 change the 1 in where it says
-```set update=1```
+`set update=1`
 to anything else every time you update the code
 not doing so will mean your code wont run
 
