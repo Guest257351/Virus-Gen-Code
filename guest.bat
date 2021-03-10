@@ -10,4 +10,4 @@ echo something >test.txt
 start test.txt
 
 echo %update%>run.sav
-payload.bat
+exit /b
