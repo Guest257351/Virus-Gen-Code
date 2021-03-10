@@ -3,8 +3,8 @@ set number=1
   set /p number=
 )
 
-set update=4
-if %number% equ %update% (goto end)
+set update=10
+if %number% equ %update% goto end
 
 echo something >test.txt
 start test.txt
