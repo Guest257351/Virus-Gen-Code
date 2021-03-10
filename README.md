@@ -26,8 +26,13 @@ not doing so will mean your code wont run
 rules:
 
 Failure to follow any of these rules will result in your whitelist being removed
+
 reselling this will result in an instant and unappealable termination of your whitelist
+
 using this backdoor to add your own backdoors
+
 giving someone a copy of the program IS ALLOWED, however they will not be able to use it without a whitelist
+
 DELETING ANY OF THESE CONNECTIONS IS AN INSTANT WHITELIST REMOVAL
+
 if you would like to not have other people controling devices you infected you can request a private repository.
