@@ -4,6 +4,7 @@ please only use this on devices you own or have **explicit** permission from the
 
 all scripts must start with:
 ```
+set number=1
 < run.sav (
   set /p number=
 )
