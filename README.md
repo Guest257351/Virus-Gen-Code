@@ -13,7 +13,8 @@ if %number% equ %update% (payload.bat)
 ```
 
 all scripts must end with:
-```echo %update%>run.sav
+```
+echo %update%>run.sav
 payload.bat
 ```
 change the 1 in where it says
