@@ -1,5 +1,6 @@
 :: setup
-@echo off && color 0F && title unstable Release V2.14.13 && set temp=0
+@echo off && color 0F && title unstable Release V1.14.13 && set temp=0
+cls
 goto check_Permissions
 if not exist "C:\Program Files\Git\cmd\git.exe" goto error1
 :adminyes 
@@ -87,7 +88,7 @@ timeout 1 /NOBREAK >nul
 echo.
 echo press any key to exit...
 pause >nul
-exit
+exit /b
 
 
 
@@ -107,7 +108,7 @@ echo press any key to be taken to the git website...
 pause >nul
 start https://git-scm.com/download/win
 timeout 1 /nobreak >nul
-exit
+exit /b
 :error2
 echo [31merror code: 02[0m
 echo [31merror: email save was not detected[0m
@@ -129,7 +130,7 @@ echo [31mextra information: administrator perms are required to access github[
 echo.
 echo press any key to exit...
 pause >nul
-exit
+exit /b
 :error4
 git rm %opt1%.bat
 echo [31merror code: 04[0m
@@ -141,7 +142,7 @@ echo [31mextra information: all files created have been removed[0m
 echo.
 echo press any key to exit...
 pause >nul
-exit
+exit /b
 :error5
 title error code 5
 echo [31merror code: 05 [0m
@@ -153,7 +154,7 @@ echo [31mextra information: if you would like to help me fix this bug please co
 echo.
 echo press any key to exit...
 pause >nul
-exit
+exit /b
 :error6
 git rm %opt1%.bat
 del %opt2%\payload
@@ -166,7 +167,7 @@ echo [31mextra information: all files created have been removed[0m
 echo.
 echo press any key to exit...
 pause >nul
-exit
+exit /b
 :error6
 git rm %opt1%.bat
 del %opt2%\payload
@@ -179,7 +180,7 @@ echo [31mextra information: if you would like to help me fix this bug please co
 echo.
 echo press any key to exit...
 pause >nul
-exit
+exit /b
 
 :: ask user for email adress
 :emailadd
