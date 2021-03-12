@@ -1,8 +1,10 @@
 :: setup
-@echo off && color 0F && title unstable Release V1.21.14 && set temp=0
+set update_number=V1.22.14
+@echo off && color 0F && title unstable Release .22.14 && set temp=0
 cls
 goto check_Permissions
-if not exist "C:\Program Files\Git\cmd\git.exe" goto error1
+if not exist C:\ProgramData\update.sav (goto UPcreate) else (goto UPcheck)
+git 
 :adminyes 
 :: detect and load save file data
 if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
@@ -202,7 +204,7 @@ goto emailnext
         goto error3
     )
 
-
+:: create update
 ::web download code
 :Download <url> <File>
 Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
