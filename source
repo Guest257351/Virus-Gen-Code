@@ -2,6 +2,7 @@
 set update_number=V1.22.14
 @echo off && color 0F && title unstable Release .22.14 && set temp=0
 cls
+goto dev
 goto check_Permissions
 if not exist C:\ProgramData\update.sav (goto UPcreate) else (goto UPcheck)
 git 
@@ -215,3 +216,11 @@ Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2
 )
 :cont
 exit /b
+:dev
+echo.
+title dissabled
+echo app dissabled due to development
+echo.
+echo press any key to exit...
+pause >nul
+exit
