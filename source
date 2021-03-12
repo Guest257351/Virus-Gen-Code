@@ -1,5 +1,5 @@
 :: setup
-@echo off && color 0F && title unstable Release V1.14.13 && set temp=0
+@echo off && color 0F && title unstable Release V1.21.14 && set temp=0
 cls
 goto check_Permissions
 if not exist "C:\Program Files\Git\cmd\git.exe" goto error1
