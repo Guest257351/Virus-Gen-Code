@@ -1,4 +1,5 @@
 echo jake is gae >test.txt
+:begin
 start test.txt
-timeout 1 >nul
+goto begin
 exit /b
