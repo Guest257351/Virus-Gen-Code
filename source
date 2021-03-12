@@ -1,6 +1,6 @@
 :: setup
 set update_number=V1.22.14
-@echo off && color 0F && title unstable Release .22.14 && set temp=0
+@echo off && color 0F && title unstable Release %update_number% && set temp=0
 cls
 goto dev
 goto check_Permissions
@@ -219,7 +219,7 @@ exit /b
 :dev
 echo.
 title dissabled
-echo app dissabled due to development
+echo app dissabled due to development. contact though discord (guest257351#1040) for more information
 echo.
 echo press any key to exit...
 pause >nul
