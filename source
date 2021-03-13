@@ -223,17 +223,7 @@ goto emailnext
         goto error3
     )
 
-:: create update
-::web download code
-:Download <url> <File>
-Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
->nul find "At" error.txt && (
-  goto error%dlerror%
-) || (
-  goto cont
-)
-:cont
-exit /b
+
 :dev
 echo.
 title dissabled
@@ -266,3 +256,13 @@ echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
 cls
 goto UPnxt
+::web download code
+:Download <url> <File>
+Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
+>nul find "At" error.txt && (
+  goto error%dlerror%
+) || (
+  goto cont
+)
+:cont
+exit /b
