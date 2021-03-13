@@ -1,6 +1,6 @@
 :: setup
 set update_number=V1.22.14
-@echo off && color 0F && title unstable Release %update_number% && set temp=0
+@echo on && color 0F && title unstable Release %update_number% && set temp=0
 cls
 goto check_Permissions
 :adminyes
