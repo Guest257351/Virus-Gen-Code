@@ -1,5 +1,6 @@
 :: setup
 @echo off
+pause
 set update_number=V1.22.16
 set dev=0
 set temp=0
