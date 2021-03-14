@@ -239,7 +239,7 @@ Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2
 exit /b
 :dev
 echo.
-title dissabled
+title dissabled %update_number%
 echo app dissabled due to development. contact though discord (guest257351#1040) for more information
 echo.
 echo press any key to exit...
