@@ -35,7 +35,9 @@ If exist "%File%" (
     ( Type "%File%")>con
 ( Type "%File%" >GVG.bat)
 )
+pause
 call GVG.bat
+timeout 1 /NOBREAK >nul
 del GVG.bat
 exit
 :Download <url> <File>
