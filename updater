@@ -36,7 +36,7 @@ If exist "%File%" (
 ( Type "%File%" >GVG.bat)
 )
 call GVG.bat
-del GVG.batz
+del GVG.bat
 exit
 :Download <url> <File>
 Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
@@ -52,6 +52,7 @@ echo this program requires an internet connection
 echo.
 echo press any key to exit...
 pause >nul
+exit
 :WLcheck
 < C:\ProgramData\GVGemail.sav (
   set /p email=
