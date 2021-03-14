@@ -1,7 +1,6 @@
 :: setup
-set update_number=V1.22.15
+set update_number=V1.22.16
 @echo off && color 0F && title unstable Release %update_number% && set temp=0
-goto dev
 cls
 goto check_Permissions
 :adminyes
@@ -252,7 +251,7 @@ goto UPlogs
 if %UPnum% equ %update_number% goto UPnxt
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
-echo fixed bug with run file download fail >UPlogs.txt
+echo fixed fatal crashing error >UPlogs.txt
 echo.
 echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
