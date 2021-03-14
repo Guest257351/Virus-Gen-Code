@@ -1,8 +1,7 @@
 :: setup
-set update_number=V1.22.14
+set update_number=V1.22.15
 @echo off && color 0F && title unstable Release %update_number% && set temp=0
 cls
-goto dev
 goto check_Permissions
 :adminyes
 if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
