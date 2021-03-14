@@ -1,9 +1,10 @@
 :: setup
+@echo off
 set update_number=V1.22.16
 set dev=0
-
-
-@echo off && color 0F && title unstable Release %update_number% && set temp=0
+set temp=0
+color 0F
+title unstable Release %update_number%
 cls
 if %dev% equ 1 goto dev
 goto check_Permissions
