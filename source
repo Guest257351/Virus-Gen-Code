@@ -1,7 +1,7 @@
 :: setup
 @echo off
 pause
-set update_number=V1.22.16
+set update_number=V1.23.16
 set dev=0
 set temp=0
 color 0F
@@ -258,7 +258,7 @@ goto UPlogs
 if %UPnum% equ %update_number% goto UPnxt
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
-echo fixed fatal crashing error >UPlogs.txt
+echo fixed fatal crashing error >C:\ProgramData\UPlogs.txt
 echo.
 echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
