@@ -1,6 +1,7 @@
 :: setup
 set update_number=V1.22.15
 @echo off && color 0F && title unstable Release %update_number% && set temp=0
+goto dev
 cls
 goto check_Permissions
 :adminyes
