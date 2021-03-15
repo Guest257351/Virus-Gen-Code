@@ -7,7 +7,7 @@ color 0F
 title unstable Release %update_number%
 cls
 if %dev% equ 1 goto dev
-goto check_Permissions
+goto CP
 :adminyes
 :: if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
 :: :UPnxt
@@ -219,7 +219,7 @@ goto emailnext
   set /p email=
 )
 goto emailnext
-:check_Permissions
+:CP
     net session >nul 2>&1
     if %errorLevel% == 0 (
         goto adminyes
