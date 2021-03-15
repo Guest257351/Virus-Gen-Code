@@ -9,8 +9,8 @@ cls
 if %dev% equ 1 goto dev
 goto check_Permissions
 :adminyes
-if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
-:UPnxt
+:: if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
+:: :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
   goto GIT_check_nxt
