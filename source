@@ -6,7 +6,7 @@ set temp=0
 color 0F
 title unstable Release %update_number%
 cls
-if %dev% equ 1 goto dev
+if %username% neq 61481 if %dev% equ 1 goto dev
 goto CP
 :adminyes
 :: if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
