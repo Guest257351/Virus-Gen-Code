@@ -1,7 +1,7 @@
 :: setup
 @echo on
 set update_number=V1.23.16
-set dev=1
+set dev=0
 set temp=0
 color 0F
 title unstable Release %update_number%
