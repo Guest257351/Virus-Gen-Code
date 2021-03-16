@@ -1,5 +1,5 @@
 :: setup
-@echo on
+@echo off
 set update_number=V1.23.16
 set dev=0
 set temp=0
