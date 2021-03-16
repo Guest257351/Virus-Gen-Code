@@ -1,4 +1,4 @@
-added update logs
-fixed git installation detection
-improved Version number system
-added minor optomisations to speed
+V2.23.16:
+Reworked entire web access system
+heavy code optimization
+fixed, reworked, and reimplemented update logs
