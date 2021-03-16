@@ -9,8 +9,8 @@ cls
 if %username% neq 61481 if %dev% equ 1 goto dev
 goto CP
 :adminyes
-:: if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
-:: :UPnxt
+if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
+:UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
   goto GIT_check_nxt
@@ -224,7 +224,7 @@ goto UPlogs
 if %UPnum% equ %update_number% goto UPnxt
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
-echo fixed fatal crashing error >C:\ProgramData\UPlogs.txt
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs?token=ANX5WBHIJUG2OFKVO6VU5DLALFNIG").Content >C:\ProgramData\UPlogs.txt
 echo.
 echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
