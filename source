@@ -103,7 +103,7 @@ echo [31mextra information: if you have git portable a system to allow that wil
 echo.
 echo press any key to install git...
 pause >nul
-call git_download
+goto git_download
 timeout 1 /nobreak >nul
 exit /b
 :error2
