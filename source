@@ -21,11 +21,11 @@ git version >git.sav
 )
 :GIT_check_nxt
 del git.sav
-if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\action.vbs" goto backdoor_remove
-:no_remove_backdoor
 :: detect and load save file data
 if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
+if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\action.vbs" goto backdoor_remove
+:no_remove_backdoor
 :: manual configuration
 echo DO NOT USE SPACES, replace them with _
 echo.
