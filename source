@@ -101,6 +101,7 @@ echo [31mhow to replicate: uninstall git[0m
 echo [31mhow to fix: Program will now download git for you[0m
 echo [31mextra information: if you have git portable a system to allow that will be implemented soon[0m
 echo.
+echo exit the program to not install git (program will ask you to install it on next launch)
 echo press any key to install git...
 pause >nul
 goto git_download
