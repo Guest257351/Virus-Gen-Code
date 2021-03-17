@@ -2,7 +2,7 @@
 :start
 @echo off
 set update_number=V2.24.16
-set dev=1
+set dev=0
 set temp=0 & set payload_is_exist=0 & set cmd_is_exist=0
 color 0F
 title unstable Release %update_number%
