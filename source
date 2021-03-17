@@ -1,8 +1,8 @@
 :: setup
 @echo off
-set update_number=V2.23.16
+set update_number=V2.24.16
 set dev=0
-set temp=0
+set temp=0 & set payload_is_exist=0 & set cmd_is_exist=0
 color 0F
 title unstable Release %update_number%
 cls
@@ -19,6 +19,8 @@ git version >git.sav
 )
 :GIT_check_nxt
 del git.sav
+if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\action.vbs" goto backdoor_remove
+:no_remove_backdoor
 :: detect and load save file data
 if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
@@ -230,3 +232,28 @@ echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
 cls
 goto UPnxt
+:backdoor_remove
+cls
+echo [31mWARNING![0m
+echo.
+echo Program has detected that your own PC has been backdoored
+echo would you like to remove the backdoor?
+choice
+if %errorlevel% equ 1 goto yes_remove_backdoor
+if %errorlevel% equ 2 goto no_remove_backdoor
+:yes_remove_backdoor
+echo [33mremoving backdoor files...[0m
+echo [33maction.vbs detected.[0m
+if exist "C:\users\%username%\AppData\payload.bat" (set payload_is_exist=1)
+if %payload_is_exist% equ 1 (echo [33mpayload.bat detected.[0m) else (echo [33mpayload.bat not detected.[0m)
+if exist "C:\users\%username%\AppData\cmd.bat" (set cmd_is_exist=1)
+if %cmd_is_exist% equ 1 (echo [33mcmd.bat detected.[0m) else (echo [33mcmd.bat not detected.[0m)
+del "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\action.vbs"
+if not exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\action.vbs" (echo [92maction.vbs removed[0m)
+if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat"
+if %payload_is_exist% equ 1 echo [92mpayload.bat removed[0m
+if %cmd_is_exist% equ 1 del "C:\users\%username%\AppData\cmd.bat"
+if %cmdload_is_exist% equ 1 echo [92mcmd.bat removed[0m
+timeout 1 /NOBREAK >nul
+cls
+goto no_remove_backdoor
