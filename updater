@@ -3,7 +3,7 @@
 goto CP
 :adminyes
 Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data1.txt
->nul find "State : Enabled" WL1.sav && (
+>nul find "State : Enabled" data1.txt && (
   goto int_exp_found
 ) || (
   goto int_exp_not_found
