@@ -1,5 +1,6 @@
 @echo off && Title updating... && cd C:\users\%username%\AppData
 ::WL check 1
+echo [33mvalidating configuration[0m
 goto CP
 :adminyes
 Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data1.txt
@@ -9,16 +10,20 @@ Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data
   goto int_exp_not_found
 )
 :int_exp_found
+echo [33mstarting check 1[0m
+echo [92mvalidation complete[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
-if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
-:EMnxt
 >nul find "At" WL1.sav && (
   goto offline
 ) || (
   goto online
 )
 :online
+if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
+:EMnxt
 del WL1.sav
+echo [92mcheck 1 completed[0m
+echo [33mstarting check 2[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist").Content >WL2.sav
 >nul find "%username%" WL2.sav && (
   goto deviceNXT
@@ -26,20 +31,16 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
   goto Whitelist_error
 )
 :deviceNXT
-del WL2.sav  
+del WL2.sav
+echo [92mcheck 2 completed[0m
+echo [33mupdating[0m
 :: download source
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
+echo [92mupdate complete[0m
 call GVG.bat
 timeout 1 /NOBREAK >nul
 del GVG.bat
 exit
-:Download <url> <File>
-Powershell.exe -command "(New-Object System.Net.WebClient).DownloadFile('%1','%2')" >error.txt
->nul find "At" error.txt && (
-  goto offline
-) || (
-  exit /b
-)
 :offline
 del WL1.sav
 echo.
