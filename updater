@@ -10,8 +10,8 @@ Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data
   goto int_exp_not_found
 )
 :int_exp_found
-echo [33mstarting check 1[0m
 echo [92mvalidation complete[0m
+echo [33mstarting check 1[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
 >nul find "At" WL1.sav && (
   goto offline
