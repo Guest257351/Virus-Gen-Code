@@ -2,10 +2,11 @@
 ::WL check 1
 Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data1.txt
 >nul find "State : Enabled" WL1.sav && (
-  goto offline
+  goto int_exp_found
 ) || (
-  goto online
+  goto int_exp_not_found
 )
+:int_exp_found
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
 if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
 :EMnxt
@@ -77,3 +78,9 @@ set /p email=email:
 echo %email%>C:\ProgramData\GVGemail.sav
 if exist C:\ProgramData\GVGemail.sav (echo [92memail was successfully saved![0m) else (exit)
 goto WLcheck
+:int_exp_not_found
+Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
+echo you cannot use this program till you restart
+echo exiting in 10 secconds...
+timeout 10
+exit
