@@ -44,7 +44,7 @@ exit
 :offline
 del WL1.sav
 echo.
-echo this program requires an internet connection
+echo [31this program requires an internet connection[0m
 echo.
 echo press any key to exit...
 pause >nul
