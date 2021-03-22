@@ -1,4 +1,11 @@
-V:24.18:
+V3.24.19:
+changed color of no internet error
+heavy code optomisations
+rebuilt base code
+alterations to code to prepair for auto installer creation
+
+
+V2.24.18:
 fixed auto remove backdoor
 
 
