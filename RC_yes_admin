@@ -16,4 +16,5 @@ exit
 echo echo [31merror, program needs administrator rights[0m
 echo.
 echo press any key to exit...
+pause >nul
 exit
