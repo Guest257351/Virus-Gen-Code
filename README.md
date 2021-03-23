@@ -10,7 +10,7 @@ set number=1
   set /p number=
 )
 
-set update=2
+set update=1
 if %number% equ %update% (goto end)
 ```
 
