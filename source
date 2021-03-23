@@ -12,7 +12,7 @@ if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
 goto CP
 :adminyes
-if exist C:\ProgramData\UPnum.sav (goto update_check) else (goto UPcreate)
+if exist C:\ProgramData\UPnum.sav (call update_check) else (goto UPcreate)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
@@ -89,7 +89,7 @@ exit /b
 < C:\ProgramData\UPnum.sav (
   set /p UPnum=
 )
-if %UPnum% equ %update_number% goto UPnxt
+if %UPnum% equ %update_number% exit /b
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
@@ -97,7 +97,7 @@ echo.
 echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
 cls
-goto UPnxt
+exit /b
 
 
 
