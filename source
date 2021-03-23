@@ -12,7 +12,7 @@ if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
 goto CP
 :adminyes
-if exist C:\ProgramData\UPnum.sav (goto UPcheck) else (goto UPcreate)
+if exist C:\ProgramData\UPnum.sav (goto update_check) else (goto UPcreate)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
@@ -220,7 +220,7 @@ exit /b
 :UPcreate
 echo %update_number% >C:\ProgramData\UPnum.sav
 goto UPlogs
-:UPcheck
+:update_check
 < C:\ProgramData\UPnum.sav (
   set /p UPnum=
 )
