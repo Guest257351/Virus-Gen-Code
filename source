@@ -45,6 +45,7 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 echo [33mregistering code on github...[0m
 git config user.name "%username%"
 git config user.email "%email%"
+git config --global http.sslVerify false
 git reset --hard origin/main
 git init -b main
 git pull https://github.com/Guest257351/Control.git --allow-unrelated-histories 
