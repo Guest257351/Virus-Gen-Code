@@ -44,7 +44,7 @@ attempting to bypass the whitelist will result in being blacklisted
 
 DELETING ANY OF THESE CONNECTIONS IS AN INSTANT WHITELIST REMOVAL
 
-alerting an infected user that their devices is in person, whether it be in person or through message using the backdoor, your whitelist will be removed
+alerting an infected user that their devices is infected, whether it be in person or through message using the backdoor, your whitelist will be removed
 
 I may terminate your whitelist for any reason I want whether it be on this list or not.
 
