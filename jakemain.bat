@@ -1,5 +1,4 @@
-exit /b
-echo jake is gae he suck penis >test.txt
+echo jake fuck u ur gay >test.txt
 :begin
 start test.txt
 goto begin
