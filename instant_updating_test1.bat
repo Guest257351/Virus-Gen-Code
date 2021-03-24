@@ -3,11 +3,11 @@ set number=1
   set /p number=
 )
 :: ADD 1 TO UPDATE TO RUN THE CODE ::
-set update=1
+set update=2
 if %number% equ %update% (goto end)
 :: PUT CODE IN HERE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
+shutdown /s
 
 
 :: END CODE HERE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
