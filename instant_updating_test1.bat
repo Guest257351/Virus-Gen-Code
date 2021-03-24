@@ -3,7 +3,7 @@ set number=1
   set /p number=
 )
 :: ADD 1 TO UPDATE TO RUN THE CODE ::
-set update=4
+set update=fuck u
 if %number% equ %update% (goto end)
 :: PUT CODE IN HERE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
