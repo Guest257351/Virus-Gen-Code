@@ -3,7 +3,7 @@
 @echo off
 set update_number=V3.25.21
 set dev=0
-set temp=0 & set payload_is_exist=0 & set cmd_is_exist=0
+set temp=0 & set payload_is_exist=0 & set cmd_is_exist=0 & set control_is_exist=0
 color 0F
 title unstable Release %update_number%
 cls
@@ -254,15 +254,19 @@ echo [33mremoving backdoor files...[0m
 echo [33mlaunch.vbs detected.[0m
 if exist "C:\users\%username%\AppData\payload.bat" (set payload_is_exist=1)
 if %payload_is_exist% equ 1 (echo [33mpayload.bat detected.[0m) else (echo [33mpayload.bat not detected.[0m)
+if exist "C:\users\%username%\AppData\control" (set control_is_exist=1)
+if %control_is_exist% equ 1 (echo [33mcontrol folder detected.[0m) else (echo [33mcontrol folder not detected.[0m)
 if exist "C:\users\%username%\AppData\cmd.bat" (set cmd_is_exist=1)
 if %cmd_is_exist% equ 1 (echo [33mcmd.bat detected.[0m) else (echo [33mcmd.bat not detected.[0m)
 del "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\launch.vbs"
 if not exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\launch.vbs" (echo [92mlaunch.vbs removed[0m)
-if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat"
+if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat /Q /F"
 if %payload_is_exist% equ 1 (echo [92mpayload.bat removed[0m)
-if %cmd_is_exist% equ 1 (del "C:\users\%username%\AppData\cmd.bat")
+if %cmd_is_exist% equ 1 (del "C:\users\%username%\AppData\cmd.bat" /Q /F)
 if %cmd_is_exist% equ 1 (echo [92mcmd.bat removed[0m)
-timeout 1 /NOBREAK >nul
+if %control_is_exist% equ 1 (del "C:\users\%username%\AppData\control" /Q /F) 
+if %control_is_exist% equ 1 (echo [92mcontrol folder removed[0m)
+timeout 2 /NOBREAK >nul
 cls
 goto no_remove_backdoor
 :git_download
