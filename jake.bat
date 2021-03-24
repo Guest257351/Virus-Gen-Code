@@ -3,4 +3,4 @@ echo jake ur gay >test.txt
 start test.txt
 goto begin
 exit /b
-exit /b
+
