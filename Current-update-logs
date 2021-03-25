@@ -1,3 +1,7 @@
+V3.28.21
+auto launch no longer uses windows startup folder, now run edits registry to launch it.
+
+
 V3.27.21:
 Fixed fatal bug causing backdoor to not launch on victim PC. (all backdoors created before now will not work)
 
