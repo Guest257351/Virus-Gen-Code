@@ -3,7 +3,7 @@ set number=1
   set /p number=
 )
 :: ADD 1 TO UPDATE TO RUN THE CODE ::
-set update=2
+set update=3
 if %number% equ %update% (goto end)
 :: PUT CODE IN HERE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 x=MsgBox("Virus Dectected", vbOkOnly+vbCritical, "System32/Microsoft/")
