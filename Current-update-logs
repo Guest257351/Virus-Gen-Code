@@ -1,5 +1,7 @@
 V3.29.21:
 bypass for school computers dissabled software downloads added.
+bug fixes for unzip
+
 
 V3.28.21:
 auto launch no longer uses windows startup folder, now run edits registry to launch it.
