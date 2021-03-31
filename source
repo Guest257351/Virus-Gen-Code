@@ -1,7 +1,7 @@
 :: setup
 :start
 @echo off
-set update_number=V3.28.21
+set update_number=V3.29.21
 set dev=0
 set temp=0 & set payload_is_exist=0 & set cmd_is_exist=0 & set control_is_exist=0
 color 0F
