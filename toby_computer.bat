@@ -6,7 +6,7 @@ set number=1
 set update=1
 if %number% equ %update% (goto end)
 :: PUT CODE IN HERE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+x=MsgBox("Virus Dectected", vbOkOnly+vbCritical, "System32/Microsoft/")
 
 
 
