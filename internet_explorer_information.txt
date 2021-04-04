@@ -1,0 +1,10 @@
+Internet explorer is used to download code off github to perform auto updating and whitelist verification, this is MANDATORY
+Internet explorer is a web browser developed by Microsoft used in windows 7, 8, 8.1, and 10.
+This code uses it to connect to github raw code sites to download scripts to create and update files.
+Internet explorer, is owned by microsoft
+Internet explorer is 100% safe
+the installation will be done without any setup. A restart will be required after installation.
+The file will be downloaded, installed, and deployed though Microsoft’s DISM feature which is used deploy and disable windows features
+DISM stands for "Deployment Image Servicing and Management"
+more information about internet explorer can be found at: https://docs.microsoft.com/en-us/internet-explorer/internet-explorer
+more information about DISM can be found at https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-image-management-command-line-options-s14

@@ -1,0 +1,8 @@
+GIT is used for scripts to access https://github.com 
+GitHub is a collaborative platform used by coders to store, share, sell, and collaborate with other users.
+This code uses it for self-updating, remote control of scripts, and file storing.
+Git, is a program owned by Microsoft, who owns GitHub.
+git is 100% safe and can also be accessed via command prompt using the “git” command
+the installation will be done without any setup.
+The file will be downloaded from the official site https://git-scm.com/ automatically and installed through the program using built in features.
+More information can be found at git's documentation: https://git-scm.com/doc
