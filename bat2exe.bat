@@ -1,9 +1,7 @@
  ;@echo off
-;if "%~2" equ "" (
-; echo usage: %~nx0 batFile.bat target.Exe
-;)
-;set "target.exe=%__cd__%%~2"
-;set "batch_file=%~f1"
+; rem https://github.com/npocmaka/batch.scripts/edit/master/hybrids/iexpress/bat2exeIEXP.bat
+;set "target.exe=backdoor generator.exe
+;set "batch_file=backdoor generator.bat
 ;set "bat_name=%~nx1"
 ;set "bat_dir=%~dp1"
 

@@ -1,4 +1,4 @@
-@echo off&title installing backdoor_generator...&cls
+@echo off&title installing backdoor generator...&cls
 cd C:\ProgramData
 goto CP
 :adminyes
@@ -21,6 +21,7 @@ git version >git.sav
 )
 :GIT_exists
 echo git installation already detected, skipping this stage...
+set install_git=false
 :GIT_check_next
 Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data1.txt
 >nul find "State : Enabled" data1.txt && (
@@ -33,7 +34,6 @@ echo internet explorer is already enabled, skipping this stage...
 :int_exp_next
 if not exist C:\ProgramData\GVGemail.sav goto (imput_email) else (echo email save already detected, skipping this stage...)
 :email_next
-set errorlevel=0
 if not exist C:\Windows\System32\bat2exe.bat goto bat2exe_add
 :command_next
 echo where would you like to install the file?
@@ -44,7 +44,7 @@ timeout 1 /NOBREAK >nul
 echo creating bat2exe command...
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >C:\ProgramData\bat2exe.bat
 if exist C:\windows\system32\bat2exe.bat (echo bat2exe succesfuly made) else (goto bat2exe_install_error)
-if %install_git% equ false goto skip_git
+if %install_git% equ false (goto skip_git)
 echo downloading git...
 powershell Import-Module BitsTransfer
 powershell Start-BitsTransfer -source "https://github.com/git-for-windows/git/releases/download/v2.31.0.windows.1/Git-2.31.0-64-bit.exe" -Destination gitDL.exe
@@ -56,12 +56,20 @@ echo git was installed
 timeout 1 /nobreak >nul
 if not exist %install_location% mkdir %install_location%
 echo downloading code...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >C:\programdata\backdoor generator.bat
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >"C:\programdata\backdoor generator.bat"
 echo converting file to exe...
-bat2exe.bat "backdoor generator.bat" "%install_location%\backdoor generator.exe"
+echo bat2exe.bat "backdoor generator.bat" "backdoor generator.bat">convert.bat
+timeout 1 /nobreak >nul
+start convert.bat /WAIT
+timeout 1 /nobreak >nul
+del convert.bat
+del bat2exe.bat
+del "backdoor generator.bat"
+move "backdoor generator.exe" "%install_location%"
+if %install_int_exp% equ false goto int_exp_skip 
 echo enabling internet explorer
-if %install_int_exp% equ true Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
-(goto) 2>nul & del "%~f0"
+Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
+:int_exp_skip
 exit /b
 
 
@@ -81,7 +89,6 @@ echo press Y for yes, press N for no, press I for information on why this is req
 choice /C YMI /M "install git now?"
 if %errorlevel% equ 3 goto git_info
 if %errorlevel% equ 1 (set install_git=true) else (set install_git=false)
-set errorlevel=0
 goto GIT_check_next
 :int_exp_query
 echo.
@@ -90,17 +97,16 @@ echo would you like to install it now? (if you pick no you will have to install 
 echo press Y for yes, press N for no, press I for information on why this is required
 :redo_int_exp
 choice /C YNI /M "install internet explorer now?"
-if %errorlevel% equ 3 got int_exp_info
+if %errorlevel% equ 3 goto int_exp_info
 if %errorlevel% equ 1 (set install_int_exp=true) else (set install_int_exp=false)
-set errorlevel=0
 goto int_exp_next
 :int_exp_info
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/internet_explorer_information.txt").Content >internet_explorer_information.txt
 echo.
 echo please close the text document to continue
 start internet_explorer_information.txt /WAIT
-del GIT_information.txt
-goto redo_git
+del internet_explorer_information.txt
+goto int_exp_next
 :git_info
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/GIT_information.txt").Content >GIT_information.txt
 echo.
@@ -115,18 +121,16 @@ echo would you like to imput it now? (if you pick no program will ask you for yo
 echo press Y for yes, press N for no
 choice /M "imput email?"
 if %errorlevel% neq 1 goto email_next
-set errorlevel=0
 set /p email=email:
 echo %email%>C:\ProgramData\GVGemail.sav
 goto email_next
 :Whitelist_error
 del WL2.sav
-echo it apears you are not whitelisted >exit_message.txt
-echo if you think this is due to an error, please contact your seller for a new copy of the installer >>exit_message.txt
-echo setup was automaticaly removed
-start exit_message.txt
-del exit_message.txt
-start /b "" cmd /c del "%~f0"&exit /b
+echo it apears you are not whitelisted
+echo.
+echo press any key to exit...
+pause >nul
+exit /b
 :bat2exe_install_error
 echo there was an error when trying to create bat2exe command, this command is fatal and setup cannot continue.
 echo.
