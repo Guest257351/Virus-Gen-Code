@@ -1,5 +1,4 @@
  ;@echo off
-; rem https://github.com/npocmaka/batch.scripts/edit/master/hybrids/iexpress/bat2exeIEXP.bat
 ;set "target.exe=backdoor generator.exe
 ;set "batch_file=backdoor generator.bat
 ;set "bat_name=%~nx1"
