@@ -15,7 +15,6 @@ echo [92msuccessfuly modified HKLM registry[0m
 echo would you like to restart for the changes to take effect?
 choice 
 if %errorlevel% equ 1 shutdown /g
-pause >nul
 exit
 :no_admin
 echo echo [31merror, program needs administrator rights[0m

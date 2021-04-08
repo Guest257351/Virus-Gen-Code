@@ -8,5 +8,4 @@ echo [92msuccessfuly modified HKCU registry[0m
 echo would you like to restart for the changes to take effect?
 choice 
 if %errorlevel% equ 1 shutdown /g
-pause >nul
 exit
