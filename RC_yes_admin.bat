@@ -1,4 +1,4 @@
-@echo on&cd /D "%~dp0"
+@echo off&cd /D "%~dp0"
     net session >nul 2>&1
     if %errorLevel% == 0 (
         goto AT
