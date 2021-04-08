@@ -2,6 +2,7 @@
 cd C:\ProgramData
 goto CP
 :adminyes
+powershell "$keyPath = 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Internet Explorer\Main';if (!(Test-Path $keyPath)) { New-Item $keyPath -Force | Out-Null };Set-ItemProperty -Path $keyPath -Name "DisableFirstRunCustomize" -Value 1"
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist").Content >WL2.sav
 >nul find "%username%" WL2.sav && (
   goto deviceNXT
@@ -11,7 +12,6 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 :deviceNXT
 echo.
 echo before setup starts you will need to set paramaters for installation
-echo please note that the installer will delete itself when it is done.
 del WL2.sav
 git version >git.sav
 >nul find "version" git.sav && (
@@ -66,6 +66,8 @@ if %install_int_exp% equ false (goto int_exp_skip)
 echo enabling internet explorer
 Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
 :int_exp_skip
+echo setup is complete
+echo.
 echo press any key to exit...
 pause >nul
 exit /b
