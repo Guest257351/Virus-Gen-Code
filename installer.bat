@@ -33,7 +33,7 @@ Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data
 echo internet explorer is already enabled, skipping this stage...
 set install_int_exp=false
 :int_exp_next
-if not exist C:\ProgramData\GVGemail.sav goto (imput_email) else (echo email save already detected, skipping this stage...)
+if not exist C:\ProgramData\GVGemail.sav (goto imput_email) else (echo email save already detected, skipping this stage...)
 :email_next
 echo where would you like to install the file?
 echo.
