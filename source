@@ -1,6 +1,6 @@
 :: setup
 :start
-@echo off&set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F
+@echo off&set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0
 set update_number=V3.29.21
 set dev=0
 title unstable Release %update_number%
@@ -263,6 +263,9 @@ if exist "C:\users\%username%\AppData\control" (set control_is_exist=1)
 if %control_is_exist% equ 1 (echo [33mcontrol folder detected.[0m) else (echo [33mcontrol folder not detected.[0m)
 if exist "C:\users\%username%\AppData\cmd.bat" (set cmd_is_exist=1)
 if %cmd_is_exist% equ 1 (echo [33mcmd.bat detected.[0m) else (echo [33mcmd.bat not detected.[0m)
+REG QUERY "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "payload"
+if %errorlevel% equ 0 set reg_value_exists=1 >nul
+if %reg_value_exists% equ true (echo regisrty value exists) else (echo registry value not detected)
 del "C:\Users\%username%\launch.vbs"
 if not exist "C:\Users\%username%\launch.vbs" (echo [92mlaunch.vbs removed[0m)
 if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat /Q /F"
@@ -271,6 +274,8 @@ if %cmd_is_exist% equ 1 (del "C:\users\%username%\AppData\cmd.bat" /Q /F)
 if %cmd_is_exist% equ 1 (echo [92mcmd.bat removed[0m)
 if %control_is_exist% equ 1 (del "C:\users\%username%\AppData\control" /Q /F) 
 if %control_is_exist% equ 1 (echo [92mcontrol folder removed[0m)
+if %reg_value_exists% equ 1 (reg delete HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v payload /f)>nul
+if %reg_value_exists% equ 1 (echo [92mregisry value deleted[0m)
 timeout 2 /NOBREAK >nul
 cls
 goto no_remove_backdoor
