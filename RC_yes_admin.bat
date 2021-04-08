@@ -17,7 +17,7 @@ choice
 if %errorlevel% equ 1 shutdown /g
 exit
 :no_admin
-echo echo [31merror, program needs administrator rights[0m
+echo [31merror, program needs administrator rights[0m
 echo.
 echo press any key to exit...
 pause >nul

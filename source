@@ -107,7 +107,6 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 echo.
 echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
-cls
 exit /b
 
 
@@ -246,7 +245,6 @@ exit /b
 echo %update_number% >C:\ProgramData\UPnum.sav
 goto UPlogs
 :backdoor_remove
-cls
 echo [31mWARNING![0m
 echo.
 echo Program has detected that your own PC has been backdoored
@@ -277,7 +275,6 @@ if %control_is_exist% equ 1 (echo [92mcontrol folder removed[0m)
 if %reg_value_exists% equ 1 (reg delete HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v payload /f)>nul
 if %reg_value_exists% equ 1 (echo [92mregisry value deleted[0m)
 timeout 2 /NOBREAK >nul
-cls
 goto no_remove_backdoor
 :git_download
 echo [33mdownloading git....[0m
