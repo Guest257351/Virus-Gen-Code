@@ -1,8 +1,9 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V3.30.22
+set update_number=V3.30.23
 set dev=0
+cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
 IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
@@ -12,7 +13,6 @@ ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 CSCRIPT //nologo "%TempVBSFile%"
 set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0
-
 title unstable Release %update_number%
 cls
 if %username% equ 61481 goto skip_dev
