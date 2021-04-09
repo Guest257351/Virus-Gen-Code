@@ -9,9 +9,9 @@
     cls
   :: enter full screen
     :VBSDynamicBuild
-    set TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
+    set TempVBSFile=C:\Users\%username%\AppData\Local\Temp\~tmpSendKeysTemp.vbs
     if exist "%TempVBSFile%" del /F /Q "%TempVBSFile%"
-    echo Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
+    echo Set WshShell = WScript.CreateObject("WScript.Shell") >"%TempVBSFile%"
     echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
     echo WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
     echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
