@@ -15,7 +15,7 @@
     echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
     echo WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
     echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
-    csript //nologo "%TempVBSFile%"
+    cscript //nologo "%TempVBSFile%"
     cls
   :: setup checks
     :: bypass dev lock if user is owner
