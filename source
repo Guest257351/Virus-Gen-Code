@@ -3,7 +3,7 @@
   @ECHO OFF
   set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
   set update_number=V3.33.24
-  set dev=1
+  set dev=0
   title unstable Release %update_number%
   cls
 :: enter full screen
@@ -12,7 +12,7 @@
   if exist "%TempVBSFile%" del /F /Q "%TempVBSFile%"
   echo Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
   echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
-  echo WshShell.SendKeys "%{ENTER}"                            >>"%TempVBSFile%
+  echo WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
   echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
   csript //nologo "%TempVBSFile%"
   cls
