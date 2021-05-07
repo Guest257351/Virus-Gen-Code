@@ -109,6 +109,7 @@ if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
   if exist %opt1%.bat (set temp=1) else (echo [92mno temp files where found[0m)
   if %temp% equ 1 del %opt1%.bat
   if %temp% equ 1 echo [92mtemp files deleted[0m
+  echo data>load_trigger.txt
 echo.
 echo press any key to exit...
 pause >nul
