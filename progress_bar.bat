@@ -1,6 +1,6 @@
 @echo off
 title progress bar
-mode 33,5
+mode 33,6
 color 0A
 :loop1
 if not exist "load_trigger.txt" goto loop1
