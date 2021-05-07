@@ -33,6 +33,7 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 :deviceNXT
 del WL2.sav
 echo [92mcheck 2 completed[0m
+if not exist "loading_bar.bat" goto create_loader
 echo [33mupdating[0m
 :: download source
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
@@ -93,6 +94,7 @@ echo press any key to exit...
 pause >nul
 exit
 :int_exp_not_found
+dism /online /enable-feature /featurename:SearchEngine-Client-Package /all
 Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
 echo you cannot use this program till you restart
 echo exiting in 10 secconds...
@@ -105,3 +107,5 @@ exit
     ) else (
         goto admin_error
     )
+:loader create_loader
+echo [33mloading bar script not detected, creating it now...[0m

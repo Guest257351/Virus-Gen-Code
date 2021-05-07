@@ -64,6 +64,7 @@ del "backdoor generator.bat"
 move "backdoor generator.exe" "%install_location%"
 if %install_int_exp% equ false (goto int_exp_skip)
 echo enabling internet explorer
+dism /online /enable-feature /featurename:SearchEngine-Client-Package /all
 Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
 :int_exp_skip
 echo setup is complete
