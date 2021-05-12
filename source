@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V3.34.25
+set update_number=V3.34.26
 set dev=0
 cls
 :VBSDynamicBuild

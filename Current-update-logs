@@ -1,3 +1,7 @@
+V3.34.26:
+fixed incorrect variable selecting old version of backdoor.
+
+
 V3.34.25:
 added progress bar when generating
 fixed update logs
