@@ -1,8 +1,8 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V3.34.26
-set dev=1
+set update_number=V3.35.26
+set dev=0
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
@@ -35,7 +35,7 @@ if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
 if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
-if %username% equ 61481 if not exist C:\users\%username%\EPbot_installed.sav goto EP_module
+if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav goto EP_module
 :EP_finish
 :: manual configuration
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
@@ -333,6 +333,9 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 echo [92mcreated crack.bat[0m
 echo [92minstallation completed![0m you can find the program in %EP_dir%.
 echo dat>"C:\users\%username%\EPbot_installed.sav"
+echo.
+echo.
+echo [31mWARNING! [33ma window will have opened to build the textract font database, accept that.
 echo.
 echo press any key to return to the menu...
 pause >nul
