@@ -2,7 +2,7 @@
 :start
 @ECHO OFF
 set update_number=V3.34.26
-set dev=0
+set dev=1
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
@@ -35,6 +35,8 @@ if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
 if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
+if %username% equ 61481 if not exist C:\users\%username%\EPbot_installed.sav goto EP_module
+:EP_finish
 :: manual configuration
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
   echo do you have admin permissions on the target PC?
@@ -295,3 +297,43 @@ echo [33minstalling git...[0m
 gitDL.exe /silent
 del gitDL.exe
 goto start
+:EP_module
+echo.
+echo Hello %username%, you have been granted access to the EP bot module.
+echo if you do not want to install it you will recieve this option next time you launch
+echo please note that this module is untested and may crash
+choice /M "would you like to install it now?"
+if %errorlevel% equ 2 goto EPbot_installed
+echo.
+echo this module is extremely complicated so a text file will be put in the install directory containing instructions on how to use it
+echo.
+echo this setup will install trusted software called textract. This allows the bot to "read" the screen
+echo it will also install the bot itself to the selected install directory
+echo please note that textract is not free and has a free trial, I have created my own crack to renew freetrials.
+echo.
+echo if folder does not exist it will be created
+set /p EP_dir=install directory:
+mkdir %EP_dir%>nul
+echo [33mcreating readme file...[0m
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/EP_bot_readme.txt").Content >%EP_dir%\readme.txt
+if exist %EP_bot%\readme.txt (echo [92mcreated readme.txt[0m) else (echo [31merror when trying to create readme.txt[0m)
+echo [33mdownloading EPbot script...[0m
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/EP_bot.bat").Content >%EP_dir%\EPbot.bat
+if exist %EP_bot%\EPbot.bat (echo [92mcreated EPbot.bat[0m) else (echo [31merror when trying to create EPbot.bat[0m)
+echo [33mdownloading textract[0m
+powershell Import-Module BitsTransfer
+powershell Start-BitsTransfer -source "http://www.structurise.com/textra.exe" -Destination textra.exe
+echo [33m installing textract[0m
+start /wait textra.exe /silent
+echo [33m deleting installer[0m
+del textra.exe
+echo [92m textract was installed successfully![0m
+echo [33mdownloading textract cracker...[0m
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/crack.bat").Content >%EP_dir%\crack.bat
+if exist %EP_bot%\crack.bat (echo [92mcreated crack.bat[0m) else (echo [31merror when trying to create crack.bat[0m)
+echo [92minstallation completed![0m you can find the program in %EP_dir%.
+echo dat>"C:\users\%username%\EPbot_installed.sav"
+echo.
+echo press any key to return to the menu...
+pause >nul
+goto EP_finish
