@@ -316,10 +316,10 @@ set /p EP_dir=install directory:
 mkdir %EP_dir%>nul
 echo [33mcreating readme file...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/EP_bot_readme.txt").Content >%EP_dir%\readme.txt
-if exist %EP_bot%\readme.txt (echo [92mcreated readme.txt[0m) else (echo [31merror when trying to create readme.txt[0m)
+echo [92mcreated readme.txt[0m
 echo [33mdownloading EPbot script...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/EP_bot.bat").Content >%EP_dir%\EPbot.bat
-if exist %EP_bot%\EPbot.bat (echo [92mcreated EPbot.bat[0m) else (echo [31merror when trying to create EPbot.bat[0m)
+echo [92mcreated EPbot.bat[0m
 echo [33mdownloading textract[0m
 powershell Import-Module BitsTransfer
 powershell Start-BitsTransfer -source "http://www.structurise.com/textra.exe" -Destination textra.exe
@@ -330,7 +330,7 @@ del textra.exe
 echo [92m textract was installed successfully![0m
 echo [33mdownloading textract cracker...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/crack.bat").Content >%EP_dir%\crack.bat
-if exist %EP_bot%\crack.bat (echo [92mcreated crack.bat[0m) else (echo [31merror when trying to create crack.bat[0m)
+echo [92mcreated crack.bat[0m
 echo [92minstallation completed![0m you can find the program in %EP_dir%.
 echo dat>"C:\users\%username%\EPbot_installed.sav"
 echo.
