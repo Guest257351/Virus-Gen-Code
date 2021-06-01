@@ -2,7 +2,7 @@
 :start
 @ECHO OFF
 set update_number=V3.35.26
-set dev=0
+set dev=1
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
@@ -11,16 +11,34 @@ ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-CSCRIPT //nologo "%TempVBSFile%"
-set temp=0&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false
+if %autofullscreen% equ true CSCRIPT //nologo "%TempVBSFile%"
+set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false
 title unstable Release %update_number%
 cls
+< C:\ProgramData\autofullscreen.sav (
+  set /p autofullscreen=
+)
+< C:\ProgramData\updatelogs.sav (
+  set /p updatelogs=
+)
+< C:\ProgramData\debug_enabled.sav (
+  set /p debug_enabled=
+)
+< C:\ProgramData\antivirus.sav (
+  set /p antivirus=
+)
+< C:\ProgramData\progress_bar.sav (
+  set /p progress_bar=
+)
+< C:\ProgramData\target_software_bypass.sav (
+  set /p target_software_bypass=
+)
 if %username% equ 61481 goto skip_dev
 if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
 goto CP
 :adminyes
-if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
+if %updatelogs% equ true if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
@@ -42,8 +60,11 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
   echo.
-  choice /C YN /m "does target PC have admin rights? Y/N:
-  if %errorlevel% equ 1 (set target_admin_rights=true) else (set target_admin_rights=false)&set errorlevel=0
+  echo [33mpress M to be taken to settings
+  choice /C YNM /m "does target PC have admin rights? Y/N:
+  if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))&set errorlevel=0
+  :exit_menu
+  set errorlevel=0
   echo.  
   echo DO NOT USE SPACES, replace them with _
   echo.
@@ -178,7 +199,7 @@ exit /b
     exit /b
   :error5
     title error code 5
-    echo [31merror code: 05 [0m
+    echo [31merror code: 05[0m
     echo [31merror: email save failed[0m
     echo [31merror type: fatal[0m
     echo [31mhow to replicate: unknown.[0m
@@ -335,8 +356,39 @@ echo [92minstallation completed![0m you can find the program in %EP_dir%.
 echo dat>"C:\users\%username%\EPbot_installed.sav"
 echo.
 echo.
-echo [31mWARNING! [33ma window will have opened to build the textract font database, accept that.
+echo [31mWARNING! [33ma window will have opened to build the textract font database, click continue.
 echo.
 echo press any key to return to the menu...
 pause >nul
 goto EP_finish
+:menu
+echo.
+echo all settings changed in here are saved
+echo.
+set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true
+echo press the number relating to the setting you want changed
+echo.
+echo 1(automaticaly enter fullscreen on start (%autofullscreen%)
+echo 2(display update logs when new update is released (%updatelogs%)
+echo 3(debug mode (app will not be dissabled when it is broken) (%debug_enabled%)
+echo 4(built in antivirus (prevents you from backdooring your own PC) (%antivirus%)
+echo 5(run progress_bar while generating (%progress_bar%) 
+echo 6(legacy mode, old software bypass mode (broken) (%target_software_bypass%)
+echo 7(back to main menu
+echo.
+choice /M "option: " /c 1234567 /n
+if %errorlevel% equ 1 (if %autofullscreen% equ false (set autofullscreen=true) else (set autofullscreen=false))
+if %errorlevel% equ 2 (if %updatelogs% equ false (set updatelogs=true) else (set updatelogs=false))
+if %errorlevel% equ 3 (if %debug_enabled% equ false (set debug_enabled=true) else (set debug_enabled=false))
+if %errorlevel% equ 4 (if %antivirus% equ false (set antivirus=true) else (set antivirus=false))
+if %errorlevel% equ 5 (if %progress_bar% equ false (set progress_bar=true) else (set progress_bar=false))
+if %errorlevel% equ 6 (if %target_software_bypass% equ false (set target_software_bypass=true) else (set target_software_bypass=false))
+if %errorlevel% equ 7 goto exit_menu
+set errorlevel=0
+echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
+echo %updatelogs%>C:\ProgramData\updatelogs.sav
+echo %debug_enabled%>C:\ProgramData\debug_enabled.sav
+echo %antivirus%>C:\ProgramData\antivirus.sav
+echo %progress_bar%>C:\ProgramData\progress_bar.sav
+echo %target_software_bypass%>C:\ProgramData\target_software_bypass.sav
+goto menu
