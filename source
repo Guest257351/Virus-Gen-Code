@@ -372,7 +372,6 @@ goto EP_finish
 echo.
 echo all settings changed in here are saved
 echo.
-set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true
 echo press the number relating to the setting you want changed
 echo.
 echo 1(automaticaly enter fullscreen on start (%autofullscreen%)
