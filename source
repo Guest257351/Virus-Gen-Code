@@ -67,7 +67,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
   echo.
-  echo [33mpress M to be taken to settings
+  echo [33mpress M to be taken to settings[0m
   choice /C YNM /m "does target PC have admin rights? Y/N:
   if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))&set errorlevel=0
   :exit_menu
