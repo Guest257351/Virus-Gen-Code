@@ -5,6 +5,7 @@
 color 0a
 cls
 title Education Perfect Bot
+mkdir C:\ProgramData\botch>nul
 echo division mode? (Y/N)
 set /p YN=
 
