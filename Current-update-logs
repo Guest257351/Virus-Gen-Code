@@ -1,3 +1,14 @@
+V3.36.26:
+added option menu
+added option menu features:
+ -autofullscreen
+ -updatelogs
+ -debug_enabled
+ -antivirus
+ -progress_bar
+ -target_software_bypass
+
+
 V3.35.26:
 created EP bot install module
 
