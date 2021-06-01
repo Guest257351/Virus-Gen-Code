@@ -401,7 +401,7 @@ echo %target_software_bypass%>C:\ProgramData\target_software_bypass.sav
 goto menu
 :menu1
 if %autofullscreen% equ false set autofullscreen=true 
-if %autofullscrenn% equ true set autofullscreen=false
+if %autofullscreen% equ true set autofullscreen=false
 goto menunxt
 :menu2
 if %updatelogs% equ false set updatelogs=true 
