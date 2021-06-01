@@ -70,8 +70,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   echo.
   echo [33mpress M to be taken to settings[0m
   choice /C YNM /m "does target PC have admin rights? Y/N:
-  if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))&set errorlevel=0
-  set errorlevel=0
+  if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))
   echo.  
   echo DO NOT USE SPACES, replace them with _
   echo.
@@ -391,7 +390,6 @@ if %errorlevel% equ 5 goto menu5
 if %errorlevel% equ 6 goto menu6
 if %errorlevel% equ 7 goto exit_menu
 :menunxt
-set errorlevel=0
 echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
 echo %updatelogs%>C:\ProgramData\updatelogs.sav
 echo %debug_enabled%>C:\ProgramData\debug_enabled.sav
