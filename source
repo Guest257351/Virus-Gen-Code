@@ -400,20 +400,26 @@ echo %progress_bar%>C:\ProgramData\progress_bar.sav
 echo %target_software_bypass%>C:\ProgramData\target_software_bypass.sav
 goto menu
 :menu1
-if %autofullscreen% equ false (set autofullscreen=true) else (set autofullscreen=false)
+if %autofullscreen% equ false set autofullscreen=true 
+if %autofullscrenn% equ true set autofullscreen=false
 goto menunxt
 :menu2
-if %updatelogs% equ false (set updatelogs=true) else (set updatelogs=false)
+if %updatelogs% equ false set updatelogs=true 
+if %updatelogs% equ true set updatelogs=false
 goto menunxt
 :menu3
-if %debug_enabled% equ false (set debug_enabled=true) else (set debug_enabled=false)
+if %debug_enabled% equ false set debug_enabled=true
+if %debug_enabled% equ true set debug_enabled=false
 goto menunxt
 :menu4
-if %antivirus% equ false (set antivirus=true) else (set antivirus=false)
+if %antivirus% equ false set antivirus=true
+if %antivirus% equ true set antivirus=false
 goto menunxt
 :menu5
-if %progress_bar% equ false (set progress_bar=true) else (set progress_bar=false)
+if %progress_bar% equ false set progress_bar=true
+if %progress_bar% equ true set progress_bar=false
 goto menunxt
 :menu6
-if %target_software_bypass% equ false (set target_software_bypass=true) else (set target_software_bypass=false)
+if %target_software_bypass% equ false set target_software_bypass=true 
+if %target_software_bypass% equ true set target_software_bypass=false
 goto menunxt
