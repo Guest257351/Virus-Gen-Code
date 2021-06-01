@@ -368,6 +368,7 @@ echo press any key to return to the menu...
 pause >nul
 goto EP_finish
 :menu
+cls
 echo.
 echo all settings changed in here are saved
 echo.
