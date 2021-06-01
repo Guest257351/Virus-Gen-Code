@@ -11,8 +11,13 @@ ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-if %autofullscreen% equ true CSCRIPT //nologo "%TempVBSFile%"
 set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false
+if not exist C:\ProgramData\autofullscreen.sav echo true>C:\ProgramData\autofullscreen.sav
+if not exist C:\ProgramData\updatelogs.sav echo true>C:\ProgramData\updatelogs.sav
+if not exist C:\ProgramData\debug_enabled.sav echo false>C:\ProgramData\debug_enabled.sav
+if not exist C:\ProgramData\antivirus.sav echo true>C:\ProgramData\antivirus.sav
+if not exist C:\ProgramData\progress_bar.sav echo true>C:\ProgramData\progress_bar.sav
+if not exist C:\ProgramData\target_software_bypass.sav echo true>C:\ProgramData\target_software_bypass.sav
 title unstable Release %update_number%
 cls
 < C:\ProgramData\autofullscreen.sav (
@@ -33,7 +38,9 @@ cls
 < C:\ProgramData\target_software_bypass.sav (
   set /p target_software_bypass=
 )
+if %autofullscreen% equ true CSCRIPT //nologo "%TempVBSFile%"
 if %username% equ 61481 goto skip_dev
+if %debug_enabled% equ true goto skip_dev
 if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
 goto CP
