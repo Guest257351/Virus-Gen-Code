@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V3.37.26
+set update_number=V3.38.26
 set dev=0
 cls
 :VBSDynamicBuild
@@ -150,6 +150,8 @@ exit /b
 if %UPnum% equ %update_number% exit /b
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
+if %updatelogs% equ false (echo New Update was installed, %update_number%
+exit /b)
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
 echo.
 echo please close the text document to continue

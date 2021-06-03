@@ -1,3 +1,7 @@
+V3.38.26:
+if update logs are dissabled it now tells you that an update was detected instead of showing update logs
+
+
 V3.37.26:
 Added admin backdoor to antivirus
 typo fixes
