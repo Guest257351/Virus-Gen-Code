@@ -45,7 +45,7 @@ if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
 goto CP
 :adminyes
-if %updatelogs% equ true if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
+if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
