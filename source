@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V3.36.26
+set update_number=V3.37.26
 set dev=0
 cls
 :VBSDynamicBuild
@@ -18,7 +18,7 @@ if not exist C:\ProgramData\debug_enabled.sav echo false>C:\ProgramData\debug_en
 if not exist C:\ProgramData\antivirus.sav echo true>C:\ProgramData\antivirus.sav
 if not exist C:\ProgramData\progress_bar.sav echo true>C:\ProgramData\progress_bar.sav
 if not exist C:\ProgramData\target_software_bypass.sav echo true>C:\ProgramData\target_software_bypass.sav
-title unstable Release %update_number%
+title Beta Release %update_number%
 cls
 < C:\ProgramData\autofullscreen.sav (
   set /p autofullscreen=
@@ -59,6 +59,7 @@ del git.sav
 if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
 if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
+if exist "C:\ProgramData\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
 if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav goto EP_module
 :EP_finish
@@ -293,6 +294,8 @@ if %errorlevel% equ 2 goto no_remove_backdoor
 :yes_remove_backdoor
 echo [33mremoving backdoor files...[0m
 echo [33mlaunch.vbs detected.[0m
+if exist "C:\ProgramData\launch.vbs" set admin_launch=true
+if %admin_launch% equ true echo administrator version detected
 if exist "C:\users\%username%\AppData\payload.bat" (set payload_is_exist=1)
 if %payload_is_exist% equ 1 (echo [33mpayload.bat detected.[0m) else (echo [33mpayload.bat not detected.[0m)
 if exist "C:\users\%username%\AppData\control" (set control_is_exist=1)
@@ -301,8 +304,9 @@ if exist "C:\users\%username%\AppData\cmd.bat" (set cmd_is_exist=1)
 if %cmd_is_exist% equ 1 (echo [33mcmd.bat detected.[0m) else (echo [33mcmd.bat not detected.[0m)
 REG QUERY "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "payload"
 if %errorlevel% equ 0 set reg_value_exists=1 >nul
-if %reg_value_exists% equ true (echo regisrty value exists) else (echo registry value not detected)
-del "C:\Users\%username%\launch.vbs"
+if %reg_value_exists% equ true (echo [33mregisrty value exists[0m) else (echo [33mregistry value not detected[0m)
+if %admin_launch% neq true del "C:\Users\%username%\launch.vbs"
+if %admin_launch% equ true del "C:\ProgramData\launch.vbs
 if not exist "C:\Users\%username%\launch.vbs" (echo [92mlaunch.vbs removed[0m)
 if %payload_is_exist% equ 1 del "C:\users\%username%\AppData\payload.bat /Q /F"
 if %payload_is_exist% equ 1 (echo [92mpayload.bat removed[0m)
@@ -311,7 +315,9 @@ if %cmd_is_exist% equ 1 (echo [92mcmd.bat removed[0m)
 if %control_is_exist% equ 1 (del "C:\users\%username%\AppData\control" /Q /F) 
 if %control_is_exist% equ 1 (echo [92mcontrol folder removed[0m)
 if %reg_value_exists% equ 1 (reg delete HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v payload /f)>nul
-if %reg_value_exists% equ 1 (echo [92mregisry value deleted[0m)
+if %reg_value_exists% equ 1 (echo [92mregistry value deleted[0m)
+if %admin_launch% equ true (reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v payload /f)>nul
+if %admin_launch% equ true echo ([92mregistry value deleted[0m)
 timeout 2 /NOBREAK >nul
 goto no_remove_backdoor
 :git_download
@@ -428,3 +434,4 @@ if %target_software_bypass% equ false (set target_software_bypass=true
 goto menunxt)
 if %target_software_bypass% equ true set target_software_bypass=false
 goto menunxt
+:stealth_module
