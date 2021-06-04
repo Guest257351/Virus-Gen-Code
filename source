@@ -58,7 +58,7 @@ del git.sav
 :: detect and load save file data
 if exist C:\ProgramData\GVGemail.sav (goto load_email) else (goto error2)
 :emailnext
-if %username% equ brayd then goto no_remove_backdoor
+if %username% equ brayd goto no_remove_backdoor
 if exist "C:\Users\%username%\launch.vbs" goto backdoor_remove
 if exist "C:\ProgramData\launch.vbs" goto backdoor_remove
 :no_remove_backdoor
