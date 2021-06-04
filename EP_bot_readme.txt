@@ -48,3 +48,10 @@ textract (the software used to read the question off the screen) is not free. It
 However I have created my own crack for it which is inside the install directory (crack.bat)
 run this if the freetrial ends.
 NOTE: you will see like a million error messages, ignore these.
+
+
+What is "division mode":
+Because of the similarities between the addition and division symobols textract reads both of them as +
+turning on division mode will turn any + symbol into a /
+this means you cannot do division and addition at the same time
+if you want to dissable division mode then you need to restart the app, the same goes for enabling it.
