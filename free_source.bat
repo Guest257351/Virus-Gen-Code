@@ -1,6 +1,6 @@
 :: setup
 :start
-@ECHO OFF
+@ECHO ON
 set update_number=V3.38.27
 set dev=0
 cls
