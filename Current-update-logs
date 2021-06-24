@@ -1,3 +1,23 @@
+v4.38.27:
+created a free version of the backdoor (still in testing)
+    new files added to source as part of the free backdoor:
+    -free_BC.bat
+    -free_installer.bat
+    -free_placeholder.bat
+    -free_source.bat
+    -free_updater.bat
+free backdoor is different from paid in these ways:
+    -no security/identification when opening app
+    -backdoors expire after 1 month or at the end of the year
+    -slightly longer generation time to add expiration date
+    -new readme
+    -new placeholder message for free generated backdoors
+    -different window title
+    -recieves seperate updates from paid version
+    -backdoors contain a modified version of the antivirus/vaccine to remove traces of backdoor once it has expired. (untested)
+removed device.bat which got into the repo because of an accidental push
+
+
 V3.38.27:
 possibly fixed backdoor crashing when not connected to the internet
 

