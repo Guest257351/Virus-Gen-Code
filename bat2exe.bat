@@ -1,4 +1,3 @@
- ;@echo off
 ;set "target.exe=backdoor generator.exe
 ;set "batch_file=backdoor generator.bat
 ;set "bat_name=%~nx1"

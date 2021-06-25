@@ -1,4 +1,4 @@
-@echo off&title installing backdoor generator...&cls
+@echo on&title installing backdoor generator...&cls
 cd C:\ProgramData
 goto CP
 :adminyes
