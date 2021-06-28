@@ -54,6 +54,7 @@ call bat2exe.bat "backdoor generator.bat" "free backdoor generator.exe"
 timeout 2 /nobreak >nul
 del bat2exe.bat
 del "backdoor generator.bat"
+ren "backdoor generator.exe" "free backdoor generator.exe"
 move "free backdoor generator.exe" "%install_location%"
 if %install_int_exp% equ false (goto int_exp_skip)
 echo enabling internet explorer
