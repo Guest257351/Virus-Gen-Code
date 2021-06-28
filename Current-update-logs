@@ -1,4 +1,11 @@
-v4.38.27:
+V4.39.27:
+added EP bot module to menu
+bug fixes for free version
+    -free_installler.bat has echo off now
+    -fixed wrong name used so moving file to download location will work now
+
+
+V4.38.27:
 created a free version of the backdoor (still in testing)
     new files added to source as part of the free backdoor:
     -free_BC.bat
