@@ -440,5 +440,5 @@ if %target_software_bypass% equ true set target_software_bypass=false
 goto menunxt
 :menu7
 set /p free_dir_install=download location:
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_installer.bat").Content >%free_dir_install%\free backdoor generator installer.bat
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_installer.bat").Content >"%free_dir_install%\free backdoor generator installer.bat"
 goto menunxt
