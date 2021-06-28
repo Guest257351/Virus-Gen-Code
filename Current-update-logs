@@ -1,5 +1,6 @@
 V4.39.27:
 added EP bot module to menu
+    -only availible in paid version
 bug fixes for free version
     -free_installler.bat has echo off now
     -fixed wrong name used so moving file to download location will work now
