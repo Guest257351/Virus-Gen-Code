@@ -33,7 +33,6 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 :deviceNXT
 del WL2.sav
 echo [92mcheck 2 completed[0m
-if not exist "loading_bar.bat" goto create_loader
 echo [33mupdating[0m
 :: download source
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
