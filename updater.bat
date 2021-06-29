@@ -107,4 +107,3 @@ exit
         goto admin_error
     )
 :loader create_loader
-echo [33mloading bar script not detected, creating it now...[0m
