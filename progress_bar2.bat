@@ -2,89 +2,94 @@
 title progress bar
 mode 36,6
 color 0A
-:loop1
-if not exist "load_trigger.txt" goto loop1
-del "load_trigger.txt"
+:check
+< load_trigger.txt (
+  set /p loadnum=
+)
+if %loadnum% neq nil (
+echo nil>load_trigger.txt
+goto %loadnum%)
+:1
 echo _________________________________
 echo ###
 echo _________________________________
 echo.
 echo creating placeholder file...
-:loop2
-if not exist "load_trigger.txt" goto loop2
-del "load_trigger.txt"
+goto check
+:2
+cls
 echo _________________________________
 echo ######
 echo _________________________________
 echo.
 echo setting uo git...
-:loop3
-if not exist "load_trigger.txt" goto loop3
-del "load_trigger.txt"
+goto check
+:3
+cls
 echo _________________________________
 echo #########
 echo _________________________________
 echo.
 echo creating payload folder...
-:loop4
-if not exist "load_trigger.txt" goto loop4
-del "load_trigger.txt"
+goto check
+:4
+cls
 echo _________________________________
 echo ############
 echo _________________________________
 echo.
 echo generating launch.vbs...
-:loop5
-if not exist "load_trigger.txt" goto loop5
-del "load_trigger.txt"
+goto check
+:5
+cls
 echo _________________________________
 echo ###############
 echo _________________________________
 echo.
 echo generating payload.bat...
-:loop6
-if not exist "load_trigger.txt" goto loop6
-del "load_trigger.txt"
+goto check
+:6
+cls
 echo _________________________________
 echo ##################
 echo _________________________________
 echo.
 echo configuring payload.bat...
-:loop7
-if not exist "load_trigger.txt" goto loop7
-del "load_trigger.txt"
+goto check
+:7
+cls
 echo _________________________________
 echo #####################
 echo _________________________________
 echo.
 echo generating run.bat...
-:loop8
-if not exist "load_trigger.txt" goto loop8
-del "load_trigger.txt"
+goto check
+:8
+cls
 echo _________________________________
 echo ########################
 echo _________________________________
 echo.
 echo generating readme.txt...
-:loop9
-if not exist "load_trigger.txt" goto loop9
-del "load_trigger.txt"
+goto check
+:9
+cls
 echo _________________________________
 echo ###########################
 echo _________________________________
 echo.
 echo verifying successful download...
-:loop10
-if not exist "load_trigger.txt" goto loop10
-del "load_trigger.txt"
+goto check
+:10
+cls
 echo _________________________________
 echo ##############################
 echo _________________________________
 echo.
 echo deleting temp files...
-:loop11
-if not exist "load_trigger.txt" goto loop11
-del "load_trigger.txt"
+goto check
+:11
+cls
 echo _________________________________
 echo #################################
 echo _________________________________

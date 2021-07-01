@@ -1,3 +1,13 @@
+V4.40.27:
+Improvments to progress bar
+    -added progress_bar2.bat
+    -program now uses progress_bar2.bat instead of progress_bar.bat
+    -progress_bar2.bat recieves flag to goto certain stage instead of going to next stage which had bugs
+    -new stage to both progress bars "creating placeholder file..."
+    -increased size to fit new stage
+    -an option will be added to the menu later on to switch between both loading bar versions.
+
+
 V4.39.27:
 added EP bot module to menu
     -only availible in paid version
