@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.41.27
+set update_number=4.41.28
 set dev=0
 cls
 :VBSDynamicBuild
@@ -43,8 +43,6 @@ if %username% equ 61481 goto skip_dev
 if %debug_enabled% equ true goto skip_dev
 if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
-goto CP
-:adminyes
 if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
 :UPnxt
 git version >git.sav

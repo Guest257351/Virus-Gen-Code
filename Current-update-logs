@@ -1,3 +1,7 @@
+V4.41.28:
+disabled admin check for source because check is already performed in updater.bat
+
+
 V4.41.27:
 added more information/instructions to device name input.
 
