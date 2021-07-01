@@ -1,5 +1,5 @@
 # Virus-Gen-Code
-because idc if this software is cracked or not, all the securities added to this software where more proof of concepts and tests for me.
+because idc if this software is cracked or not, all the securities added to this software where more proof of concepts and tests for me than actual defense against pirates, this is why I have the MIT license.
 so this is pretty much instructions on how to crack the software.
 # How to Remove Securities
 
