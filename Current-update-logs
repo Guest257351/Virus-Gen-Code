@@ -1,3 +1,71 @@
+V5.00.00
+Created environment updater 
+    -allows updating the main updater script
+    -allows updating of all parts of app
+    -download location saving and loading
+Changes to updater.bat
+    -decreases launch time when there is no update significantly
+    -increases launch time when there is an update
+    -allows force updating
+    -allows updating version numbers
+    -only validates whitelist when updating
+    -added download location loading
+    -checks for internet connection off update check instead of whitelist check 1
+Changes to source
+    -option to force an update
+    -version number is now read from data recieved from updater.bat rather than embeded in script
+    -detect if version 5 is installed
+    -crash detection (done by updater.bat)
+    -check environment updater is installed
+Changes to installer.bat
+    -added download location saving
+added update_number.txt
+    -used by updater.bat to detect updates
+Changes to free_source.bat
+    -the free version is discontinued and will not revieve any more updates
+    -added message in app stating discontinuance 
+
+
+V4.42.35:
+replaced discord hash tag from 1040 to 0001 because it has changed
+free_source.bat no longer recieves updated version numbers unless it recieves an update.
+
+
+V4.42.34:
+colour fixes for EP bot downloader
+
+
+V4.42.33:
+added menu option to automaticaly pick a device name to shorten setting up time.
+
+
+V4.41.33:
+fixed incorrect syntaxing
+
+
+V4.41.32:
+backdoor will now CD out of script folder to prevent bugs
+
+
+V4.41.31:
+fixes too progress bar V2
+    -changed waypoint saving and loading to word numbers to fix echo is off example: 1 becomes one
+    -fixed trying to call file named "progress bar2.bat" while file is called "progress bar.bat"
+    -fixed loading bar not setting stage to nil when complete
+    -fixed typo in loading bar stage name
+    -fixed typo in flag five in source
+
+
+V4.41.30:
+fixed typo causing device_name_advice to not save value
+fixed incorrect syntax causing exit menu to not work
+
+
+V4.41.29:
+added option to dissable advice for device naming in menu.
+the free version will be updated rarely and when it is updated it will just be to catch up to the paid version.
+
+
 V4.41.28:
 disabled admin check for source because check is already performed in updater.bat
 
@@ -135,7 +203,7 @@ backdoor now instantly updates (testing)
 cleaned up source code
 
 
-V:3.25.21:
+V3.25.21:
 fatal bug fixes
 
 

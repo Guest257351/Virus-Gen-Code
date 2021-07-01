@@ -1,77 +1,32 @@
-@echo off&title installing backdoor generator...&cls
-cd C:\ProgramData
+@echo on&title updating base environment...&cd C:\users\%username%\appdata
 goto CP
 :adminyes
-powershell "$keyPath = 'Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Internet Explorer\Main';if (!(Test-Path $keyPath)) { New-Item $keyPath -Force | Out-Null };Set-ItemProperty -Path $keyPath -Name "DisableFirstRunCustomize" -Value 1"
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist").Content >WL2.sav
->nul find "%username%" WL2.sav && (
-  goto deviceNXT
-) || (
-  goto Whitelist_error
-)
-:deviceNXT
-echo.
-echo before setup starts you will need to set paramaters for installation
-del WL2.sav
-git version >git.sav
->nul find "version" git.sav && (
-  goto GIT_exists
-) || (
-  goto git_query
-)
-:GIT_exists
-echo git installation already detected, skipping this stage...
-set install_git=false
-:GIT_check_next
-Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data1.txt
->nul find "State : Enabled" data1.txt && (
-  goto int_exp_found
-) || (
-  goto int_exp_query
-)
-:int_exp_found
-echo internet explorer is already enabled, skipping this stage...
-set install_int_exp=false
-:int_exp_next
-if not exist C:\ProgramData\GVGemail.sav (goto imput_email) else (echo email save already detected, skipping this stage...)
-:email_next
-echo where would you like to install the file?
-echo.
-set /p install_location=install location:
-echo starting installation...
-echo %install_location%>"C:\users\%username%\AppData\base_environment_location.txt"
-timeout 1 /NOBREAK >nul
+if exist "C:\users\%username%\AppData\base_environment_location.txt" (< "C:\users\%username%\AppData\base_environment_location.txt" (
+  set /p install_location=
+)) else (goto set_install_location)
+:installsetnxt
+echo starting update...
+timeout 1 /NOBREAK>nul
 echo creating bat2exe command...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >C:\ProgramData\bat2exe.bat
-if exist C:\ProgramData\bat2exe.bat (echo bat2exe succesfuly made) else (goto bat2exe_install_error)
-if %install_git% equ false (goto skip_git)
-echo downloading git...
-powershell Import-Module BitsTransfer
-powershell Start-BitsTransfer -source "https://github.com/git-for-windows/git/releases/download/v2.31.0.windows.1/Git-2.31.0-64-bit.exe" -Destination gitDL.exe
-echo installing git...
-gitDL.exe /silent
-del gitDL.exe
-echo git was installed
-:skip_git
-timeout 1 /nobreak >nul
-if not exist %install_location% mkdir %install_location%
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >"bat2exe.bat"
+echo bat2exe successfully made
+if not exist "%install_location%" mkdir "%install_location%""
 echo downloading code...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"C:\programdata\backdoor generator.bat"
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"backdoor generator.bat"
 echo converting file to exe...
-call bat2exe.bat "backdoor generator.bat" "backdoor generator.exe"
+takeown /f "%install_location%\backdoor generator.exe"
+ICACLS "%install_location%\backdoor generator.exe" /grant administrator:(D)
+ICACLS "%install_location%\backdoor generator.exe" /reset
+del "%install_location%\backdoor generator.exe"
+call bat2exe.bat "C:\users\%username%\AppData\backdoor generator.bat" "backdoor generator.exe"
 timeout 2 /nobreak >nul
 del bat2exe.bat
 del "backdoor generator.bat"
 move "backdoor generator.exe" "%install_location%"
-if %install_int_exp% equ false (goto int_exp_skip)
-echo enabling internet explorer
-dism /online /enable-feature /featurename:SearchEngine-Client-Package /all
-Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
-:int_exp_skip
-echo setup is complete
+echo update complete
+echo placeholder>"C:\users\%username%\appdata\updateflag.txt"
 echo.
-echo press any key to exit...
-pause >nul
+call "%install_location%\backdoor generator.exe"
 exit /b
 
 
@@ -157,3 +112,8 @@ echo.
 echo press any key to exit...
 pause >nul
 exit /b
+:set_install_location
+echo the app was not found, please specify where it is or a new place to install it.
+set /p install_location=backdoor generator directory:
+echo %install_location%>"C:\users\%username%\AppData\base_environment_location.txt"
+goto installsetnxt

