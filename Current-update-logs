@@ -1,3 +1,8 @@
+V4.41.29:
+added option to dissable advice for device naming in menu.
+the free version will be updated rarely and when it is updated it will just be to catch up to the paid version.
+
+
 V4.41.28:
 disabled admin check for source because check is already performed in updater.bat
 
