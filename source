@@ -419,7 +419,7 @@ if %errorlevel% equ 6 goto menu6
 if %errorlevel% equ 7 goto menu7
 if %errorlevel% equ 8 goto menu8
 if %errorlevel% equ 9 goto menu9
-if %errorlevel% equ A goto exit_menu
+if %errorlevel% equ 10 goto exit_menu
 :menunxt
 echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
 echo %updatelogs%>C:\ProgramData\updatelogs.sav
