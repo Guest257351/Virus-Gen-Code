@@ -96,5 +96,6 @@ echo #################################
 echo _________________________________
 echo.
 echo completed!
+echo nil>load_trigger.txt
 timeout 3 /NOBREAK >nul
 exit
