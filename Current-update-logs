@@ -1,3 +1,8 @@
+V4.41.30:
+fixed typo causing device_name_advice to not save value
+fixed incorrect syntax causing exit menu to not work
+
+
 V4.41.29:
 added option to dissable advice for device naming in menu.
 the free version will be updated rarely and when it is updated it will just be to catch up to the paid version.

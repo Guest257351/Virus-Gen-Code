@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.41.29
+set update_number=4.41.30
 set dev=0
 cls
 :VBSDynamicBuild
@@ -427,7 +427,7 @@ echo %debug_enabled%>C:\ProgramData\debug_enabled.sav
 echo %antivirus%>C:\ProgramData\antivirus.sav
 echo %progress_bar%>C:\ProgramData\progress_bar.sav
 echo %target_software_bypass%>C:\ProgramData\target_software_bypass.sav
-echo %device_name_advice%>C:\ProgramData\device_name_advice
+echo %device_name_advice%>C:\ProgramData\device_name_advice.sav
 goto menu
 :menu1
 if %autofullscreen% equ false (set autofullscreen=true
