@@ -11,6 +11,7 @@ echo nil>load_trigger.txt
 goto %loadnum%)
 goto check
 :one
+cls
 echo _________________________________
 echo ###
 echo _________________________________
