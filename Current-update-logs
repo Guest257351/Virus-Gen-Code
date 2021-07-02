@@ -3,6 +3,8 @@ fixes too progress bar V2
     -changed waypoint saving and loading to word numbers to fix echo is off example: 1 becomes one
     -fixed trying to call file named "progress bar2.bat" while file is called "progress bar.bat"
     -fixed loading bar not setting stage to nil when complete
+    -fixed typo in loading bar stage name
+    -fixed typo in flag five in source
 
 
 V4.41.30:

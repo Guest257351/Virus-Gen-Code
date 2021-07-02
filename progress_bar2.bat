@@ -24,7 +24,7 @@ echo _________________________________
 echo ######
 echo _________________________________
 echo.
-echo setting uo git...
+echo setting up git...
 goto check
 :three
 cls
