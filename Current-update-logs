@@ -1,3 +1,7 @@
+V4.41.33:
+fixed incorrect syntaxing
+
+
 V4.41.32:
 backdoor will now CD out of script folder to prevent bugs
 

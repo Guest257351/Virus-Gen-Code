@@ -9,7 +9,7 @@ SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
 IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
 ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
+ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false&set device_name_advice=true
 if not exist C:\ProgramData\autofullscreen.sav echo true>C:\ProgramData\autofullscreen.sav
