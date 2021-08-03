@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.42.32
+set update_number=4.42.34
 set dev=0
 cls
 :VBSDynamicBuild
@@ -392,7 +392,7 @@ echo [92minstallation completed![0m you can find the program in %EP_dir%.
 echo dat>"C:\users\%username%\EPbot_installed.sav"
 echo.
 echo.
-echo [31mWARNING! [33ma window will have opened to build the textract font database, click continue.
+echo [31mWARNING! [33ma window will have opened to build the textract font database, click continue.[0m
 echo.
 echo press any key to return to the menu...
 pause >nul
