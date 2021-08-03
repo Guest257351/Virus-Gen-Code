@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.41.32
+set update_number=4.42.32
 set dev=0
 cls
 :VBSDynamicBuild
@@ -482,7 +482,7 @@ goto menunxt
 :menu9
 set EP_install_launched_from_menu=true
 goto menu_install
-:menu7
+:menu10
 if %auto_gen_name% equ false (set auto_gen_name=true
 goto menunxt)
 if %auto_gen_name% equ true set auto_gen_name=false
