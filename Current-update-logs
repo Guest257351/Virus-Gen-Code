@@ -1,3 +1,8 @@
+V4.42.35:
+replaced discord hash tag from 1040 to 0001 because it has changed
+free_source.bat no longer recieves updated version numbers unless it recieves an update.
+
+
 V4.42.34:
 colour fixes for EP bot downloader
 

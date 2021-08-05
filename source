@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.42.34
+set update_number=4.42.35
 set dev=0
 cls
 :VBSDynamicBuild
@@ -232,7 +232,7 @@ exit /b
     echo [31merror type: fatal[0m
     echo [31mhow to replicate: unknown.[0m
     echo [31mhow to fix: there is no known fix for this error[0m
-    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: "guest257351#1040" I have no idea why this bug is caused, it is most likely caused because you do not have permission to edit C:\ProgramData[0m
+    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: "guest257351#0001" I have no idea why this bug is caused, it is most likely caused because you do not have permission to edit C:\ProgramData[0m
     echo.
     echo press any key to exit...
     pause >nul
@@ -258,7 +258,7 @@ exit /b
     echo [31merror type: fatal[0m
     echo [31mhow to replicate: unknown[0m
     echo [31mhow to fix: there is no known fix for this error[0m
-    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#0001[0m
     echo.
     echo press any key to exit...
     pause >nul
@@ -269,7 +269,7 @@ exit /b
     echo [31merror type: fatal[0m
     echo [31mhow to replicate: unknown[0m
     echo [31mhow to fix: error is most likely caused by lack of internet connection. Please make sure you are connected and github.com is not blocked on your wifi.[0m
-    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#1040[0m
+    echo [31mextra information: if you would like to help me fix this bug please contact me through discord: guest257351#0001[0m
     echo.
     echo press any key to exit...
     pause >nul
@@ -296,7 +296,7 @@ goto emailnext
 :dev
 echo.
 title dissabled %update_number%
-echo app dissabled due to development. contact though discord (guest257351#1040) for more information
+echo app dissabled due to development. contact though discord (guest257351#0001) for more information
 echo.
 echo press any key to exit...
 pause >nul
