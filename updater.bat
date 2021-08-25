@@ -1,5 +1,6 @@
 @echo off&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
+if exist "C:\users\%username%\appdata\updateflag.txt" goto update_stage_2
 echo [33mvalidating configuration[0m
 goto CP
 :adminyes
@@ -11,7 +12,21 @@ Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data
 )
 :int_exp_found
 echo [92mvalidation complete[0m
-echo [33mstarting check 1[0m
+echo [33mchecking for updates...[0m
+if not exist C:\ProgramData\UPnum.sav echo V0.00.00>C:\ProgramData\UPnum.sav
+< C:\ProgramData\UPnum.sav (
+  set /p update_number=
+)
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/update_number.txt").Content >C:\ProgramData\UPnum.sav
+
+< C:\ProgramData\UPnum.sav (
+  set /p UPnum=
+)
+if %UPnum% equ %update_number% goto noupdate
+:UPlogs
+echo %update_number% >C:\ProgramData\UPnum.sav
+echo [92mupdate detected![0m
+echo [33mstarting check 1...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
 >nul find "At" WL1.sav && (
   goto offline
@@ -23,7 +38,7 @@ if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
 :EMnxt
 del WL1.sav
 echo [92mcheck 1 completed[0m
-echo [33mstarting check 2[0m
+echo [33mstarting check 2...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist").Content >WL2.sav
 >nul find "%username%" WL2.sav && (
   goto deviceNXT
@@ -33,12 +48,22 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 :deviceNXT
 del WL2.sav
 echo [92mcheck 2 completed[0m
-echo [33mupdating[0m
+echo [33mupdating...[0m
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >environment_updater.bat
+call environment_updater.bat
+exit
+:update
 :: download source
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
 echo [92mupdate complete[0m
+:relaunch
 call GVG.bat
 timeout 1 /NOBREAK >nul
+if not exist "C:\users\%username%\appdata\exit_true.txt" (
+echo a crash was detected, restarting...
+del "C:\users\%username%\appdata\exit_true.txt"
+timeout 1 /NOBREAK >nul
+goto relaunch)
 del GVG.bat
 exit
 :offline

