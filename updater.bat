@@ -1,4 +1,4 @@
-@echo on&Title updating...&cd C:\users\%username%\AppData&cls
+@echo off&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
 if exist "C:\users\%username%\appdata\updateflag.txt" goto update
 echo [33mvalidating configuration[0m

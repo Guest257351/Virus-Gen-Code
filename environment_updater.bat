@@ -1,4 +1,4 @@
-@echo on&title updating base environment...&cls
+@echo off&title updating base environment...&cls
 cd C:\ProgramData
 goto CP
 :adminyes
