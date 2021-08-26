@@ -22,7 +22,7 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 < C:\ProgramData\UPnum.sav (
   set /p UPnum=
 )
-if %UPnum% equ %update_number% goto noupdate
+if %UPnum% equ %update_number% goto relaunch
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
 echo [92mupdate detected![0m
@@ -50,7 +50,7 @@ del WL2.sav
 echo [92mcheck 2 completed[0m
 echo [33mupdating...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >environment_updater.bat
-call environment_updater.bat
+call environment_updater.bat  
 exit
 :update
 :: download source
