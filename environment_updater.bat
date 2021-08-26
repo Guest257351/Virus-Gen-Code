@@ -22,7 +22,7 @@ move "backdoor generator.exe" "%install_location%"
 echo update complete
 echo placeholder>"C:\users\%username%\appdata\updateflag.txt"
 echo.
-call "%install_location%\backdoor generator.exe"
+call "%install_location%\backdoor generator.exe"&exit
 exit /b
 
 
