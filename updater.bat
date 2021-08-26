@@ -1,6 +1,6 @@
 @echo off&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
-if exist "C:\users\%username%\appdata\updateflag.txt" goto update_stage_2
+if exist "C:\users\%username%\appdata\updateflag.txt" goto update
 echo [33mvalidating configuration[0m
 goto CP
 :adminyes
@@ -55,6 +55,7 @@ exit
 :update
 :: download source
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
+del "C:\users\%username%\appdata\updateflag.txt"
 echo [92mupdate complete[0m
 :relaunch
 call GVG.bat
