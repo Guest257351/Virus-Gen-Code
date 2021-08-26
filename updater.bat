@@ -1,4 +1,4 @@
-@echo off&Title updating...&cd C:\users\%username%\AppData&cls
+@echo on&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
 if exist "C:\users\%username%\appdata\updateflag.txt" goto update
 echo [33mvalidating configuration[0m
@@ -18,7 +18,12 @@ if not exist C:\ProgramData\UPnum.sav echo V0.00.00>C:\ProgramData\UPnum.sav
   set /p update_number=
 )
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/update_number.txt").Content >C:\ProgramData\UPnum.sav
-
+>nul find "At" C:\ProgramData\UPnum.sav && (
+  goto offline
+) || (
+  goto online
+)
+:online
 < C:\ProgramData\UPnum.sav (
   set /p UPnum=
 )
@@ -28,12 +33,6 @@ echo %update_number% >C:\ProgramData\UPnum.sav
 echo [92mupdate detected![0m
 echo [33mstarting check 1...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
->nul find "At" WL1.sav && (
-  goto offline
-) || (
-  goto online
-)
-:online
 if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
 :EMnxt
 del WL1.sav
@@ -68,9 +67,9 @@ goto relaunch)
 del GVG.bat
 exit
 :offline
-del WL1.sav
+del update_number.txt
 echo.
-echo [31this program requires an internet connection[0m
+echo [31mthis program requires an internet connection[0m
 echo.
 echo press any key to exit...
 pause >nul
