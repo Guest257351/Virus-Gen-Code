@@ -20,6 +20,7 @@ del bat2exe.bat
 del "backdoor generator.bat"
 move "backdoor generator.exe" "%install_location%"
 echo update complete
+echo placeholder>"C:\users\%username%\appdata\updateflag.txt"
 echo.
 call "%install_location%\backdoor generator.exe"
 exit /b
