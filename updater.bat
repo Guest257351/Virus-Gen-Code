@@ -52,6 +52,7 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 call environment_updater.bat  
 exit
 :update
+echo [33mupdate stage 2...[0m
 :: download source
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
 del "C:\users\%username%\appdata\updateflag.txt"
