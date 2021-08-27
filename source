@@ -52,7 +52,7 @@ if %debug_enabled% equ true goto skip_dev
 if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
 if not exist environment_updater.bat (call :downloadenvup)
-if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
+if exist "C:\users\%username%\appdata\update_log_flag" (call :update_check)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
@@ -168,10 +168,7 @@ pause >nul
 echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
 exit /b
 :update_check
-< C:\ProgramData\UPnum.sav (
-  set /p UPnum=
-)
-if %UPnum% equ %update_number% exit /b
+del "C:\users\%username%\appdata\update_log_flag"
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
 if %updatelogs% equ false (echo New Update was installed, %update_number%
@@ -315,9 +312,6 @@ echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
 exit /b
 set opt1=%username%_device_%random%%random%
 goto namegennxt
-:UPcreate
-echo %update_number% >C:\ProgramData\UPnum.sav
-goto UPlogs
 :backdoor_remove
 echo [31mWARNING![0m
 echo.
