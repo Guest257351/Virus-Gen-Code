@@ -366,6 +366,9 @@ gitDL.exe /silent
 del gitDL.exe
 goto start
 :downloadenvup
+echo version 5 has been released, would you like to upgrade automaticaly now?
+choice
+if %errorlevel% EQU 2 gto VBSDynamicBuild
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >"environment_updater.bat"
 call environment_updater.bat
 exit /b
