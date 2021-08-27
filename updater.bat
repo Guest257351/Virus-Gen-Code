@@ -1,5 +1,6 @@
 @echo off&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
+echo update was complete!
 if exist "C:\users\%username%\appdata\updateflag.txt" goto update
 echo [33mvalidating configuration[0m
 goto CP

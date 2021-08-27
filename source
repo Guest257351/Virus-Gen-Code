@@ -170,7 +170,6 @@ exit /b
 :update_check
 del "C:\users\%username%\appdata\update_log_flag"
 :UPlogs
-echo %update_number% >C:\ProgramData\UPnum.sav
 if %updatelogs% equ false (echo New Update was installed, %update_number%
 exit /b)
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
