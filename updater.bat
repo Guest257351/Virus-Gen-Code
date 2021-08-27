@@ -28,8 +28,6 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
   set /p UPnum=
 )
 if %UPnum% equ %update_number% goto relaunch
-:UPlogs
-echo %update_number% >C:\ProgramData\UPnum.sav
 echo [92mupdate detected![0m
 echo [33mstarting check 1...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
