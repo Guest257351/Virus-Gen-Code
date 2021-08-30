@@ -1,7 +1,9 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V4.42.35
+< C:\ProgramData\UPnum.sav (
+  set /p update_number=
+)
 set dev=1
 cls
 :VBSDynamicBuild
