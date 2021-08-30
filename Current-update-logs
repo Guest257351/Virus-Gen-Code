@@ -1,3 +1,31 @@
+V5.00.00
+Created environment updater 
+    -allows updating the main updater script
+    -allows updating of all parts of app
+    -download location saving and loading
+Changes to updater.bat
+    -decreases launch time when there is no update significantly
+    -increases launch time when there is an update
+    -allows force updating
+    -allows updating version numbers
+    -only validates whitelist when updating
+    -added download location loading
+    -checks for internet connection off update check instead of whitelist check 1
+Changes to source
+    -option to force an update
+    -version number is now read from data recieved from updater.bat rather than embeded in script
+    -detect if version 5 is installed
+    -crash detection (done by updater.bat)
+    -check environment updater is installed
+Changes to installer.bat
+    -added download location saving
+added update_number.txt
+    -used by updater.bat to detect updates
+Changes to free_source.bat
+    -the free version is discontinued and will not revieve any more updates
+    -added message in app stating discontinuance 
+
+
 V4.42.35:
 replaced discord hash tag from 1040 to 0001 because it has changed
 free_source.bat no longer recieves updated version numbers unless it recieves an update.

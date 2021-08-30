@@ -413,6 +413,15 @@ pause >nul
 if %EP_install_launched_from_menu% equ true (set EP_install_launched_from_menu=false
 goto menu)
 goto EP_finish
+:force_update
+echo placeholder>"C:\users\%username%\appdata\forceupdate.txt"
+echo.
+echo please relaunch the program to trigger update
+echo.
+echo press any key to exit...
+pause>nul
+echo placeholder>"C:\users\%username%\appdata\exit_true.txt"
+exit /b
 :menu
 cls
 echo.
@@ -430,7 +439,8 @@ echo 7(advice on proper device naming (%device_name_advice%)
 echo 8(download free installer (downloads an installer for the free version of the backdoor generator to give to a friend.)
 echo 9(download EP bot
 echo A(automaticaly generate device name, format will be "%username%_device_[random number]" (%auto_gen_name%)
-echo B(back to main menu
+echo B(force update (need to restart)
+echo C(back to main menu
 echo.
 choice /M "option: " /c 123456789AB /n
 if %errorlevel% equ 1 goto menu1
@@ -444,6 +454,7 @@ if %errorlevel% equ 8 goto menu8
 if %errorlevel% equ 9 goto menu9
 if %errorlevel% equ 10 goto menu10
 if %errorlevel% equ 11 goto exit_menu
+if %errorlevel% equ 12 goto force_update
 :menunxt
 echo %autofullscreen%>C:\ProgramData\autofullscreen.sav
 echo %updatelogs%>C:\ProgramData\updatelogs.sav

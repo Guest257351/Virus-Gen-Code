@@ -65,6 +65,8 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
 :EP_finish
 :: manual configuration
   :exit_menu
+  echo [45mfree version is discontinued as of 30/08/2021, it will not recieve any updates
+  echo.
   echo [33myou are using the free version, any backdoor generated will automaticaly be removed after 1 month[0m
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
   echo do you have admin permissions on the target PC?

@@ -1,6 +1,9 @@
 @echo off&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
-echo update was complete!
+if exist "C:\users\%username%\appdata\forceupdate.txt" (
+  del "C:\users\%username%\appdata\forceupdate.txt"
+  goto forceupdate
+)
 if exist "C:\users\%username%\appdata\updateflag.txt" goto update
 echo [33mvalidating configuration[0m
 goto CP
@@ -29,6 +32,7 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
   set /p UPnum=
 )
 if %UPnum% equ %update_number% goto relaunch
+:forceupdate
 echo placeholder>"C:\users\%username%\appdata\update_log_flag"
 echo [92mupdate detected![0m
 echo [33mstarting check 1...[0m
@@ -132,4 +136,3 @@ exit
     ) else (
         goto admin_error
     )
-:loader create_loader
