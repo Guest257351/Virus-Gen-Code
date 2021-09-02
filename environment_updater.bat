@@ -1,20 +1,21 @@
-@echo off&title updating base environment...
-cd "C:\users\%username%\appdata"
+@echo off&title updating base environment...&cd C:\users\%username%\appdata
 goto CP
 :adminyes
 if exist "C:\users\%username%\AppData\base_environment_location.txt" (< "C:\users\%username%\AppData\base_environment_location.txt" (
   set /p install_location=
 )) else (goto set_install_location)
+:installsetnxt
 echo starting update...
 timeout 1 /NOBREAK>nul
 echo creating bat2exe command...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >"C:\users\%username%\appdata\bat2exe.bat"
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >"bat2exe.bat"
 echo bat2exe succesfuly made
-if not exist %install_location% mkdir %install_location%
+if not exist "%install_location%" mkdir "%install_location%""
 echo downloading code...
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"C:\users\%username%\appdata\backdoor generator.bat"
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"backdoor generator.bat"
 echo converting file to exe...
-call bat2exe.bat "backdoor generator.bat" "backdoor generator.exe"
+del "%install_location%\backdoor generator.exe"
+call bat2exe.bat "C:\users\%username%\AppData\backdoor generator.bat" "backdoor generator.exe"
 timeout 2 /nobreak >nul
 del bat2exe.bat
 del "backdoor generator.bat"
