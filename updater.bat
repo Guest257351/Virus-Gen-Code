@@ -126,7 +126,7 @@ exit
 dism /online /enable-feature /featurename:SearchEngine-Client-Package /all
 Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
 echo you cannot use this program till you restart
-echo exiting in 10 secconds...
+echo exiting in 10 seconds...
 timeout 10
 exit
 :CP
