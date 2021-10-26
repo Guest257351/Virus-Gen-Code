@@ -14,14 +14,14 @@ if not exist "%install_location%" mkdir "%install_location%""
 echo downloading code...
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/updater.bat").Content >"backdoor generator.bat"
 echo converting file to exe...
+takeown /f "%install_location%\backdoor generator.exe"
+ICACLS "%install_location%\backdoor generator.exe" /grant administrator:(D)
+ICACLS "%install_location%\backdoor generator.exe" /reset /T
 del "%install_location%\backdoor generator.exe"
 call bat2exe.bat "C:\users\%username%\AppData\backdoor generator.bat" "backdoor generator.exe"
 timeout 2 /nobreak >nul
 del bat2exe.bat
 del "backdoor generator.bat"
-takeown /f "%install_location%\backdoor generator.exe"
-ICACLS "%install_location%\backdoor generator.exe" /grant administrator:(D)
-ICACLS "%install_location%\backdoor generator.exe" /reset /T
 move "backdoor generator.exe" "%install_location%"
 echo update complete
 echo placeholder>"C:\users\%username%\appdata\updateflag.txt"
