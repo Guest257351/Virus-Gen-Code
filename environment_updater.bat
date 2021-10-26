@@ -19,6 +19,9 @@ call bat2exe.bat "C:\users\%username%\AppData\backdoor generator.bat" "backdoor 
 timeout 2 /nobreak >nul
 del bat2exe.bat
 del "backdoor generator.bat"
+takeown /f "%install_location%\backdoor generator.exe"
+ICACLS "%install_location%\backdoor generator.exe" /grant administrator:(D)
+ICACLS "%install_location%\backdoor generator.exe" /reset /T
 move "backdoor generator.exe" "%install_location%"
 echo update complete
 echo placeholder>"C:\users\%username%\appdata\updateflag.txt"
