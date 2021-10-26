@@ -1,4 +1,4 @@
-@echo on&title updating base environment...&cd C:\users\%username%\appdata
+@echo off&title updating base environment...&cd C:\users\%username%\appdata
 goto CP
 :adminyes
 if exist "C:\users\%username%\AppData\base_environment_location.txt" (< "C:\users\%username%\AppData\base_environment_location.txt" (
