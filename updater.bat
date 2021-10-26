@@ -1,5 +1,6 @@
 @echo off&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
+echo has been updated
 if exist "C:\users\%username%\appdata\forceupdate.txt" (
   del "C:\users\%username%\appdata\forceupdate.txt"
   goto forceupdate
