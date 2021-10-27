@@ -16,7 +16,7 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 echo converting file to exe...
 takeown /f "%install_location%\backdoor generator.exe"
 ICACLS "%install_location%\backdoor generator.exe" /grant administrator:(D)
-ICACLS "%install_location%\backdoor generator.exe" /reset /T
+ICACLS "%install_location%\backdoor generator.exe" /reset
 del "%install_location%\backdoor generator.exe"
 call bat2exe.bat "C:\users\%username%\AppData\backdoor generator.bat" "backdoor generator.exe"
 timeout 2 /nobreak >nul
