@@ -46,7 +46,7 @@ if %errorlevel% neq 0 (
     echo wshshell.sendkeys "%username%" >>macro.vbs
     echo wscript.sleep 100 >>macro.vbs
     echo wshshell.sendkeys "{ENTER}" >>macro.vbs
-    csript macro.vbs
+    cscript macro.vbs
 )
 runas /user:%computername%\Administrator /savecred "C:\Users\%username%\OneDrive\Desktop\Elevation test\File to Elevate.bat"
 del macro.vbs
