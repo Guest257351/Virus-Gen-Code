@@ -41,12 +41,12 @@ if %errorlevel% neq 0 (
     echo performing first time setup
     net user administrator %username% /active:yes
     echo creating VBScript password macro
-    echo Set wshshell = wscript.CreateObject("WScript.Shell") >macro.vbs
+    echo Set WshShell = WScript.CreateObject("WScript.Shell") >macro.vbs
     echo wscript.sleep 300 >>macro.vbs
     echo wshshell.sendkeys "%username%" >>macro.vbs
     echo wscript.sleep 100 >>macro.vbs
     echo wshshell.sendkeys "{ENTER}" >>macro.vbs
-    macro.vbs
+    csript macro.vbs
 )
 runas /user:%computername%\Administrator /savecred "C:\Users\%username%\OneDrive\Desktop\Elevation test\File to Elevate.bat"
 del macro.vbs
