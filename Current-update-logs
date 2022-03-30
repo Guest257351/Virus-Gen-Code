@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 V5.00.00
 Created environment updater 
     -allows updating the main updater script
@@ -33,8 +31,6 @@ replaced discord hash tag from 1040 to 0001 because it has changed
 free_source.bat no longer recieves updated version numbers unless it recieves an update.
 
 
-=======
->>>>>>> parent of f8a675d (updates)
 V4.42.34:
 colour fixes for EP bot downloader
 
@@ -70,8 +66,6 @@ added option to dissable advice for device naming in menu.
 the free version will be updated rarely and when it is updated it will just be to catch up to the paid version.
 
 
-=======
->>>>>>> parent of e7c69fe (Update updater.bat)
 V4.41.28:
 disabled admin check for source because check is already performed in updater.bat
 
