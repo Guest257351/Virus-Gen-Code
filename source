@@ -1,24 +1,15 @@
 :: setup
 :start
 @ECHO OFF
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 < C:\ProgramData\UPnum.sav (
   set /p update_number=
 )
 set dev=1
-=======
 set update_number=4.42.35
-=======
 set update_number=4.42.34
->>>>>>> parent of f8a675d (updates)
 set dev=0
->>>>>>> parent of 566f9af (updates)
-=======
 set update_number=4.41.28
 set dev=0
->>>>>>> parent of e7c69fe (Update updater.bat)
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
