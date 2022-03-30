@@ -9,24 +9,22 @@ color 0A
 if %loadnum% neq nil (
 echo nil>load_trigger.txt
 goto %loadnum%)
-goto check
-:one
-cls
+:1
 echo _________________________________
 echo ###
 echo _________________________________
 echo.
 echo creating placeholder file...
 goto check
-:two
+:2
 cls
 echo _________________________________
 echo ######
 echo _________________________________
 echo.
-echo setting up git...
+echo setting uo git...
 goto check
-:three
+:3
 cls
 echo _________________________________
 echo #########
@@ -34,7 +32,7 @@ echo _________________________________
 echo.
 echo creating payload folder...
 goto check
-:four
+:4
 cls
 echo _________________________________
 echo ############
@@ -42,7 +40,7 @@ echo _________________________________
 echo.
 echo generating launch.vbs...
 goto check
-:five
+:5
 cls
 echo _________________________________
 echo ###############
@@ -50,7 +48,7 @@ echo _________________________________
 echo.
 echo generating payload.bat...
 goto check
-:six
+:6
 cls
 echo _________________________________
 echo ##################
@@ -58,7 +56,7 @@ echo _________________________________
 echo.
 echo configuring payload.bat...
 goto check
-:seven
+:7
 cls
 echo _________________________________
 echo #####################
@@ -66,7 +64,7 @@ echo _________________________________
 echo.
 echo generating run.bat...
 goto check
-:eight
+:8
 cls
 echo _________________________________
 echo ########################
@@ -74,7 +72,7 @@ echo _________________________________
 echo.
 echo generating readme.txt...
 goto check
-:nine
+:9
 cls
 echo _________________________________
 echo ###########################
@@ -82,7 +80,7 @@ echo _________________________________
 echo.
 echo verifying successful download...
 goto check
-:ten
+:10
 cls
 echo _________________________________
 echo ##############################
@@ -90,13 +88,12 @@ echo _________________________________
 echo.
 echo deleting temp files...
 goto check
-:eleven
+:11
 cls
 echo _________________________________
 echo #################################
 echo _________________________________
 echo.
 echo completed!
-echo nil>load_trigger.txt
 timeout 3 /NOBREAK >nul
 exit

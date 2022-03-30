@@ -39,7 +39,6 @@ echo where would you like to install the file?
 echo.
 set /p install_location=install location:
 echo starting installation...
-echo %install_location%>"C:\users\%username%\AppData\base_environment_location.txt"
 timeout 1 /NOBREAK >nul
 echo creating bat2exe command...
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/bat2exe.bat").Content >C:\ProgramData\bat2exe.bat
