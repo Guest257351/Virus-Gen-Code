@@ -1,4 +1,5 @@
-V5.00.00
+V5.00.00 (REMOVED)
+THIS UPDATE IS NOT THE CURRENT APPLIED UPDATE, VERSION 4.42.36 IS
 Created environment updater 
     -allows updating the main updater script
     -allows updating of all parts of app
@@ -23,7 +24,12 @@ added update_number.txt
     -used by updater.bat to detect updates
 Changes to free_source.bat
     -the free version is discontinued and will not revieve any more updates
-    -added message in app stating discontinuance 
+    -added message in app stating discontinuance
+    
+   
+V4.24.36:
+Patched some critical bugs as the final update
+program should be stable and will recieve no more updates
 
 
 V4.42.35:
