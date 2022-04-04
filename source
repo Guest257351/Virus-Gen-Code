@@ -157,7 +157,7 @@ if %username% equ kiran if not exist C:\users\%username%\EPbot_installed.sav got
 echo.
 echo press any key to exit...
 pause >nul
-exit /b
+goto UPnxt
 :update_check
 < C:\ProgramData\UPnum.sav (
   set /p UPnum=
