@@ -158,7 +158,7 @@ goto UPnxt
 < C:\ProgramData\UPnum.sav (
   set /p UPnum=
 )
-if %UPnum% equ %update_number% exit /b
+if %UPnum% equ %update_number% goto UPnxt
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
 if %updatelogs% equ false (echo New Update was installed, %update_number%
