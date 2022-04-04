@@ -50,7 +50,7 @@ if %username% equ 61481 goto skip_dev
 if %debug_enabled% equ true goto skip_dev
 if %username% neq luken if %dev% equ 1 goto dev
 :skip_dev
-if exist C:\ProgramData\UPnum.sav (call :update_check) else (goto UPcreate)
+if exist C:\ProgramData\UPnum.sav (goto update_check) else (goto UPcreate)
 :UPnxt
 git version >git.sav
 >nul find "version" git.sav && (
@@ -166,12 +166,12 @@ if %UPnum% equ %update_number% exit /b
 :UPlogs
 echo %update_number% >C:\ProgramData\UPnum.sav
 if %updatelogs% equ false (echo New Update was installed, %update_number%
-exit /b)
+goto UPnxt)
 Powershell (Invoke-webrequest -URI "https://raw.githubusercontent.com/Guest257351/Virus-Gen-Code/main/Current-update-logs").Content >C:\ProgramData\UPlogs.txt
 echo.
 echo please close the text document to continue
 start /WAIT C:\ProgramData\UPlogs.txt
-exit /b
+goto UPnxt
 :: errors
   :error1
     echo [31merror code: 01[0m
