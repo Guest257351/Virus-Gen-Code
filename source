@@ -4,12 +4,8 @@
 < C:\ProgramData\UPnum.sav (
   set /p update_number=
 )
-set dev=1
-set update_number=4.42.35
-set update_number=4.42.34
 set dev=0
-set update_number=4.41.28
-set dev=0
+set update_number=4.42.36
 cls
 :VBSDynamicBuild
 SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
